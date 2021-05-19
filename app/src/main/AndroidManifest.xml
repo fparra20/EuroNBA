@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EuroNBA">
-        <activity android:name=".view.MainActivity">
+        <activity android:name="com.example.PlayerActivity"></activity>
+        <activity android:name="com.example.GameActivity" />
+        <activity android:name="com.example.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
