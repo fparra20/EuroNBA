@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         RetrieveScoreboard rs = new RetrieveScoreboard();
 
-        scoreboards = rs.getScoreboardsOnDay("20210513");
+        scoreboards = rs.getScoreboardsOnDay("20210515");
 
         ScoreboardAdapter sbAdapter = new ScoreboardAdapter(scoreboards, this);
 

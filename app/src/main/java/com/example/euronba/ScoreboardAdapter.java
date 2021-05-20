@@ -34,6 +34,7 @@ import java.util.ArrayList;
         private TextView tvVisitorTeamName;
         private TextView tvLocalTeamStandings;
         private TextView tvVisitorTeamStandings;
+        private TextView tvScoreStatus;
 
         public ScoreViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -49,6 +50,8 @@ import java.util.ArrayList;
 
             tvLocalTeamStandings = (TextView)itemView.findViewById(R.id.tvLocalTeamStandings);
             tvVisitorTeamStandings = (TextView)itemView.findViewById(R.id.tvVisitorTeamStandings);
+
+            tvScoreStatus = (TextView)itemView.findViewById(R.id.tvScoreStatus);
         }
     }
     @NonNull
@@ -76,6 +79,14 @@ import java.util.ArrayList;
         scoreViewHolder.tvLocalTeamStandings.setText(score.getLocalTeam().getWin()+" - "+score.getLocalTeam().getLoss());
         scoreViewHolder.tvVisitorTeamStandings.setText(score.getVisitorTeam().getWin()+" - "+score.getVisitorTeam().getLoss());
 
+        switch(score.getStatusNum()){
+            case 1: scoreViewHolder.tvScoreStatus.setText("Yet to start");
+            break;
+            case 2: scoreViewHolder.tvScoreStatus.setText("Playing");
+            break;
+            case 3: scoreViewHolder.tvScoreStatus.setText("Finished");
+            break;
+        }
 
         /*
         // Que si clickamos el nombre, nos salga un toast con nombre completo

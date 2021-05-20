@@ -6,7 +6,7 @@
     android:layout_height="150dp"
     android:layout_margin="8dp"
     android:orientation="vertical"
-    card_view:cardBackgroundColor="#CCEBF5"
+    card_view:cardBackgroundColor="@color/blue_light_light"
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="5dp">
 
@@ -30,8 +30,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:adjustViewBounds="true"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/atl" />
 
             <TextView
                 android:id="@+id/tvLocalScore"
@@ -40,24 +40,18 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:padding="10dp"
                 android:singleLine="true"
-                android:text="99"
-                android:textColor="#1F2041"
-                android:textSize="26dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreNum"
+                android:text="99"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="right"
-                android:padding="10dp"
                 android:singleLine="true"
                 android:text="-"
-                android:textColor="#1F2041"
-                android:textSize="26dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreNum"/>
 
             <TextView
                 android:id="@+id/tvVisitorScore"
@@ -65,11 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:text="123"
-                android:textColor="#1F2041"
-                android:textSize="26dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreNum"/>
 
             <ImageView
                 android:id="@+id/ivVisitorLogo"
@@ -92,31 +83,27 @@
 
             <TextView
                 android:id="@+id/tvLocalTeamName"
-                android:layout_width="70dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_horizontal"
-                android:singleLine="true"
                 android:text="Raptors"
-                android:textColor="#1F2041"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreName" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6" />
+                android:layout_weight="0.6"
+                android:id="@+id/tvScoreStatus"
+                android:text="finished"
+                android:theme="@style/Theme.EuroNBA.ScoreStandings"
+
+                />
 
             <TextView
                 android:id="@+id/tvVisitorTeamName"
-                android:layout_width="70dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:gravity="center_horizontal"
                 android:text="Trail Blazers"
-                android:textColor="#1F2041"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreName"/>
 
         </LinearLayout>
 
@@ -129,15 +116,11 @@
 
             <TextView
                 android:id="@+id/tvLocalTeamStandings"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:gravity="center_horizontal"
-                android:singleLine="true"
                 android:text="(50-20)"
-                android:textColor="#1F2041"
-                android:textSize="12dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreStandings"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,14 +129,11 @@
 
             <TextView
                 android:id="@+id/tvVisitorTeamStandings"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
-                android:gravity="center_horizontal"
                 android:text="(30-20)"
-                android:textColor="#1F2041"
-                android:textSize="12dp"
-                android:textStyle="bold" />
+                android:theme="@style/Theme.EuroNBA.ScoreStandings"/>
 
         </LinearLayout>
 
