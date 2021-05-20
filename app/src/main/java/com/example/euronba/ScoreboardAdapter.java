@@ -16,7 +16,7 @@ import com.example.euronba.model.Team;
 
 import java.util.ArrayList;
 
-    public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.ScoreViewHolder> {
+public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.ScoreViewHolder> {
 
     ArrayList<Scoreboard> scores;
     Activity activity;
@@ -25,7 +25,8 @@ import java.util.ArrayList;
         this.scores = scores;
         this.activity = activity;
     }
-    public static class ScoreViewHolder extends RecyclerView.ViewHolder{
+
+    public static class ScoreViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivLocalLogo;
         private TextView tvLocalScore;
         private ImageView ivVisitorLogo;
@@ -35,29 +36,33 @@ import java.util.ArrayList;
         private TextView tvLocalTeamStandings;
         private TextView tvVisitorTeamStandings;
         private TextView tvScoreStatus;
+        private TextView tvScoreClock;
+
 
         public ScoreViewHolder(@NonNull View itemView) {
             super(itemView);
             // Iniciamos todos los item con los que vamos a trabajar
-            ivLocalLogo = (ImageView)itemView.findViewById(R.id.ivLocalLogo);
-            tvLocalScore = (TextView)itemView.findViewById(R.id.tvLocalScore);
+            ivLocalLogo = (ImageView) itemView.findViewById(R.id.ivLocalLogo);
+            tvLocalScore = (TextView) itemView.findViewById(R.id.tvLocalScore);
 
-            ivVisitorLogo = (ImageView)itemView.findViewById(R.id.ivVisitorLogo);
-            tvVisitorScore = (TextView)itemView.findViewById(R.id.tvVisitorScore);
+            ivVisitorLogo = (ImageView) itemView.findViewById(R.id.ivVisitorLogo);
+            tvVisitorScore = (TextView) itemView.findViewById(R.id.tvVisitorScore);
 
-            tvLocalTeamName = (TextView)itemView.findViewById(R.id.tvLocalTeamName);
-            tvVisitorTeamName = (TextView)itemView.findViewById(R.id.tvVisitorTeamName);
+            tvLocalTeamName = (TextView) itemView.findViewById(R.id.tvLocalTeamName);
+            tvVisitorTeamName = (TextView) itemView.findViewById(R.id.tvVisitorTeamName);
 
-            tvLocalTeamStandings = (TextView)itemView.findViewById(R.id.tvLocalTeamStandings);
-            tvVisitorTeamStandings = (TextView)itemView.findViewById(R.id.tvVisitorTeamStandings);
+            tvLocalTeamStandings = (TextView) itemView.findViewById(R.id.tvLocalTeamStandings);
+            tvVisitorTeamStandings = (TextView) itemView.findViewById(R.id.tvVisitorTeamStandings);
 
-            tvScoreStatus = (TextView)itemView.findViewById(R.id.tvScoreStatus);
+            tvScoreStatus = (TextView) itemView.findViewById(R.id.tvScoreStatus);
+            tvScoreClock = (TextView) itemView.findViewById(R.id.tvScoreClock);
         }
     }
+
     @NonNull
     @Override
     public ScoreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_scoreboard,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_scoreboard, parent, false);
         return new ScoreViewHolder(v);
     }
 
@@ -76,16 +81,33 @@ import java.util.ArrayList;
         scoreViewHolder.tvLocalTeamName.setText(tm.getTeamById(score.getLocalTeam().getTeamId()).getNickname());
         scoreViewHolder.tvVisitorTeamName.setText(tm.getTeamById(score.getVisitorTeam().getTeamId()).getNickname());
 
-        scoreViewHolder.tvLocalTeamStandings.setText(score.getLocalTeam().getWin()+" - "+score.getLocalTeam().getLoss());
-        scoreViewHolder.tvVisitorTeamStandings.setText(score.getVisitorTeam().getWin()+" - "+score.getVisitorTeam().getLoss());
+        scoreViewHolder.tvLocalTeamStandings.setText(score.getLocalTeam().getWin() + " - " + score.getLocalTeam().getLoss());
+        scoreViewHolder.tvVisitorTeamStandings.setText(score.getVisitorTeam().getWin() + " - " + score.getVisitorTeam().getLoss());
 
-        switch(score.getStatusNum()){
-            case 1: scoreViewHolder.tvScoreStatus.setText("Yet to start");
-            break;
-            case 2: scoreViewHolder.tvScoreStatus.setText("Playing");
-            break;
-            case 3: scoreViewHolder.tvScoreStatus.setText("Finished");
-            break;
+        String currentPeriod = "";
+        if (score.getCurrentPeriod() >= 1 && score.getCurrentPeriod() <= 4)
+            currentPeriod = score.getClock() + " - " + score.getCurrentPeriod() + "th";
+
+        if (score.getCurrentPeriod() == 5)
+            currentPeriod = score.getClock() + " - OT";
+
+        if (score.getCurrentPeriod() > 5)
+            currentPeriod = score.getClock() + " - " + (score.getCurrentPeriod() - 4) + "OT";
+
+        switch (score.getStatusNum()) {
+            case 1:
+                scoreViewHolder.tvScoreStatus.setText("Yet to start");
+                break;
+            case 2:
+                scoreViewHolder.tvScoreStatus.setText("Playing");
+                scoreViewHolder.tvScoreClock.setText(currentPeriod);
+                break;
+            case 3:
+                scoreViewHolder.tvScoreStatus.setText("Finished");
+                scoreViewHolder.tvScoreClock.setText(currentPeriod);
+                break;
+            default:
+                scoreViewHolder.tvScoreClock.setText("");
         }
 
         /*

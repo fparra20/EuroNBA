@@ -7,7 +7,7 @@
     android:layout_margin="8dp"
     android:orientation="vertical"
     card_view:cardBackgroundColor="@color/blue_light_light"
-    card_view:cardCornerRadius="8dp"
+    card_view:cardCornerRadius="5dp"
     card_view:cardElevation="5dp">
 
 
@@ -92,9 +92,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
-                android:id="@+id/tvScoreStatus"
-                android:text="finished"
-                android:theme="@style/Theme.EuroNBA.ScoreStandings"
+                android:id="@+id/tvScoreClock"
+                android:text="5:32 - 4th"
+                android:theme="@style/Theme.EuroNBA.ScoreName"
 
                 />
 
@@ -125,7 +125,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6" />
+                android:layout_weight="0.6"
+                android:id="@+id/tvScoreStatus"
+                android:text="finished"
+                android:theme="@style/Theme.EuroNBA.ScoreStandings"
+
+                />
 
             <TextView
                 android:id="@+id/tvVisitorTeamStandings"

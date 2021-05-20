@@ -18,14 +18,14 @@
 
     <style name="Theme.EuroNBA.ScoreNum" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textColor">@color/purple_black</item>
-        <item name="android:textSize">26dp</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="Theme.EuroNBA.ScoreName" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textColor">@color/purple_black</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">5dp</item>
         <item name="android:gravity">center_horizontal</item>
@@ -34,7 +34,7 @@
 
     <style name="Theme.EuroNBA.ScoreStandings" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textColor">@color/purple_black</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center_horizontal</item>
 
