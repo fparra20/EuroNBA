@@ -1,12 +1,10 @@
-package com.example.controller;
-
+package com.example.euronba.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.euronba.R;
-import com.example.euronba.model.Team;
 
 //Clase auxiliar para el tratamiento de la base de datos
 public class TeamsDatabaseHelper extends SQLiteOpenHelper {

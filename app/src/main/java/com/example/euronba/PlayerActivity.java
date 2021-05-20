@@ -1,6 +1,5 @@
-package com.example;
+package com.example.euronba;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,11 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.example.controller.TeamsDatabaseHelper;
-import com.example.euronba.R;
+import com.example.euronba.controller.TeamsDatabaseHelper;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.euronba.model.Team;
 
-import java.time.Clock;
 import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
