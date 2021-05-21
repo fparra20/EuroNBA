@@ -6,7 +6,15 @@ import com.example.euronba.model.TeamScore;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class RetrieveScoreboard {
 
@@ -40,17 +48,32 @@ public class RetrieveScoreboard {
                 sb.setSeasonStageId(jobjScore.getInt("seasonStageId"));
                 sb.setSeasonYear(jobjScore.getString("seasonYear"));
 
-                /*
-                String outputDate
-                        = Instant.parse(jobjScore.getString("startTimeUTC"))
-                        .atZone(ZoneId.of("Europe/Paris"))
-                        .format(
-                                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                                        .withLocale(Locale.UK)
-                        );
+                // Comprobamos que el partido es de playoffs
+                if(jobjScore.getInt("seasonStageId")>=4){
 
-                sb.setStartTimeUTC(outputDate);
-                 */
+                    // Si lo es, añadimos
+                    sb.setSummaryText(jobjScore.getJSONObject("playoffs").getString("seriesSummaryText"));
+                }
+
+                // Indica el formato en el que viene dada la fecha de comienzo en UTC
+                DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+                // Indica que la TimeZone en la que viene dado el dato es UTC
+                utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+                // Convierte el objeto obtenido en otro de tipo Date
+                Date gameUTC = utcFormat.parse(jobjScore.getString("startTimeUTC"));
+
+                // Indica el formato en el que queremos que salga la fecha
+                DateFormat pstFormat = new SimpleDateFormat("HH:mm");
+
+                // Indica la timeZone en la que queremos que salga
+                // Con TimeZone.getDefault se obtiene la zona horaria del sistema en ese momento
+                pstFormat.setTimeZone(TimeZone.getDefault());
+
+                // Almacenamos la hora ya formateada
+                sb.setStartTimeUTC(pstFormat.format(gameUTC));
+
                 sb.setStatusNum(jobjScore.getInt("statusNum"));
 
                 TeamScore localT = new TeamScore();

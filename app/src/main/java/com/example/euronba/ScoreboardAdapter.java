@@ -2,17 +2,20 @@ package com.example.euronba;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.model.Scoreboard;
 import com.example.euronba.model.Team;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,8 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
         private TextView tvVisitorTeamStandings;
         private TextView tvScoreStatus;
         private TextView tvScoreClock;
+        private MaterialCardView cvScoreboard;
+        private TextView tvSummaryText;
 
 
         public ScoreViewHolder(@NonNull View itemView) {
@@ -56,6 +61,10 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
             tvScoreStatus = (TextView) itemView.findViewById(R.id.tvScoreStatus);
             tvScoreClock = (TextView) itemView.findViewById(R.id.tvScoreClock);
+
+            cvScoreboard = (MaterialCardView) itemView.findViewById(R.id.scoreboard);
+            tvSummaryText = (TextView) itemView.findViewById(R.id.tvSummaryText);
+
         }
     }
 
@@ -72,43 +81,62 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
         Team tm = new Team();
 
-        scoreViewHolder.ivLocalLogo.setImageResource(tm.getTeamById(score.getLocalTeam().getTeamId()).getLogo());
+        scoreViewHolder.ivLocalLogo.setImageResource(tm.getTeamById(score.getLocalTeam().getTeamId(), activity.getApplicationContext()).getLogo());
         scoreViewHolder.tvLocalScore.setText(score.getLocalTeam().getScore());
 
-        scoreViewHolder.ivVisitorLogo.setImageResource(tm.getTeamById(score.getVisitorTeam().getTeamId()).getLogo());
+        scoreViewHolder.ivVisitorLogo.setImageResource(tm.getTeamById(score.getVisitorTeam().getTeamId(), activity.getApplicationContext()).getLogo());
         scoreViewHolder.tvVisitorScore.setText(score.getVisitorTeam().getScore());
 
-        scoreViewHolder.tvLocalTeamName.setText(tm.getTeamById(score.getLocalTeam().getTeamId()).getNickname());
-        scoreViewHolder.tvVisitorTeamName.setText(tm.getTeamById(score.getVisitorTeam().getTeamId()).getNickname());
+        scoreViewHolder.tvLocalTeamName.setText(tm.getTeamById(score.getLocalTeam().getTeamId(), activity.getApplicationContext()).getNickname());
+        scoreViewHolder.tvVisitorTeamName.setText(tm.getTeamById(score.getVisitorTeam().getTeamId(), activity.getApplicationContext()).getNickname());
 
         scoreViewHolder.tvLocalTeamStandings.setText(score.getLocalTeam().getWin() + " - " + score.getLocalTeam().getLoss());
         scoreViewHolder.tvVisitorTeamStandings.setText(score.getVisitorTeam().getWin() + " - " + score.getVisitorTeam().getLoss());
 
         String currentPeriod = "";
-        if (score.getCurrentPeriod() >= 1 && score.getCurrentPeriod() <= 4)
-            currentPeriod = score.getClock() + " - " + score.getCurrentPeriod() + "th";
 
-        if (score.getCurrentPeriod() == 5)
-            currentPeriod = score.getClock() + " - OT";
+        // Si el partido está transcuyendo actualmente, el statusNum es 2
 
-        if (score.getCurrentPeriod() > 5)
-            currentPeriod = score.getClock() + " - " + (score.getCurrentPeriod() - 4) + "OT";
+        if(score.statusNum == 2) {
+            if (score.getCurrentPeriod() >= 1 && score.getCurrentPeriod() <= 4)
+                currentPeriod = score.getClock() + " - " + score.getCurrentPeriod() + "th";
 
-        switch (score.getStatusNum()) {
-            case 1:
-                scoreViewHolder.tvScoreStatus.setText("Yet to start");
-                break;
-            case 2:
-                scoreViewHolder.tvScoreStatus.setText("Playing");
-                scoreViewHolder.tvScoreClock.setText(currentPeriod);
-                break;
-            case 3:
-                scoreViewHolder.tvScoreStatus.setText("Finished");
-                scoreViewHolder.tvScoreClock.setText(currentPeriod);
-                break;
-            default:
-                scoreViewHolder.tvScoreClock.setText("");
+            if (score.getCurrentPeriod() == 5)
+                currentPeriod = score.getClock() + " - OT";
+
+            // Si hay más de 5 periodos, se resta el periodo a 4, entonces se obtiene el número
+            // de la prórroga. Por ejemplo, si hay 7 períodos, quiere decir que hubo 3 prórrogas
+            if (score.getCurrentPeriod() > 5)
+                currentPeriod = score.getClock() + " - " + (score.getCurrentPeriod() - 4) + "OT";
+
+            scoreViewHolder.tvScoreClock.setText(currentPeriod);
         }
+
+        scoreViewHolder.tvScoreStatus.setText(score.getStartTimeUTC());
+
+        if(score.statusNum==3){
+            if (score.getCurrentPeriod() == 5)
+                currentPeriod = "OT";
+
+            if (score.getCurrentPeriod() > 5)
+                currentPeriod = (score.getCurrentPeriod() - 4) + "OT";
+
+            scoreViewHolder.tvScoreClock.setText(currentPeriod);
+        }
+
+        scoreViewHolder.tvSummaryText.setText(score.getSummaryText());
+
+        scoreViewHolder.cvScoreboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity.getApplicationContext(), GameActivity.class);
+
+                activity.startActivity(intent);
+
+                Toast.makeText(activity,score.getSummaryText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         /*
         // Que si clickamos el nombre, nos salga un toast con nombre completo

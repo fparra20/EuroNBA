@@ -1,5 +1,6 @@
 package com.example.euronba;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Instancia un objeto DatePickerDialog, con el que podremos seleccionar la fecha
                     // y recibir todos los partidos jugados en la misma
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this,
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, AlertDialog.THEME_HOLO_DARK,
                             new DatePickerDialog.OnDateSetListener() {
 
                                 @Override

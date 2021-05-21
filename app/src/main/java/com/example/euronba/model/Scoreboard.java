@@ -18,6 +18,7 @@ public class Scoreboard {
     public int currentPeriod;
     public TeamScore visitorTeam;
     public TeamScore localTeam;
+    public String summaryText;
 
     public String getGameId() {
         return gameId;
@@ -115,4 +116,11 @@ public class Scoreboard {
         this.localTeam = localTeam;
     }
 
+    public String getSummaryText() {
+        return summaryText;
+    }
+
+    public void setSummaryText(String summaryText) {
+        this.summaryText = summaryText;
+    }
 }
