@@ -1,5 +1,9 @@
 package com.example.euronba.model;
 
+import com.example.euronba.controller.RetrieveScoreboard;
+
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
@@ -122,5 +126,16 @@ public class Scoreboard {
 
     public void setSummaryText(String summaryText) {
         this.summaryText = summaryText;
+    }
+
+    // Conecta con la API y devuelve una lista de los partidos jugados en esa fecha
+    public ArrayList<Scoreboard> getScoreboardListByDate(String date){
+        // Instancia un objeto de la clase RetrieveScoreboard
+        RetrieveScoreboard rs = new RetrieveScoreboard();
+
+        // Llama al método que devuelve un ArrayList con los resultados de los partidos en la fecha concreta
+        ArrayList<Scoreboard> scoreboardList = rs.getScoreboardsOnDay(date);
+
+        return scoreboardList;
     }
 }

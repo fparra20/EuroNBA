@@ -12,20 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.euronba.adapters.ScoreboardAdapter;
 import com.example.euronba.controller.RetrieveScoreboard;
 import com.example.euronba.model.Scoreboard;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Scoreboard> scoreboards;
+    ArrayList<Scoreboard> scoreboardList;
 
     // Crea un objeto textView para mostrar la fecha a partir del objeto presente en el layout
     TextView tvDay;
@@ -134,17 +130,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void showGamesByDate(String y, String m, String d){
-        // Instancia un objeto de la clase RetrieveScoreboard
-        RetrieveScoreboard rs = new RetrieveScoreboard();
 
-        // Llama al método que devuelve un ArrayList con los resultados de los partidos en la fecha concreta
-        scoreboards = rs.getScoreboardsOnDay(y+m+d);
+        Scoreboard scb = new Scoreboard();
+
+        scoreboardList = scb.getScoreboardListByDate(y+m+d);
 
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
         RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvScoreboard);
 
         // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
-        ScoreboardAdapter sbAdapter = new ScoreboardAdapter(scoreboards, this);
+        ScoreboardAdapter sbAdapter = new ScoreboardAdapter(scoreboardList, this);
 
         // Enlaza el objeto recyclerview al adaptador
         mainRecycler.setAdapter(sbAdapter);

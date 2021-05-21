@@ -29,7 +29,6 @@
         <item name="android:textStyle">bold</item>
         <item name="android:padding">5dp</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:singleLine">true</item>
     </style>
 
     <style name="Theme.EuroNBA.ScoreStandings" parent="Theme.MaterialComponents.DayNight.NoActionBar">
