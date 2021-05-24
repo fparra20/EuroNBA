@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.euronba.adapters.PlayerChartAdapter;
+import com.example.euronba.controller.RetrievePlayerChart;
 import com.example.euronba.model.Team;
 import com.example.euronba.model.TeamScore;
 
@@ -35,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
     public static final String EXTRA_LOCALTEAMWL = "localTeamWL";
     public static final String EXTRA_LOCALTEAMSCORE = "localTeamScore";
     public static final String EXTRA_SUMMARYTEXT = "summaryText";
+    public static final String EXTRA_DATE = "date";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +104,19 @@ public class GameActivity extends AppCompatActivity {
         tvClock.setText(data.getString(EXTRA_CURRENTPERIOD));
 
         LinearLayout cv = (LinearLayout) findViewById(R.id.gameLayout);
+
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewMovieList);
+
+        RetrievePlayerChart rpc = new RetrievePlayerChart();
+
+        System.out.println(EXTRA_GAMEID);
+        PlayerChartAdapter adapter = new PlayerChartAdapter(rpc.getPlayersChart(data.getString(EXTRA_DATE), data.getString(EXTRA_GAMEID)));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(adapter);
 
         cv.setOnClickListener(new View.OnClickListener() {
             @Override

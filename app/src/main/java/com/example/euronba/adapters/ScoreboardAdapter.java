@@ -44,6 +44,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
         private TextView tvScoreClock;
         private MaterialCardView cvScoreboard;
         private TextView tvSummaryText;
+        private TextView tvDate;
 
 
         public ScoreViewHolder(@NonNull View itemView) {
@@ -133,6 +134,12 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
         // Guarda el resultado del reloj tras los if
         String finalGameClock = gameClock;
 
+        TextView tv = activity.findViewById(R.id.tvDay);
+        String[] dateSplit = tv.getText().toString().split(" - ");
+        String date = dateSplit[0]+dateSplit[1]+dateSplit[2];
+
+        System.out.println(date);
+
         scoreViewHolder.cvScoreboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +162,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
                 intent.putExtra(GameActivity.EXTRA_VISITORTEAMID, score.getVisitorTeam().getTeamId());
                 intent.putExtra(GameActivity.EXTRA_VISITORTEAMWL, visitorWL);
                 intent.putExtra(GameActivity.EXTRA_VISITORTEAMSCORE, score.getVisitorTeam().getScore());
+                intent.putExtra(GameActivity.EXTRA_DATE, date);
 
                 activity.startActivity(intent);
 

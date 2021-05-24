@@ -22,7 +22,7 @@
         android:id="@+id/gameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange_light"
+        android:background="@color/blue_light_light"
         android:padding="0dp">
 
         <LinearLayout
@@ -256,7 +256,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+<!--
         <ScrollView
             android:id="@+id/layout"
             android:layout_width="match_parent"
@@ -268,7 +268,7 @@
 
             <HorizontalScrollView
                 android:id="@+id/horizontalView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:scrollbars="horizontal|vertical">
@@ -276,147 +276,69 @@
                 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="100dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:id="@+id/tableLocalTeam"
+                    android:stretchColumns="*"
                     android:scrollbarAlwaysDrawHorizontalTrack="true">
 
                     <TableRow
                         android:background="#0079D6"
-                        android:padding="5dp">
-
+                        android:weightSum="7"
+                        android:layout_width="match_parent">
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="UserId" />
-
+                        />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="User Name" />
-
+                            />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="Location" />
-
+                            />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="Location" />
-
+                            />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="Location" />
-
+                            />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="Location" />
-
+                            />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:text="28°F"
+                            android:textStyle="bold"
                             android:layout_weight="1"
-                            android:text="Location" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Location" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Location" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Location" />
-                    </TableRow>
-
-                    <TableRow
-                        android:background="#DAE8FC"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Suresh Dasari" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Hyderabad" />
-                    </TableRow>
-
-                    <TableRow
-                        android:background="#DAE8FC"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="2" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Rohini Alavala" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Guntur" />
-                    </TableRow>
-
-                    <TableRow
-                        android:background="#DAE8FC"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="3" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Trishika Dasari" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Guntur" />
-                    </TableRow>
+                            />
+                       </TableRow>
                 </TableLayout>
             </HorizontalScrollView>
         </ScrollView>
+        -->
+        <!-- Table View-->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewMovieList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/table_list_item" />
+
+        </HorizontalScrollView>
     </LinearLayout>
 
 </LinearLayout>
