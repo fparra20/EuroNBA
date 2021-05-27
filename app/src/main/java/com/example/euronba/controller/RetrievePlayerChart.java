@@ -25,7 +25,7 @@ public class RetrievePlayerChart {
         try {
 
             // Obtenemos la lista de jugadores
-            jobj = new RetrieveInfo().execute("http://data.nba.net/data/10s/prod/v1/" + date + "/" + gameId + "_boxscore.json").get();
+            jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/" + date + "/" + gameId + "_boxscore.json").get();
 
             JSONArray data = jobj.getJSONObject("stats").getJSONArray("activePlayers");
 

@@ -64,26 +64,28 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:layout_gravity="bottom"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
@@ -115,11 +117,12 @@
                             android:text="123"
                             android:theme="@style/Theme.EuroNBA.ScoreNum" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
@@ -186,21 +189,22 @@
                 <TextView
                     android:id="@+id/tvGameLocalTeamStandings"
                     android:layout_width="110dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="(50-20)"
                     android:theme="@style/Theme.EuroNBA.ScoreStandings" />
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:theme="@style/Theme.EuroNBA.ScoreStandings" />
 
                 <TextView
                     android:id="@+id/tvGameVisitorTeamStandings"
                     android:layout_width="110dp"
-                    android:layout_marginRight="20dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
                     android:text="(30-20)"
                     android:theme="@style/Theme.EuroNBA.ScoreStandings" />
             </LinearLayout>
@@ -252,93 +256,88 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-<!--
-        <ScrollView
-            android:id="@+id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dip"
-            android:fillViewport="true"
-            android:scrollbarStyle="outsideInset"
-            android:scrollbars="horizontal|vertical">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginTop="5dp">
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalView"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:scrollbars="horizontal|vertical">
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                card_view:cardBackgroundColor="@color/blue_light_light"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="5dp">
+                <!-- Table View-->
 
-                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="true"
+                        android:fitsSystemWindows="false"
+                        android:focusableInTouchMode="true">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewMovieList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false" />
+                    </androidx.core.widget.NestedScrollView>
+                </HorizontalScrollView>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+
+            <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/scoreboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                card_view:cardBackgroundColor="@color/blue_light_light"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="5dp">
+
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:id="@+id/tableLocalTeam"
-                    android:stretchColumns="*"
-                    android:scrollbarAlwaysDrawHorizontalTrack="true">
+                    android:layout_height="wrap_content">
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="true"
+                        android:fitsSystemWindows="false"
+                        android:focusableInTouchMode="true">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewMovieList2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
+                    </androidx.core.widget.NestedScrollView>
+                </HorizontalScrollView>
 
-                    <TableRow
-                        android:background="#0079D6"
-                        android:weightSum="7"
-                        android:layout_width="match_parent">
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                        />
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            />
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            />
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            />
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            />
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            />
-                        <TextView
-                            android:text="28°F"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            />
-                       </TableRow>
-                </TableLayout>
-            </HorizontalScrollView>
-        </ScrollView>
-        -->
-        <!-- Table View-->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewMovieList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/table_list_item" />
+        </LinearLayout>
 
-        </HorizontalScrollView>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_light">#686AB6</color>
+    <color name="purple_light">#494A97</color>
     <color name="purple_mid">#2E3060</color>
     <color name="purple_black">#1F2041</color>
 
@@ -17,9 +17,9 @@
     <color name="orange_mid">#FFC95C</color>
     <color name="orange_black">#FFAD0A</color>
 
-    <color name="eblue_light">#C8F6F9</color>
-    <color name="eblue_mid">#91EEF3</color>
-    <color name="eblue_black">#47E2EB</color>
+    <color name="eblue_light">#BABBDE</color>
+    <color name="eblue_mid">#9193CA</color>
+    <color name="eblue_black">#657BB8</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

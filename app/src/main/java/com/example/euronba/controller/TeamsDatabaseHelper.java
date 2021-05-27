@@ -69,7 +69,7 @@ public class TeamsDatabaseHelper extends SQLiteOpenHelper {
             insertTeam(db, R.drawable.cle, "1610612739", "Cleveland", "Cavaliers", "Cleveland Cavaliers", "CLE", "East", "Central", "cavaliers");
             insertTeam(db, R.drawable.det, "1610612765", "Detroit", "Pistons", "Detroit Pistons", "DET", "East", "Central", "pistons");
             insertTeam(db, R.drawable.ind, "1610612754", "Indiana", "Pacers", "Indiana Pacers", "IND", "East", "Central", "pacers");
-            insertTeam(db, R.drawable.mil, "1610612749", "Milwaukee", "Bucks", "Indiana Pacers", "IND", "East", "Central", "bucks");
+            insertTeam(db, R.drawable.mil, "1610612749", "Milwaukee", "Bucks", "Milwaukee Bucks", "MIL", "East", "Central", "bucks");
 
             insertTeam(db, R.drawable.dal, "1610612742", "Dallas", "Mavericks", "Dallas Mavericks", "DAL", "West", "Southwest", "mavericks");
             insertTeam(db, R.drawable.hou, "1610612745", "Houston", "Rockets", "Houston Rockets", "HOU", "West", "Southwest", "rockets");

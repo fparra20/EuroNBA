@@ -25,7 +25,7 @@ public class RetrieveScoreboard {
         JSONObject jobj;
 
         try {
-            jobj = new RetrieveInfo().execute("http://data.nba.net/data/10s/prod/v1/" + date + "/scoreboard.json").get();
+            jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/" + date + "/scoreboard.json").get();
 
             ArrayList<String> pList = new ArrayList<>();
 

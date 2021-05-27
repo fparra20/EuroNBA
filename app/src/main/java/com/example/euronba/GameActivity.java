@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.adapters.PlayerChartAdapter;
 import com.example.euronba.controller.RetrievePlayerChart;
+import com.example.euronba.model.PlayerChart;
 import com.example.euronba.model.Team;
 import com.example.euronba.model.TeamScore;
+
+import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -102,30 +105,38 @@ public class GameActivity extends AppCompatActivity {
         }
 
         tvClock.setText(data.getString(EXTRA_CURRENTPERIOD));
-
-        LinearLayout cv = (LinearLayout) findViewById(R.id.gameLayout);
-
-
         RecyclerView recyclerView = findViewById(R.id.recyclerViewMovieList);
+        RecyclerView recyclerView2 = findViewById(R.id.recyclerViewMovieList2);
 
         RetrievePlayerChart rpc = new RetrievePlayerChart();
 
+        ArrayList<PlayerChart> rpcBoth = rpc.getPlayersChart(data.getString(EXTRA_DATE), data.getString(EXTRA_GAMEID));
+        ArrayList<PlayerChart> rpcLocal = new ArrayList<>();
+        ArrayList<PlayerChart> rpcVisitor = new ArrayList<>();
+
+        for(int i=0; i<rpcBoth.size(); i++){
+            if (rpcBoth.get(i).getTeamId().equals(data.getString(EXTRA_LOCALTEAMID))) {
+                rpcLocal.add(rpcBoth.get(i));
+            }
+
+            if (rpcBoth.get(i).getTeamId().equals(data.getString(EXTRA_VISITORTEAMID))) {
+                rpcVisitor.add(rpcBoth.get(i));
+            }
+        }
         System.out.println(EXTRA_GAMEID);
-        PlayerChartAdapter adapter = new PlayerChartAdapter(rpc.getPlayersChart(data.getString(EXTRA_DATE), data.getString(EXTRA_GAMEID)));
+        PlayerChartAdapter adapter = new PlayerChartAdapter(rpcLocal);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
 
-        cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newActi = new Intent(getApplicationContext(), PlayerActivity.class);
+        PlayerChartAdapter adapter2 = new PlayerChartAdapter(rpcVisitor);
 
-                startActivity(newActi);
-            }
-        });
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
+        recyclerView2.setLayoutManager(linearLayoutManager2);
+
+        recyclerView2.setAdapter(adapter2);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
