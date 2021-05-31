@@ -1,7 +1,11 @@
 package com.example.euronba.model;
 
+import com.example.euronba.controller.RetrievePlayer;
+import com.example.euronba.controller.RetrievePlayerCareer;
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,6 +50,20 @@ public class Player {
 
         // Devolvemos un String con el dato formateado
         return String.valueOf(years + "y, " + days + "d");
+    }
+
+    public ArrayList<PlayerStats> getPlayerCareerFromId (String playerId){
+
+        RetrievePlayerCareer rpc = new RetrievePlayerCareer();
+
+        return rpc.getPlayerStatsFromID(playerId);
+    }
+
+    public Player getPlayerProfileFromId (String playerId){
+
+        RetrievePlayer rpc = new RetrievePlayer();
+
+        return rpc.getPlayerInfoById(playerId);
     }
 
     public String getFirstName() {

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.adapters.ScoreboardAdapter;
-import com.example.euronba.controller.RetrieveScoreboard;
 import com.example.euronba.model.Scoreboard;
 
 import java.util.ArrayList;

@@ -1,24 +1,22 @@
 package com.example.euronba.controller;
 
-import com.example.euronba.model.PlayerChart;
+import com.example.euronba.model.Boxscore;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author Usuario
  */
 
-public class RetrievePlayerChart {
+public class RetrieveBoxscore {
 
-    public ArrayList<PlayerChart> getPlayersChart(String date, String gameId) {
+    public ArrayList<Boxscore> getPlayersChart(String date, String gameId) {
 
-        ArrayList<PlayerChart> pcList = new ArrayList<>();
+        ArrayList<Boxscore> pcList = new ArrayList<>();
 
         JSONObject jobj;
 
@@ -35,7 +33,7 @@ public class RetrievePlayerChart {
 
                 // El mismo jugador ha podido jugar en varios equipos la misma temproada, y con
                 // este bucle recogemos sus estadísticas en cada uno de los equipos, y el total de la temporada
-                PlayerChart sb = new PlayerChart();
+                Boxscore sb = new Boxscore();
 
                 JSONObject jobjScore = data.getJSONObject(i);
 

@@ -2,6 +2,7 @@ package com.example.euronba.model;
 
 public class PlayerDraft extends Player {
 
+    public String draftedTeamId;
     public String pickNum;
     public String roundNum;
     public String seasonYear;
@@ -30,4 +31,11 @@ public class PlayerDraft extends Player {
         this.seasonYear = seasonYear;
     }
 
+    public String getDraftedTeamId() {
+        return draftedTeamId;
+    }
+
+    public void setDraftedTeamId(String draftedTeamId) {
+        this.draftedTeamId = draftedTeamId;
+    }
 }

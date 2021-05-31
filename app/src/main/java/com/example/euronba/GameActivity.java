@@ -1,28 +1,20 @@
 package com.example.euronba;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.euronba.adapters.PlayerChartAdapter;
-import com.example.euronba.controller.RetrievePlayerChart;
-import com.example.euronba.model.PlayerChart;
+import com.example.euronba.adapters.BoxscoreAdapter;
+import com.example.euronba.controller.RetrieveBoxscore;
+import com.example.euronba.model.Boxscore;
 import com.example.euronba.model.Team;
-import com.example.euronba.model.TeamScore;
 
 import java.util.ArrayList;
 
@@ -34,7 +26,7 @@ public class GameActivity extends AppCompatActivity {
     public static final String EXTRA_ARENANAME = "arenaName";
     public static final String EXTRA_ARENACITY = "arenaCity";
     public static final String EXTRA_STATUSNUM = "statusNum";
-    public static final String EXTRA_STARTTIME = "startTimeUTC";
+    public static final String EXTRA_STARTTIME = "startTime";
     public static final String EXTRA_CLOCK = "clock";
     public static final String EXTRA_GAMEDURATION = "gameDuration";
     public static final String EXTRA_CURRENTPERIOD = "currentPeriod";
@@ -59,6 +51,55 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Bundle data = getIntent().getExtras();
+
+        displayGameInfo(data);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewPlayerBoxList);
+        RecyclerView recyclerView2 = findViewById(R.id.recyclerViewPlayerBoxList2);
+
+        RetrieveBoxscore rpc = new RetrieveBoxscore();
+
+        ArrayList<Boxscore> rpcBoth = rpc.getPlayersChart(data.getString("date"), data.getString("gameId"));
+        ArrayList<Boxscore> rpcLocal = new ArrayList<>();
+        ArrayList<Boxscore> rpcVisitor = new ArrayList<>();
+
+        for(int i=0; i<rpcBoth.size(); i++){
+            if (rpcBoth.get(i).getTeamId().equals(data.getString("localTeamId"))) {
+                rpcLocal.add(rpcBoth.get(i));
+            }
+
+            if (rpcBoth.get(i).getTeamId().equals(data.getString("visitorTeamId"))) {
+                rpcVisitor.add(rpcBoth.get(i));
+            }
+        }
+        BoxscoreAdapter adapter = new BoxscoreAdapter(rpcLocal,this);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(adapter);
+
+        BoxscoreAdapter adapter2 = new BoxscoreAdapter(rpcVisitor,this);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
+        recyclerView2.setLayoutManager(linearLayoutManager2);
+
+        recyclerView2.setAdapter(adapter2);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Rellena la información del partido con los datos recogidos de la actividad anterior.
+    protected void displayGameInfo(Bundle data){
+
         TextView tvSummaryText = (TextView) findViewById(R.id.tvGameSummaryText);
         TextView tvLocalTeamName = (TextView) findViewById(R.id.tvGameLocalTeamName);
         TextView tvLocalTeamWL = (TextView) findViewById(R.id.tvGameLocalTeamStandings);
@@ -74,9 +115,8 @@ public class GameActivity extends AppCompatActivity {
         ImageView ivVisitorTeamLogo = (ImageView) findViewById(R.id.ivGameVisitorLogo);
 
         //Recuperamos el Bundle con los extras del Intent
-        Bundle data = getIntent().getExtras();
-        String localTeamId = data.getString(EXTRA_LOCALTEAMID);
-        String visitorTeamId = data.getString(EXTRA_VISITORTEAMID);
+        String localTeamId = data.getString("localTeamId");
+        String visitorTeamId = data.getString("visitorTeamId");
 
         Team localTm = new Team().getTeamById(localTeamId, this);
         Team visitorTm = new Team().getTeamById(visitorTeamId, this);
@@ -87,64 +127,24 @@ public class GameActivity extends AppCompatActivity {
         ivLocalTeamLogo.setImageResource(localTm.getLogo());
         ivVisitorTeamLogo.setImageResource(visitorTm.getLogo());
 
-        tvSummaryText.setText(data.getString(EXTRA_SUMMARYTEXT));
+        tvSummaryText.setText(data.getString("summaryText"));
 
-        tvLocalTeamWL.setText(data.getString(EXTRA_LOCALTEAMWL));
-        tvVisitorTeamWL.setText(data.getString(EXTRA_VISITORTEAMWL));
+        tvLocalTeamWL.setText(data.getString("localTeamWL"));
+        tvVisitorTeamWL.setText(data.getString("visitorTeamWL"));
 
-        tvLocalScore.setText(data.getString(EXTRA_LOCALTEAMSCORE));
-        tvVisitorScore.setText(data.getString(EXTRA_VISITORTEAMSCORE));
+        tvLocalScore.setText(data.getString("localTeamScore"));
+        tvVisitorScore.setText(data.getString("visitorTeamScore"));
 
-        tvGameStart.setText("Start time: " + data.getString(EXTRA_STARTTIME));
-        tvArena.setText(data.getString(EXTRA_ARENANAME) + " - " + data.getString(EXTRA_ARENACITY));
+        tvGameStart.setText("Start time: " + data.getString("startTime"));
+        tvArena.setText(data.getString("arenaName") + " - " + data.getString("arenaCity"));
 
-        tvDuration.setText("Game duration: "+ data.getString(EXTRA_GAMEDURATION));
+        tvDuration.setText("Game duration: "+ data.getString("gameDuration"));
 
-        if(data.getString(EXTRA_GAMEDURATION).equals(":")){
+        if(data.getString("gameDuration").equals(":")){
             tvDuration.setText("Yet to start.");
         }
 
-        tvClock.setText(data.getString(EXTRA_CURRENTPERIOD));
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewMovieList);
-        RecyclerView recyclerView2 = findViewById(R.id.recyclerViewMovieList2);
+        tvClock.setText(data.getString("currentPeriod"));
 
-        RetrievePlayerChart rpc = new RetrievePlayerChart();
-
-        ArrayList<PlayerChart> rpcBoth = rpc.getPlayersChart(data.getString(EXTRA_DATE), data.getString(EXTRA_GAMEID));
-        ArrayList<PlayerChart> rpcLocal = new ArrayList<>();
-        ArrayList<PlayerChart> rpcVisitor = new ArrayList<>();
-
-        for(int i=0; i<rpcBoth.size(); i++){
-            if (rpcBoth.get(i).getTeamId().equals(data.getString(EXTRA_LOCALTEAMID))) {
-                rpcLocal.add(rpcBoth.get(i));
-            }
-
-            if (rpcBoth.get(i).getTeamId().equals(data.getString(EXTRA_VISITORTEAMID))) {
-                rpcVisitor.add(rpcBoth.get(i));
-            }
-        }
-        System.out.println(EXTRA_GAMEID);
-        PlayerChartAdapter adapter = new PlayerChartAdapter(rpcLocal);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerView.setAdapter(adapter);
-
-        PlayerChartAdapter adapter2 = new PlayerChartAdapter(rpcVisitor);
-
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
-        recyclerView2.setLayoutManager(linearLayoutManager2);
-
-        recyclerView2.setAdapter(adapter2);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

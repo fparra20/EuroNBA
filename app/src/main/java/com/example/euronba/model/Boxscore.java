@@ -1,6 +1,6 @@
 package com.example.euronba.model;
 
-public class PlayerChart extends Player {
+public class Boxscore extends Player {
 
     public boolean isOnCourt;
     public String points;

@@ -1,75 +1,108 @@
 package com.example.euronba;
 
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.example.euronba.controller.TeamsDatabaseHelper;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.euronba.adapters.PlayerStatsAdapter;
+import com.example.euronba.controller.RetrievePlayerCareer;
+import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
 
 import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
 
+    public static final String EXTRA_PERSONID = "personId";
     ArrayList<Team> teamsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
-        // Creamos el cursor para traer los datos de la BD
-        SQLiteOpenHelper TeamsDatabaseHelper = new TeamsDatabaseHelper(getApplicationContext());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        // Extrae la base de datos para trabajar con ella
-        SQLiteDatabase db = TeamsDatabaseHelper.getReadableDatabase();
+        setSupportActionBar(toolbar);
 
-        // Crea una consulta en la tabla TEAMS con todas sus columnas
-        // Además, las ordena por nombre de ciudad alfabéticamente
-        Cursor cursor = db.query("TEAMS",
-                new String[]{"IMAGE_LOGO", "TEAM_ID", "CITY", "NICKNAME", "FULLNAME", "TRICODE", "CONFNAME", "DIVNAME", "URLNAME"}, null,
-                null, null, null, "CITY");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //Creamos un arraylist de tipo Pet vacío
-        teamsList = new ArrayList<Team>();
+        Bundle data = getIntent().getExtras();
 
-        // Comprobamos que el cursor no está vacío
-        if (cursor.moveToFirst()) {
+        String personId = data.getString("personId");
 
-            // Este código se repite mientras cursor siga teniendo datos
-            do {
-                // Para cada dato del cursor introducimos un nuevo valor en el ArrayList
-                teamsList.add(new Team(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getString(6),
-                        cursor.getString(7),
-                        cursor.getString(8)));
+        fillPlayerInfo(personId);
 
-            } while (cursor.moveToNext());
+        fillPlayerStats(personId);
+    }
 
-            // Si no tiene datos o no le quedan, cierra el cursor y las llamadas a la base de datos.
-        } else {
-            cursor.close();
-            db.close();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
         }
 
-        ImageView iv = findViewById(R.id.iv);
+        return super.onOptionsItemSelected(item);
+    }
 
-        iv.setImageResource(teamsList.get(29).getLogo());
-        System.out.println("Logo: "+teamsList.get(0).getLogo());
-        System.out.println("ID: "+teamsList.get(0).getTeamId());
-        System.out.println("Full Name: "+teamsList.get(0).getFullName());
-        System.out.println("Conf: "+teamsList.get(0).getConfName());
-        System.out.println("Div: "+teamsList.get(0).getDivName());
-        System.out.println("URL: "+teamsList.get(0).getUrlName());
+    public void fillPlayerInfo(String personId){
+
+        TextView tvPlayerProfileName = findViewById(R.id.tvPlayerProfileName);
+        TextView tvPlayerProfilePos = findViewById(R.id.tvPlayerProfilePos);
+        TextView tvPlayerProfileBirthdate = findViewById(R.id.tvPlayerProfileBirthdate);
+        TextView tvPlayerProfileDraft = findViewById(R.id.tvPlayerProfileDraft);
+        TextView tvPlayerProfileCollege = findViewById(R.id.tvPlayerProfileCollege);
+        TextView tvPlayerProfileCountry = findViewById(R.id.tvPlayerProfileCountry);
+        TextView tvPlayerProfileHeight = findViewById(R.id.tvPlayerProfileHeight);
+        TextView tvPlayerProfileWeight = findViewById(R.id.tvPlayerProfileWeight);
+        TextView tvPlayerProfileYearsPro = findViewById(R.id.tvPlayerProfileYearsPro);
+        TextView tvPlayerProfileDebutYear = findViewById(R.id.tvPlayerProfileDebutYear);
+        ImageView ivPlayerProfileTeamLogo =findViewById(R.id.ivPlayerProfileTeamLogo);
+
+        Player p = new Player().getPlayerProfileFromId(personId);
+
+        tvPlayerProfileName.setText(p.getFirstName() + " " + p.getLastName());
+        tvPlayerProfilePos.setText("#"+p.getJersey() +" - " + p.getPos());
+        tvPlayerProfileBirthdate.setText(p.getDateOfBirthUTC() +" - Age " + p.getAge());
+        if(p.getDraft().getSeasonYear().equals("")){
+            tvPlayerProfileDraft.setText("Draft: Not drafted.");
+        }
+
+        Team tmDraft = new Team().getTeamById(p.getDraft().getDraftedTeamId(), this.getApplicationContext());
+
+        Team tmCurrent = new Team().getTeamById(p.getTeamId(), this.getApplicationContext());
+
+        tvPlayerProfileDraft.setText("Draft: "+p.getDraft().getSeasonYear() + " by "+ tmDraft.getFullName() + ", Pick " +p.getDraft().getPickNum() +", Round " + p.getDraft().getRoundNum());
+        tvPlayerProfileCollege.setText("College: " + p.getCollegeName());
+        tvPlayerProfileCountry.setText("Country: " + p.getCountry());
+        tvPlayerProfileHeight.setText("Height: " + p.getHeightMeters() + " m");
+        tvPlayerProfileWeight.setText("Weight: " + p.getWeightKilograms() + " kg");
+        tvPlayerProfileYearsPro.setText("Years Pro: " + p.getYearsPro());
+        tvPlayerProfileDebutYear.setText("Debut: " + p.getNbaDebutYear());
+        ivPlayerProfileTeamLogo.setImageResource(tmCurrent.getLogo());
+    }
+
+    public void fillPlayerStats(String personId){
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewPlayerProfileSeasons);
+
+        RetrievePlayerCareer rpc = new RetrievePlayerCareer();
+
+        PlayerStatsAdapter adapter = new PlayerStatsAdapter(rpc.getPlayerStatsFromID(personId),this);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(adapter);
     }
 }
