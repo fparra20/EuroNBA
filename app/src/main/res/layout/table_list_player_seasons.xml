@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableRowPlayer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvPlayerStatsYear"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerStatsTeam"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerStatsPts"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerStatsAst"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+</LinearLayout>
