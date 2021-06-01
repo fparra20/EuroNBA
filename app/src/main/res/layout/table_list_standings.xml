@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableRowStandings"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvStandingsName"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvStandingsWin"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvStandingsLosses"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvStandingsPct"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvStandingsStreak"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvStandingsLastTen"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+</LinearLayout>

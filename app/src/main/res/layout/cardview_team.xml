@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvTeamList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:contentPadding="8dp"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    card_view:cardBackgroundColor="@color/blue_light_light"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTeamListName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Toronto Raptors"
+            android:theme="@style/Theme.EuroNBA.ScoreNum" />
+
+        <ImageView
+            android:contentDescription="teamLogo"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:id="@+id/ivTeamListTeamLogo"
+            android:text=""
+            android:theme="@style/Theme.EuroNBA.ScoreName"
+            android:src="@drawable/lac"
+
+            />
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
