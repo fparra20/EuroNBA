@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.google.android.material:material:1.3.0-alpha03'
     // Librería que permite usar java.time y otras librerías por debajo de API 26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
     implementation 'androidx.appcompat:appcompat:1.3.0'

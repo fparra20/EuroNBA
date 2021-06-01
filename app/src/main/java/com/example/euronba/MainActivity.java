@@ -1,36 +1,81 @@
 package com.example.euronba;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.adapters.ScoreboardAdapter;
 import com.example.euronba.model.Scoreboard;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    public ActionBarDrawerToggle actionBarDrawerToggle;
+
     ArrayList<Scoreboard> scoreboardList;
 
     // Crea un objeto textView para mostrar la fecha a partir del objeto presente en el layout
     TextView tvDay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
+
+        setSupportActionBar(toolbar);
+
+        nv.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        int id = item.getItemId();
+                        if (id == R.id.menu_players) {
+                            // Handle the camera action
+                        }
+                        Intent intent = new Intent(MainActivity.this, PlayerListActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    }
+                });
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Recoge la fecha completa actual
         final Calendar c = Calendar.getInstance();
+// drawer layout instance to toggle the menu icon to open
+        // drawer and back button to close drawer
 
         // Comprueba que ya ha pasado el mediodía
         // Si no, resta un día a la fecha actual.
@@ -63,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
         // Crea un objeto ImageButton para el calendario a partir del objeto presente en el layout
         ImageButton ibCalendar = (ImageButton) findViewById(R.id.ibCalendar);
 
-        tvDay=(TextView) findViewById(R.id.tvDay);
+        tvDay = (TextView) findViewById(R.id.tvDay);
 
         // Llama al método que genera el recyclerview según la fecha
-        showGamesByDate(y,m,d);
+        showGamesByDate(y, m, d);
 
         // Añade un ClickListener al botón del calendario
         ibCalendar.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     String[] splitDateOnTv = dateOnTv.split(" - ");
 
                     mYear = Integer.parseInt(splitDateOnTv[0]);
-                    mMonth = Integer.parseInt(splitDateOnTv[1])-1;
+                    mMonth = Integer.parseInt(splitDateOnTv[1]) - 1;
                     mDay = Integer.parseInt(splitDateOnTv[2]);
 
                     // Instancia un objeto DatePickerDialog, con el que podremos seleccionar la fecha
@@ -128,11 +173,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void showGamesByDate(String y, String m, String d){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        if (item.getItemId() == R.id.menu_players) {
+            System.out.println("yee");
+            Intent intent = new Intent(this.getApplicationContext(), PlayerListActivity.class);
+
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void showGamesByDate(String y, String m, String d) {
 
         Scoreboard scb = new Scoreboard();
 
-        scoreboardList = scb.getScoreboardListByDate(y+m+d);
+        scoreboardList = scb.getScoreboardListByDate(y + m + d);
 
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
         RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvScoreboard);

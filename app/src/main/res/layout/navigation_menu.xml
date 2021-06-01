@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="HardcodedText">
+
+    <include
+        layout="@layout/menu_header_layout"
+        />
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@android:drawable/star_on"
+        android:title="Home"
+        app:showAsAction="always"></item>
+
+    <item
+        android:id="@+id/menu_players"
+        android:title="Players"
+        android:icon="@android:drawable/ic_menu_today"
+        app:showAsAction="always"
+        >
+    </item>
+
+
+    <item
+        android:id="@+id/menu_teams"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Teams"
+        app:showAsAction="always"></item>
+
+
+    <item
+        android:id="@+id/menu_standings"
+        android:icon="@android:drawable/ic_lock_lock"
+        android:title="Standings"
+        app:showAsAction="always"></item>
+
+
+    <item
+        android:id="@+id/menu_favorites"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="Favorites"
+        app:showAsAction="always"></item>
+
+</menu>

@@ -65,7 +65,12 @@ public class Player {
 
         return rpc.getPlayerInfoById(playerId);
     }
+    public ArrayList<Player> getAllPlayers (){
 
+        RetrievePlayer rpc = new RetrievePlayer();
+
+        return rpc.getPlayers();
+    }
     public String getFirstName() {
         return firstName;
     }

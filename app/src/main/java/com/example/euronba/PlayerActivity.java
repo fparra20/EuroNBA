@@ -73,15 +73,17 @@ public class PlayerActivity extends AppCompatActivity {
         tvPlayerProfileName.setText(p.getFirstName() + " " + p.getLastName());
         tvPlayerProfilePos.setText("#"+p.getJersey() +" - " + p.getPos());
         tvPlayerProfileBirthdate.setText(p.getDateOfBirthUTC() +" - Age " + p.getAge());
-        if(p.getDraft().getSeasonYear().equals("")){
+
+        if(p.getDraft().getPickNum().equals("") || p.getDraft().getPickNum().isEmpty()){
             tvPlayerProfileDraft.setText("Draft: Not drafted.");
+        } else{
+            Team tmDraft = new Team().getTeamById(p.getDraft().getDraftedTeamId(), this.getApplicationContext());
+
+            tvPlayerProfileDraft.setText("Draft: "+p.getDraft().getSeasonYear() + " by "+ tmDraft.getFullName() + ", Pick " +p.getDraft().getPickNum() +", Round " + p.getDraft().getRoundNum());
+
         }
 
-        Team tmDraft = new Team().getTeamById(p.getDraft().getDraftedTeamId(), this.getApplicationContext());
-
         Team tmCurrent = new Team().getTeamById(p.getTeamId(), this.getApplicationContext());
-
-        tvPlayerProfileDraft.setText("Draft: "+p.getDraft().getSeasonYear() + " by "+ tmDraft.getFullName() + ", Pick " +p.getDraft().getPickNum() +", Round " + p.getDraft().getRoundNum());
         tvPlayerProfileCollege.setText("College: " + p.getCollegeName());
         tvPlayerProfileCountry.setText("Country: " + p.getCountry());
         tvPlayerProfileHeight.setText("Height: " + p.getHeightMeters() + " m");
