@@ -11,10 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EuroNBA">
-        <activity android:name=".PlayerListActivity"></activity>
-        <activity android:name=".PlayerActivity" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".activities.StandingsActivity"
+            android:label="@string/title_activity_standings"
+            android:theme="@style/Theme.EuroNBA.NoActionBar"></activity>
+        <activity android:name=".activities.TeamListActivity" />
+        <activity android:name=".activities.TeamActivity" />
+        <activity android:name=".activities.PlayerListActivity" />
+        <activity android:name=".activities.PlayerActivity" />
+        <activity android:name=".activities.GameActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

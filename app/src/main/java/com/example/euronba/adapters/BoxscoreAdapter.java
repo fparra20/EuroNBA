@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.euronba.PlayerActivity;
 import com.example.euronba.R;
+import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.model.Boxscore;
 
 import java.util.List;

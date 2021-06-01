@@ -56,4 +56,13 @@
         <item name="android:padding">5dp</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="Theme.EuroNBA.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.EuroNBA.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.EuroNBA.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

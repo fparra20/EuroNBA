@@ -3,23 +3,19 @@ package com.example.euronba.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.euronba.PlayerActivity;
 import com.example.euronba.R;
+import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.model.Player;
-import com.example.euronba.model.PlayerStats;
-import com.example.euronba.model.Scoreboard;
 import com.example.euronba.model.Team;
 
 import java.util.List;

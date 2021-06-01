@@ -45,7 +45,7 @@ public class RetrieveScoreboard {
                 sb.setSeasonYear(jobjScore.getString("seasonYear"));
 
                 // Comprobamos que el partido es de playoffs
-                if(jobjScore.getInt("seasonStageId")>=4){
+                if (jobjScore.getInt("seasonStageId") >= 4) {
 
                     // Si lo es, añadimos
                     sb.setSummaryText(jobjScore.getJSONObject("playoffs").getString("seriesSummaryText"));

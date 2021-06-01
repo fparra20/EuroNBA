@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".PlayerListActivity"
+    tools:context=".activities.PlayerListActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.google.android.material.appbar.AppBarLayout

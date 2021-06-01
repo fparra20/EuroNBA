@@ -1,4 +1,5 @@
 package com.example.euronba.controller;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -103,15 +104,15 @@ public class TeamsDatabaseHelper extends SQLiteOpenHelper {
      */
 
     private void insertTeam(SQLiteDatabase db,
-                           int image_logo,
-                           String teamId,
-                           String city,
-                           String nickname,
-                           String fullname,
-                           String tricode,
-                           String confname,
-                           String divname,
-                           String urlname) {
+                            int image_logo,
+                            String teamId,
+                            String city,
+                            String nickname,
+                            String fullname,
+                            String tricode,
+                            String confname,
+                            String divname,
+                            String urlname) {
         /*Objeto que nos va a permitir indicar que valores queremos
         insertar en la BD*/
         ContentValues teamValues = new ContentValues();

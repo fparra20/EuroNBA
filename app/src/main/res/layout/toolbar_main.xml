@@ -5,13 +5,13 @@
     android:background="@color/blue_mid"
     android:theme="@style/Theme.EuroNBA">
 
-    
+
     <ImageView
         android:layout_width="wrap_content"
         android:contentDescription="logo"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginRight="?android:attr/actionBarSize"
-        android:src="@drawable/nbalogo"/>
+        android:src="@drawable/nbalogo" />
 
 </androidx.appcompat.widget.Toolbar>

@@ -5,7 +5,6 @@ import com.example.euronba.controller.RetrieveScoreboard;
 import java.util.ArrayList;
 
 /**
- *
  * @author Usuario
  */
 public class Scoreboard {
@@ -129,7 +128,7 @@ public class Scoreboard {
     }
 
     // Conecta con la API y devuelve una lista de los partidos jugados en esa fecha
-    public ArrayList<Scoreboard> getScoreboardListByDate(String date){
+    public ArrayList<Scoreboard> getScoreboardListByDate(String date) {
         // Instancia un objeto de la clase RetrieveScoreboard
         RetrieveScoreboard rs = new RetrieveScoreboard();
 

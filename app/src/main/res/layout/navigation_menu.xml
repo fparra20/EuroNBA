@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="HardcodedText">
 
-    <include
-        layout="@layout/menu_header_layout"
-        />
+    <include layout="@layout/menu_header_layout" />
 
     <item
         android:id="@+id/menu_home"
@@ -18,9 +16,7 @@
         android:id="@+id/menu_players"
         android:title="Players"
         android:icon="@android:drawable/ic_menu_today"
-        app:showAsAction="always"
-        >
-    </item>
+        app:showAsAction="always"></item>
 
 
     <item

@@ -52,25 +52,34 @@ public class Player {
         return String.valueOf(years + "y, " + days + "d");
     }
 
-    public ArrayList<PlayerStats> getPlayerCareerFromId (String playerId){
+    public ArrayList<PlayerStats> getPlayerCareerFromId(String playerId) {
 
         RetrievePlayerCareer rpc = new RetrievePlayerCareer();
 
         return rpc.getPlayerStatsFromID(playerId);
     }
 
-    public Player getPlayerProfileFromId (String playerId){
+    public Player getPlayerProfileFromId(String playerId) {
 
         RetrievePlayer rpc = new RetrievePlayer();
 
         return rpc.getPlayerInfoById(playerId);
     }
-    public ArrayList<Player> getAllPlayers (){
+
+    public ArrayList<Player> getAllPlayers() {
 
         RetrievePlayer rpc = new RetrievePlayer();
 
         return rpc.getPlayers();
     }
+
+    public ArrayList<Player> getPlayersByTeamId(String id) {
+
+        RetrievePlayer rpc = new RetrievePlayer();
+
+        return rpc.getPlayersByTeamId(id);
+    }
+
     public String getFirstName() {
         return firstName;
     }

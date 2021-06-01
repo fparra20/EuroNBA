@@ -1,4 +1,4 @@
-package com.example.euronba;
+package com.example.euronba.activities;
 
 
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.euronba.R;
 import com.example.euronba.adapters.PlayerStatsAdapter;
 import com.example.euronba.controller.RetrievePlayerCareer;
 import com.example.euronba.model.Player;
@@ -54,7 +55,7 @@ public class PlayerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void fillPlayerInfo(String personId){
+    public void fillPlayerInfo(String personId) {
 
         TextView tvPlayerProfileName = findViewById(R.id.tvPlayerProfileName);
         TextView tvPlayerProfilePos = findViewById(R.id.tvPlayerProfilePos);
@@ -66,20 +67,20 @@ public class PlayerActivity extends AppCompatActivity {
         TextView tvPlayerProfileWeight = findViewById(R.id.tvPlayerProfileWeight);
         TextView tvPlayerProfileYearsPro = findViewById(R.id.tvPlayerProfileYearsPro);
         TextView tvPlayerProfileDebutYear = findViewById(R.id.tvPlayerProfileDebutYear);
-        ImageView ivPlayerProfileTeamLogo =findViewById(R.id.ivPlayerProfileTeamLogo);
+        ImageView ivPlayerProfileTeamLogo = findViewById(R.id.ivPlayerProfileTeamLogo);
 
         Player p = new Player().getPlayerProfileFromId(personId);
 
         tvPlayerProfileName.setText(p.getFirstName() + " " + p.getLastName());
-        tvPlayerProfilePos.setText("#"+p.getJersey() +" - " + p.getPos());
-        tvPlayerProfileBirthdate.setText(p.getDateOfBirthUTC() +" - Age " + p.getAge());
+        tvPlayerProfilePos.setText("#" + p.getJersey() + " - " + p.getPos());
+        tvPlayerProfileBirthdate.setText(p.getDateOfBirthUTC() + " - Age " + p.getAge());
 
-        if(p.getDraft().getPickNum().equals("") || p.getDraft().getPickNum().isEmpty()){
+        if (p.getDraft().getPickNum().equals("") || p.getDraft().getPickNum().isEmpty()) {
             tvPlayerProfileDraft.setText("Draft: Not drafted.");
-        } else{
+        } else {
             Team tmDraft = new Team().getTeamById(p.getDraft().getDraftedTeamId(), this.getApplicationContext());
 
-            tvPlayerProfileDraft.setText("Draft: "+p.getDraft().getSeasonYear() + " by "+ tmDraft.getFullName() + ", Pick " +p.getDraft().getPickNum() +", Round " + p.getDraft().getRoundNum());
+            tvPlayerProfileDraft.setText("Draft: " + p.getDraft().getSeasonYear() + " by " + tmDraft.getFullName() + ", Pick " + p.getDraft().getPickNum() + ", Round " + p.getDraft().getRoundNum());
 
         }
 
@@ -93,13 +94,13 @@ public class PlayerActivity extends AppCompatActivity {
         ivPlayerProfileTeamLogo.setImageResource(tmCurrent.getLogo());
     }
 
-    public void fillPlayerStats(String personId){
+    public void fillPlayerStats(String personId) {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewPlayerProfileSeasons);
 
         RetrievePlayerCareer rpc = new RetrievePlayerCareer();
 
-        PlayerStatsAdapter adapter = new PlayerStatsAdapter(rpc.getPlayerStatsFromID(personId),this);
+        PlayerStatsAdapter adapter = new PlayerStatsAdapter(rpc.getPlayerStatsFromID(personId), this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 

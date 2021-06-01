@@ -37,7 +37,7 @@ public class Team {
         this.urlName = urlName;
     }
 
-    public ArrayList<Team> teamsList (Context ctx){
+    public ArrayList<Team> teamsList(Context ctx) {
 
         ArrayList<Team> teamsList;
         Team tm;
@@ -83,6 +83,7 @@ public class Team {
 
         return teamsList;
     }
+
     public Team getTeamById(String id, Context ctx) {
 
         Team tm = new Team();
@@ -94,7 +95,7 @@ public class Team {
 
         // Crea una consulta para obtener el equipo concreto en la tabla TEAMS con todas sus columnas
 
-        Cursor c = db.rawQuery("SELECT IMAGE_LOGO, TEAM_ID, CITY, NICKNAME, FULLNAME, TRICODE, CONFNAME, DIVNAME, URLNAME FROM TEAMS WHERE TEAM_ID= '"+id+"' ", null);
+        Cursor c = db.rawQuery("SELECT IMAGE_LOGO, TEAM_ID, CITY, NICKNAME, FULLNAME, TRICODE, CONFNAME, DIVNAME, URLNAME FROM TEAMS WHERE TEAM_ID= '" + id + "' ", null);
 
         if (c.moveToFirst()) {
             do {
@@ -111,12 +112,48 @@ public class Team {
             } while (c.moveToNext());
         }
 
-            c.close();
-            db.close();
+        c.close();
+        db.close();
 
         return tm;
     }
 
+    public ArrayList<Team> getAllTeams(Context ctx){
+
+        Team tm = new Team();
+
+        ArrayList<Team> tmList = new ArrayList<>();
+        // Creamos el cursor para traer los datos de la BD
+        SQLiteOpenHelper TeamsDatabaseHelper = new TeamsDatabaseHelper(ctx);
+
+        // Extrae la base de datos para trabajar con ella
+        SQLiteDatabase db = TeamsDatabaseHelper.getReadableDatabase();
+
+        // Crea una consulta para obtener el equipo concreto en la tabla TEAMS con todas sus columnas
+
+        Cursor c = db.rawQuery("SELECT IMAGE_LOGO, TEAM_ID, CITY, NICKNAME, FULLNAME, TRICODE, CONFNAME, DIVNAME, URLNAME FROM TEAMS", null);
+
+        if (c.moveToFirst()) {
+            do {
+                tm = new Team(
+                        c.getInt(0),
+                        c.getString(1),
+                        c.getString(2),
+                        c.getString(3),
+                        c.getString(4),
+                        c.getString(5),
+                        c.getString(6),
+                        c.getString(7),
+                        c.getString(8));
+                tmList.add(tm);
+            } while (c.moveToNext());
+        }
+
+        c.close();
+        db.close();
+
+        return tmList;
+    }
     public int getLogo() {
         return logo;
     }

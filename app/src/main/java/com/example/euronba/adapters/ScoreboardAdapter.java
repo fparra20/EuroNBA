@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.euronba.GameActivity;
 import com.example.euronba.R;
+import com.example.euronba.activities.GameActivity;
 import com.example.euronba.model.Scoreboard;
 import com.example.euronba.model.Team;
 import com.google.android.material.card.MaterialCardView;
@@ -102,7 +102,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
         // Si el partido está transcuyendo actualmente, el statusNum es 2
 
-        if(score.statusNum == 2) {
+        if (score.statusNum == 2) {
             if (score.getCurrentPeriod() >= 1 && score.getCurrentPeriod() <= 4)
                 gameClock = score.getClock() + " - " + score.getCurrentPeriod() + "th";
 
@@ -119,7 +119,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
         scoreViewHolder.tvScoreStatus.setText(score.getStartTimeUTC());
 
-        if(score.statusNum==3){
+        if (score.statusNum == 3) {
             if (score.getCurrentPeriod() == 5)
                 gameClock = "OT";
 
@@ -136,7 +136,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
         TextView tv = activity.findViewById(R.id.tvDay);
         String[] dateSplit = tv.getText().toString().split(" - ");
-        String date = dateSplit[0]+dateSplit[1]+dateSplit[2];
+        String date = dateSplit[0] + dateSplit[1] + dateSplit[2];
 
         System.out.println(date);
 
@@ -166,7 +166,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
                 activity.startActivity(intent);
 
-                Toast.makeText(activity,score.getSummaryText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, score.getSummaryText(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,10 +1,8 @@
-package com.example.euronba;
+package com.example.euronba.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +18,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.euronba.R;
 import com.example.euronba.adapters.ScoreboardAdapter;
 import com.example.euronba.model.Scoreboard;
+import com.example.euronba.model.Standings;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -52,10 +52,22 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem item) {
                         int id = item.getItemId();
                         if (id == R.id.menu_players) {
-                            // Handle the camera action
+                            Intent intent = new Intent(MainActivity.this, PlayerListActivity.class);
+                            startActivity(intent);
                         }
-                        Intent intent = new Intent(MainActivity.this, PlayerListActivity.class);
-                        startActivity(intent);
+                        if (id == R.id.menu_home) {
+                            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        if (id == R.id.menu_teams) {
+                            Intent intent = new Intent(MainActivity.this, TeamListActivity.class);
+                            startActivity(intent);
+                        }
+
+                        if (id == R.id.menu_standings) {
+                            Intent intent = new Intent(MainActivity.this, StandingsActivity.class);
+                            startActivity(intent);
+                        }
                         finish();
                         return true;
                     }

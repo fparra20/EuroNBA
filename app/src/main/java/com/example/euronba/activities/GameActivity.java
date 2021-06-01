@@ -1,4 +1,4 @@
-package com.example.euronba;
+package com.example.euronba.activities;
 
 
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.euronba.R;
 import com.example.euronba.adapters.BoxscoreAdapter;
 import com.example.euronba.controller.RetrieveBoxscore;
 import com.example.euronba.model.Boxscore;
@@ -64,7 +65,7 @@ public class GameActivity extends AppCompatActivity {
         ArrayList<Boxscore> rpcLocal = new ArrayList<>();
         ArrayList<Boxscore> rpcVisitor = new ArrayList<>();
 
-        for(int i=0; i<rpcBoth.size(); i++){
+        for (int i = 0; i < rpcBoth.size(); i++) {
             if (rpcBoth.get(i).getTeamId().equals(data.getString("localTeamId"))) {
                 rpcLocal.add(rpcBoth.get(i));
             }
@@ -73,20 +74,21 @@ public class GameActivity extends AppCompatActivity {
                 rpcVisitor.add(rpcBoth.get(i));
             }
         }
-        BoxscoreAdapter adapter = new BoxscoreAdapter(rpcLocal,this);
+        BoxscoreAdapter adapter = new BoxscoreAdapter(rpcLocal, this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
 
-        BoxscoreAdapter adapter2 = new BoxscoreAdapter(rpcVisitor,this);
+        BoxscoreAdapter adapter2 = new BoxscoreAdapter(rpcVisitor, this);
 
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
         recyclerView2.setLayoutManager(linearLayoutManager2);
 
         recyclerView2.setAdapter(adapter2);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -98,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // Rellena la información del partido con los datos recogidos de la actividad anterior.
-    protected void displayGameInfo(Bundle data){
+    protected void displayGameInfo(Bundle data) {
 
         TextView tvSummaryText = (TextView) findViewById(R.id.tvGameSummaryText);
         TextView tvLocalTeamName = (TextView) findViewById(R.id.tvGameLocalTeamName);
@@ -107,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
         TextView tvVisitorTeamWL = (TextView) findViewById(R.id.tvGameVisitorTeamStandings);
         TextView tvLocalScore = (TextView) findViewById(R.id.tvGameLocalScore);
         TextView tvVisitorScore = (TextView) findViewById(R.id.tvGameVisitorScore);
-        TextView tvArena  = (TextView) findViewById(R.id.tvGameArena);
+        TextView tvArena = (TextView) findViewById(R.id.tvGameArena);
         TextView tvClock = (TextView) findViewById(R.id.tvGameScoreClock);
         TextView tvDuration = (TextView) findViewById(R.id.tvGameDuration);
         TextView tvGameStart = (TextView) findViewById(R.id.tvGameStartTime);
@@ -138,9 +140,9 @@ public class GameActivity extends AppCompatActivity {
         tvGameStart.setText("Start time: " + data.getString("startTime"));
         tvArena.setText(data.getString("arenaName") + " - " + data.getString("arenaCity"));
 
-        tvDuration.setText("Game duration: "+ data.getString("gameDuration"));
+        tvDuration.setText("Game duration: " + data.getString("gameDuration"));
 
-        if(data.getString("gameDuration").equals(":")){
+        if (data.getString("gameDuration").equals(":")) {
             tvDuration.setText("Yet to start.");
         }
 
