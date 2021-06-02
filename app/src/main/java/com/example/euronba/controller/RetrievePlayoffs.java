@@ -18,7 +18,7 @@ public class RetrievePlayoffs {
         JSONObject jobj;
 
         try {
-            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/" + year + "/scores/00_playoff_bracket.json").get();
+            jobj = new RetrieveInfo().execute("https://data.nba.net/v2015/json/mobile_teams/nba/" + year + "/scores/00_playoff_bracket.json").get();
 
             int i = 0;
 
