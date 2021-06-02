@@ -103,7 +103,8 @@ public class StandingsAdapter extends RecyclerView.Adapter<StandingsAdapter.Stan
             standingsViewHolder.tableRowStandings.setBackgroundResource(rowColor);
             Team tm = new Team().getTeamById(st.getTeamId(), activity);
 
-            standingsViewHolder.tvStandingsName.setText(tm.getFullName());
+            standingsViewHolder.tvStandingsName.setText(tm.getNickname());
+            standingsViewHolder.tvStandingsName.setTypeface(null, Typeface.BOLD);
             standingsViewHolder.tvStandingsWin.setText(st.getWin());
             standingsViewHolder.tvStandingsLosses.setText(st.getLoss());
             standingsViewHolder.tvStandingsPct.setText(st.getWinPct());

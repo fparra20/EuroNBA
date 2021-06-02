@@ -65,8 +65,8 @@ public class TeamActivity extends AppCompatActivity {
         ImageView ivTeamProfileLogo = findViewById(R.id.ivTeamProfileLogo);
 
         tvTeamProfileName.setText(tm.getFullName());
-        tvTeamProfileConference.setText(tm.getConfName());
-        tvTeamProfileDivision.setText(tm.getDivName());
+        tvTeamProfileConference.setText("Conf: "+tm.getConfName());
+        tvTeamProfileDivision.setText("Div: "+tm.getDivName());
         ivTeamProfileLogo.setImageResource(tm.getLogo());
     }
 

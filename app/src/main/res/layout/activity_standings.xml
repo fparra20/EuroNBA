@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:padding="0dp">
 
 
@@ -57,10 +58,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Western Conference"
-                        android:theme="@style/Theme.EuroNBA.ScoreName" />
+                        android:gravity="center"
+                        android:id="@+id/tvWestern"
+                        android:theme="@style/Theme.EuroNBA.ScoreNum" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="50dp"
                         android:id="@+id/recyclerViewStandingsWest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,10 +86,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Eastern Conference"
-                        android:theme="@style/Theme.EuroNBA.ScoreName" />
+                        android:gravity="center"
+                        android:theme="@style/Theme.EuroNBA.ScoreNum" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="50dp"
                         android:id="@+id/recyclerViewStandingsEast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
