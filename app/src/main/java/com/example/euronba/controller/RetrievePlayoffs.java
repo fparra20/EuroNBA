@@ -4,9 +4,10 @@ package com.example.euronba.controller;
 import com.example.euronba.model.PlayoffsBracket;
 import com.example.euronba.model.TeamPlayoffs;
 
-import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class RetrievePlayoffs {
 
@@ -17,67 +18,83 @@ public class RetrievePlayoffs {
         JSONObject jobj;
 
         try {
-            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/"+year+"/scores/00_playoff_bracket.json").get();
-
-            JSONArray series = jobj.getJSONObject("pb").getJSONArray("r").getJSONObject(0).getJSONArray("co").getJSONObject(0).getJSONArray("ser");
+            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/" + year + "/scores/00_playoff_bracket.json").get();
 
             int i = 0;
 
-            while (series.length() > i) {
+            JSONArray rounds = jobj.getJSONObject("pb").getJSONArray("r");
 
-                PlayoffsBracket po = new PlayoffsBracket();
+            while (rounds.length() > i) {
 
-                po.setRoundNum("1");
+                int j = 0;
+                JSONArray conferences = jobj.getJSONObject("pb").getJSONArray("r").getJSONObject(i).getJSONArray("co");
 
-                po.setConfName("East");
+                while (conferences.length() > j) {
+                    JSONArray series = jobj.getJSONObject("pb").getJSONArray("r").getJSONObject(i).getJSONArray("co").getJSONObject(j).getJSONArray("ser");
 
-                po.setGameNumber(series.getJSONObject(i).getInt("in"));
+                    int k = 0;
 
-                po.setIsSeriesCompleted(true);
+                    while (series.length() > k) {
+                        PlayoffsBracket po = new PlayoffsBracket();
 
-                po.setSummaryStatusText(series.getJSONObject(i).getString("seri"));
+                        po.setRoundNum(String.valueOf(rounds.getJSONObject(i).getInt("id")));
 
-                TeamPlayoffs bottomRow = new TeamPlayoffs();
+                        po.setConfName(conferences.getJSONObject(j).getString("val"));
 
-                bottomRow.setSeedNum(series.getJSONObject(i).getString("t2s"));
+                        po.setGameNumber(series.getJSONObject(k).getInt("in"));
 
-                bottomRow.setWins(String.valueOf(series.getJSONObject(i).getInt("t2w")));
+                        po.setSummaryStatusText(series.getJSONObject(k).getString("seri"));
 
-                bottomRow.setTeamId(series.getJSONObject(i).getString("tid2"));
+                        TeamPlayoffs bottomRow = new TeamPlayoffs();
 
-                TeamPlayoffs topRow = new TeamPlayoffs();
+                        bottomRow.setSeedNum(series.getJSONObject(k).getString("t2s"));
 
-                topRow.setSeedNum(series.getJSONObject(i).getString("t1s"));
+                        bottomRow.setWins(String.valueOf(series.getJSONObject(k).getInt("t2w")));
 
-                topRow.setWins(String.valueOf(series.getJSONObject(i).getInt("t1w")));
+                        bottomRow.setTeamId(series.getJSONObject(k).getString("tid2"));
 
-                topRow.setTeamId(series.getJSONObject(i).getString("tid1"));
+                        TeamPlayoffs topRow = new TeamPlayoffs();
 
-                po.setBottomRow(bottomRow);
+                        topRow.setSeedNum(series.getJSONObject(k).getString("t1s"));
 
-                po.setTopRow(topRow);
+                        topRow.setWins(String.valueOf(series.getJSONObject(k).getInt("t1w")));
 
-                poList.add(po);
+                        topRow.setTeamId(series.getJSONObject(k).getString("tid1"));
+
+                        po.setBottomRow(bottomRow);
+
+                        po.setTopRow(topRow);
+
+                        poList.add(po);
+
+                        k++;
+                    }
+
+                    j++;
+                }
 
                 i++;
-
             }
-      /*
-      i = 0;
-      while (playin.length() > i) {
-        PlayoffsBracket po = new PlayoffsBracket();
-        po.setRoundNum(playin.getJSONObject(i).getString("roundNum"));
-        TeamPlayoffs bottomRow = new TeamPlayoffs();
-        bottomRow.setSeedNum(playin.getJSONObject(i).getJSONObject("bottomRow").getString("seedNum"));
-        po.setBottomRow(bottomRow);
-        poList.add(po);
-        i++;
-      }
-       */
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return poList;
+    }
+
+    public ArrayList<PlayoffsBracket> getPlayOffsByYearConfRound(int year, String conf, String round){
+        ArrayList<PlayoffsBracket> poList = getPlayOffsByYear(year);
+
+        ArrayList<PlayoffsBracket> poFiltered = new ArrayList<>();
+
+        for(int i = 0 ; i<poList.size() ; i++){
+
+            if (poList.get(i).getConfName().equals(conf) && poList.get(i).getRoundNum().equals(round)) {
+                poFiltered.add(poList.get(i));
+            }
+        }
+
+        return poFiltered;
     }
 }

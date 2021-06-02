@@ -49,14 +49,18 @@ public class TeamListActivity extends AppCompatActivity {
                             Intent intent = new Intent(TeamListActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
+                        if (id == R.id.menu_teams) {
+                            Intent intent = new Intent(TeamListActivity.this, TeamListActivity.class);
+                            startActivity(intent);
+                        }
 
                         if (id == R.id.menu_standings) {
                             Intent intent = new Intent(TeamListActivity.this, StandingsPOActivity.class);
                             startActivity(intent);
                         }
 
-                        if (id == R.id.menu_teams) {
-                            Intent intent = new Intent(TeamListActivity.this, TeamListActivity.class);
+                        if (id == R.id.menu_playoffs) {
+                            Intent intent = new Intent(TeamListActivity.this, PlayOffsActivity.class);
                             startActivity(intent);
                         }
                         finish();

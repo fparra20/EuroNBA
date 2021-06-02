@@ -18,6 +18,10 @@ public class PlayoffsBracket {
     public ArrayList<PlayoffsBracket> getPlayOffsBracketByYear(int year){
         return new RetrievePlayoffs().getPlayOffsByYear(year);
     }
+
+    public ArrayList<PlayoffsBracket> getPlayOffsBracketByYearConfRound(int year, String conf, String round){
+        return new RetrievePlayoffs().getPlayOffsByYearConfRound(year,conf,round);
+    }
     public String getRoundNum() {
         return roundNum;
     }

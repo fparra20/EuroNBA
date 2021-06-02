@@ -52,7 +52,12 @@ public class StandingsPOActivity extends AppCompatActivity {
                         }
 
                         if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(StandingsPOActivity.this, WestStandingsFragment.class);
+                            Intent intent = new Intent(StandingsPOActivity.this, StandingsPOActivity.class);
+                            startActivity(intent);
+                        }
+
+                        if (id == R.id.menu_playoffs) {
+                            Intent intent = new Intent(StandingsPOActivity.this, PlayOffsActivity.class);
                             startActivity(intent);
                         }
                         finish();
@@ -86,6 +91,13 @@ public class StandingsPOActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
     }
 
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     // Crearemos las dos pestañas y y que cada una muestre un contenido fragment
@@ -103,15 +115,13 @@ public class StandingsPOActivity extends AppCompatActivity {
                     return new EastStandingsFragment();
                 case 1:
                     return new WestStandingsFragment();
-                case 2:
-                    return new PlayOffsFragment();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Nullable
@@ -122,8 +132,6 @@ public class StandingsPOActivity extends AppCompatActivity {
                     return "EAST";
                 case 1:
                     return "WEST";
-                case 2:
-                    return "PLAYOFFS";
             }
             return null;
         }

@@ -47,15 +47,18 @@ public class PlayerListActivity extends AppCompatActivity {
                             Intent intent = new Intent(PlayerListActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
-
-                        if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(PlayerListActivity.this, WestStandingsFragment.class);
+                        if (id == R.id.menu_teams) {
+                            Intent intent = new Intent(PlayerListActivity.this, TeamListActivity.class);
                             startActivity(intent);
                         }
 
+                        if (id == R.id.menu_standings) {
+                            Intent intent = new Intent(PlayerListActivity.this, StandingsPOActivity.class);
+                            startActivity(intent);
+                        }
 
-                        if (id == R.id.menu_teams) {
-                            Intent intent = new Intent(PlayerListActivity.this, TeamListActivity.class);
+                        if (id == R.id.menu_playoffs) {
+                            Intent intent = new Intent(PlayerListActivity.this, PlayOffsActivity.class);
                             startActivity(intent);
                         }
                         finish();
