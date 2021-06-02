@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,13 +27,13 @@ public class PlayOffsFragment extends Fragment {
 
         RecyclerView recyclerViewPlayoffs = (RecyclerView) inflater.inflate(R.layout.fragment_standings, container, false);
 
-        ArrayList<PlayoffsBracket> poBracket = new PlayoffsBracket().getPlayOffsBracketByYear(2019);
+        ArrayList<PlayoffsBracket> poBracket = new PlayoffsBracket().getPlayOffsBracketByYear(2020);
 
         PlayoffsAdapter adapterPo = new PlayoffsAdapter(poBracket, this.getActivity());
 
-        LinearLayoutManager linearLayoutManagerWest = new LinearLayoutManager(this.getContext());
+        LinearLayoutManager linearLayoutManagerPo = new LinearLayoutManager(this.getContext());
 
-        recyclerViewPlayoffs.setLayoutManager(linearLayoutManagerWest);
+        recyclerViewPlayoffs.setLayoutManager(linearLayoutManagerPo);
 
         recyclerViewPlayoffs.setAdapter(adapterPo);
 

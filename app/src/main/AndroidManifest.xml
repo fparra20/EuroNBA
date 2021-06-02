@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EuroNBA">
-        <activity android:name=".activities.StandingsPOActivity"></activity>
+        <activity android:name=".activities.PlayOffsActivity"></activity>
+        <activity android:name=".activities.StandingsPOActivity" />
         <activity
             android:name=".activities.WestStandingsFragment"
             android:label="@string/title_activity_standings"

@@ -32,6 +32,11 @@
         android:title="Standings"
         app:showAsAction="always"></item>
 
+    <item
+        android:id="@+id/menu_playoffs"
+        android:icon="@android:drawable/ic_lock_idle_alarm"
+        android:title="Playoffs Bracket"
+        app:showAsAction="always"></item>
 
     <item
         android:id="@+id/menu_favorites"

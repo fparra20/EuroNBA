@@ -4,10 +4,7 @@ package com.example.euronba.controller;
 import com.example.euronba.model.PlayoffsBracket;
 import com.example.euronba.model.TeamPlayoffs;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,15 +17,9 @@ public class RetrievePlayoffs {
         JSONObject jobj;
 
         try {
-            jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/" + year + "/playoffsBracket.json").get();
+            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/"+year+"/scores/00_playoff_bracket.json").get();
 
-            JSONArray series = jobj.getJSONArray("series");
-
-            try {
-                JSONArray playin = jobj.getJSONArray("playin");
-            } catch (Exception e) {
-
-            }
+            JSONArray series = jobj.getJSONObject("pb").getJSONArray("r").getJSONObject(0).getJSONArray("co").getJSONObject(0).getJSONArray("ser");
 
             int i = 0;
 
@@ -36,39 +27,31 @@ public class RetrievePlayoffs {
 
                 PlayoffsBracket po = new PlayoffsBracket();
 
-                po.setRoundNum(series.getJSONObject(i).getString("roundNum"));
+                po.setRoundNum("1");
 
-                po.setConfName(series.getJSONObject(i).getString("confName"));
+                po.setConfName("East");
 
-                po.setGameNumber(series.getJSONObject(i).getInt("gameNumber"));
+                po.setGameNumber(series.getJSONObject(i).getInt("in"));
 
-                po.setIsSeriesCompleted(series.getJSONObject(i).getBoolean("isSeriesCompleted"));
+                po.setIsSeriesCompleted(true);
 
-                po.setSeriesId(series.getJSONObject(i).getString("seriesId"));
-
-                po.setSummaryStatusText(series.getJSONObject(i).getString("summaryStatusText"));
+                po.setSummaryStatusText(series.getJSONObject(i).getString("seri"));
 
                 TeamPlayoffs bottomRow = new TeamPlayoffs();
 
-                bottomRow.setSeedNum(series.getJSONObject(i).getJSONObject("bottomRow").getString("seedNum"));
+                bottomRow.setSeedNum(series.getJSONObject(i).getString("t2s"));
 
-                bottomRow.setIsSeriesWinner(series.getJSONObject(i).getJSONObject("bottomRow").getBoolean("isSeriesWinner"));
+                bottomRow.setWins(String.valueOf(series.getJSONObject(i).getInt("t2w")));
 
-                bottomRow.setWins(series.getJSONObject(i).getJSONObject("bottomRow").getString("wins"));
-
-                bottomRow.setTeamId(series.getJSONObject(i).getJSONObject("bottomRow").getString("teamId"));
+                bottomRow.setTeamId(series.getJSONObject(i).getString("tid2"));
 
                 TeamPlayoffs topRow = new TeamPlayoffs();
 
-                topRow.setSeedNum(series.getJSONObject(i).getJSONObject("topRow").getString("seedNum"));
+                topRow.setSeedNum(series.getJSONObject(i).getString("t1s"));
 
-                topRow.setIsSeriesWinner(series.getJSONObject(i).getJSONObject("topRow").getBoolean("isSeriesWinner"));
+                topRow.setWins(String.valueOf(series.getJSONObject(i).getInt("t1w")));
 
-                topRow.setWins(series.getJSONObject(i).getJSONObject("topRow").getString("wins"));
-
-                topRow.setTeamId(series.getJSONObject(i).getJSONObject("topRow").getString("teamId"));
-
-                po.setRoundNum(series.getJSONObject(i).getString("roundNum"));
+                topRow.setTeamId(series.getJSONObject(i).getString("tid1"));
 
                 po.setBottomRow(bottomRow);
 

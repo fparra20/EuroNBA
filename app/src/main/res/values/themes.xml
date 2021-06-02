@@ -68,6 +68,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.EuroNBA.PlayoffsCard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
     <style name="Theme.EuroNBA.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.EuroNBA.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

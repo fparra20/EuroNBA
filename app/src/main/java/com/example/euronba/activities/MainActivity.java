@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, StandingsPOActivity.class);
                             startActivity(intent);
                         }
+
+                        if (id == R.id.menu_playoffs) {
+                            Intent intent = new Intent(MainActivity.this, PlayOffsActivity.class);
+                            startActivity(intent);
+                        }
                         finish();
                         return true;
                     }

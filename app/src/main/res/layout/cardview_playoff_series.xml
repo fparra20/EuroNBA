@@ -42,26 +42,22 @@
             android:theme="@style/Theme.EuroNBA.ScoreName" />
         <TextView
             android:id="@+id/tvPlayOffsTopTricode"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:gravity="right"
             android:singleLine="true"
             android:text="ATL"
-            android:theme="@style/Theme.EuroNBA.ScoreNum" />
+            android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
 
         <TextView
             android:id="@+id/tvPlayOffsTopWins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:gravity="right"
             android:singleLine="true"
             android:text="3"
-            android:theme="@style/Theme.EuroNBA.ScoreNum" />
+            android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
     </LinearLayout>
 
         <LinearLayout
@@ -97,26 +93,22 @@
                 android:theme="@style/Theme.EuroNBA.ScoreName" />
             <TextView
                 android:id="@+id/tvPlayOffsBottomTricode"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
                 android:singleLine="true"
                 android:text="ATL"
-                android:theme="@style/Theme.EuroNBA.ScoreNum" />
+                android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
 
             <TextView
                 android:id="@+id/tvPlayOffsBottomWins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:gravity="right"
                 android:singleLine="true"
                 android:text="3"
-                android:theme="@style/Theme.EuroNBA.ScoreNum" />
+                android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
         </LinearLayout>
     </LinearLayout>
 
