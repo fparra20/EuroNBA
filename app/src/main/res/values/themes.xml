@@ -57,6 +57,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="Theme.EuroNBA.StandingsCol" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
     <style name="Theme.EuroNBA.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

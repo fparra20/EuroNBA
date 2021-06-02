@@ -51,7 +51,7 @@ public class TeamListActivity extends AppCompatActivity {
                         }
 
                         if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(TeamListActivity.this, StandingsActivity.class);
+                            Intent intent = new Intent(TeamListActivity.this, StandingsPOActivity.class);
                             startActivity(intent);
                         }
 

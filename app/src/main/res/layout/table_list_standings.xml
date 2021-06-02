@@ -7,37 +7,44 @@
 
     <TextView
         android:id="@+id/tvStandingsName"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:layout_weight="5"
+        android:singleLine="true"
+        android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
         android:id="@+id/tvStandingsWin"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:layout_weight="2"
+        android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
         android:id="@+id/tvStandingsLosses"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
         android:id="@+id/tvStandingsPct"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
+        android:layout_weight="2.5"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
         android:id="@+id/tvStandingsStreak"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
         android:id="@+id/tvStandingsLastTen"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:theme="@style/Theme.EuroNBA.StandingsCol" />
 </LinearLayout>

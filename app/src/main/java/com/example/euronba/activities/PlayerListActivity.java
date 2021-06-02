@@ -49,7 +49,7 @@ public class PlayerListActivity extends AppCompatActivity {
                         }
 
                         if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(PlayerListActivity.this, StandingsActivity.class);
+                            Intent intent = new Intent(PlayerListActivity.this, WestStandingsFragment.class);
                             startActivity(intent);
                         }
 

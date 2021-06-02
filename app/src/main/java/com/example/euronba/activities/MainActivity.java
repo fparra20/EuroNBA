@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(MainActivity.this, StandingsActivity.class);
+                            Intent intent = new Intent(MainActivity.this, StandingsPOActivity.class);
                             startActivity(intent);
                         }
                         finish();
