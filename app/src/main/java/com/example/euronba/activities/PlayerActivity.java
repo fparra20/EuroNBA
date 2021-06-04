@@ -3,6 +3,8 @@ package com.example.euronba.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.euronba.R;
 import com.example.euronba.adapters.PlayerStatsAdapter;
 import com.example.euronba.controller.RetrievePlayerCareer;
+import com.example.euronba.model.Favorite;
 import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
 
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 public class PlayerActivity extends AppCompatActivity {
 
     public static final String EXTRA_PERSONID = "personId";
+    public static final String EXTRA_TEAMURL = "teamUrl";
+    Player p;
     ArrayList<Team> teamsList;
 
     @Override
@@ -31,16 +36,36 @@ public class PlayerActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ImageButton favButton = findViewById(R.id.ibFavPlayer);
 
         Bundle data = getIntent().getExtras();
 
         String personId = data.getString("personId");
 
-        fillPlayerInfo(personId);
+        String teamUrl = data.getString("teamUrl");
+
+        Player p = new Player().getPlayerProfileFromId(personId, teamUrl);
+
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Favorite favTeam = new Favorite();
+
+                favTeam.setId(personId);
+                favTeam.setType("player");
+                favTeam.setTeamUrl(teamUrl);
+                favTeam.setPersonName(p.getFirstName() + " " + p.getLastName());
+
+                favTeam.insertFav(PlayerActivity.this);
+            }
+        });
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        fillPlayerInfo(p);
 
         fillPlayerStats(personId);
     }
@@ -55,42 +80,26 @@ public class PlayerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void fillPlayerInfo(String personId) {
+    public void fillPlayerInfo(Player p) {
 
         TextView tvPlayerProfileName = findViewById(R.id.tvPlayerProfileName);
         TextView tvPlayerProfilePos = findViewById(R.id.tvPlayerProfilePos);
         TextView tvPlayerProfileBirthdate = findViewById(R.id.tvPlayerProfileBirthdate);
-        TextView tvPlayerProfileDraft = findViewById(R.id.tvPlayerProfileDraft);
         TextView tvPlayerProfileCollege = findViewById(R.id.tvPlayerProfileCollege);
-        TextView tvPlayerProfileCountry = findViewById(R.id.tvPlayerProfileCountry);
         TextView tvPlayerProfileHeight = findViewById(R.id.tvPlayerProfileHeight);
         TextView tvPlayerProfileWeight = findViewById(R.id.tvPlayerProfileWeight);
         TextView tvPlayerProfileYearsPro = findViewById(R.id.tvPlayerProfileYearsPro);
-        TextView tvPlayerProfileDebutYear = findViewById(R.id.tvPlayerProfileDebutYear);
         ImageView ivPlayerProfileTeamLogo = findViewById(R.id.ivPlayerProfileTeamLogo);
-
-        Player p = new Player().getPlayerProfileFromId(personId);
 
         tvPlayerProfileName.setText(p.getFirstName() + " " + p.getLastName());
         tvPlayerProfilePos.setText("#" + p.getJersey() + " - " + p.getPos());
         tvPlayerProfileBirthdate.setText(p.getDateOfBirthUTC() + " - Age " + p.getAge());
 
-        if (p.getDraft().getPickNum().equals("") || p.getDraft().getPickNum().isEmpty()) {
-            tvPlayerProfileDraft.setText("Draft: Not drafted.");
-        } else {
-            Team tmDraft = new Team().getTeamById(p.getDraft().getDraftedTeamId(), this.getApplicationContext());
-
-            tvPlayerProfileDraft.setText("Draft: " + p.getDraft().getSeasonYear() + " by " + tmDraft.getFullName() + ", Pick " + p.getDraft().getPickNum() + ", Round " + p.getDraft().getRoundNum());
-
-        }
-
         Team tmCurrent = new Team().getTeamById(p.getTeamId(), this.getApplicationContext());
         tvPlayerProfileCollege.setText("College: " + p.getCollegeName());
-        tvPlayerProfileCountry.setText("Country: " + p.getCountry());
-        tvPlayerProfileHeight.setText("Height: " + p.getHeightMeters() + " m");
-        tvPlayerProfileWeight.setText("Weight: " + p.getWeightKilograms() + " kg");
+        tvPlayerProfileHeight.setText("Height: " + p.getHeightFt() + " m");
+        tvPlayerProfileWeight.setText("Weight: " + p.getWeightLbs() + " kg");
         tvPlayerProfileYearsPro.setText("Years Pro: " + p.getYearsPro());
-        tvPlayerProfileDebutYear.setText("Debut: " + p.getNbaDebutYear());
         ivPlayerProfileTeamLogo.setImageResource(tmCurrent.getLogo());
     }
 

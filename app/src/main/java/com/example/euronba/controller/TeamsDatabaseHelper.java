@@ -11,7 +11,7 @@ import com.example.euronba.R;
 public class TeamsDatabaseHelper extends SQLiteOpenHelper {
 
     //Constantes para definir los parametros básicos para crear la BD
-    private static final String DB_NAME = "TEAMS"; //Nombre de la BD
+    private static final String DB_NAME = "TEAMSv1"; //Nombre de la BD
     private static final int DB_VERSION = 1; //Version de la BD
 
     //Constructor de la clase, llamamos al constructor de la superclase
@@ -55,8 +55,8 @@ public class TeamsDatabaseHelper extends SQLiteOpenHelper {
                     + "URLNAME TEXT);");
             //El metodo auxiliar insertPet lo creamos para insertar varios filas
             insertTeam(db, R.drawable.bos, "1610612738", "Boston", "Celtics", "Boston Celtics", "BOS", "East", "Atlantic", "celtics");
-            insertTeam(db, R.drawable.brk, "1610612751", "Brooklyin", "Nets", "Brooklyin Nets", "BKN", "East", "Atlantic", "nets");
-            insertTeam(db, R.drawable.phi, "1610612755", "Philadelphia", "76ers", "Philadelphia 76ers", "PHI", "East", "Atlantic", "sixers");
+            insertTeam(db, R.drawable.brk, "1610612751", "Brooklyn", "Nets", "Brooklyn Nets", "BKN", "East", "Atlantic", "nets");
+            insertTeam(db, R.drawable.phi, "1610612755", "Philadelphia", "76ers", "Philadelphia 76ers", "PHI", "East", "Atlantic", "76ers");
             insertTeam(db, R.drawable.nyk, "1610612752", "New York", "Knicks", "New York Knicks", "NYK", "East", "Atlantic", "knicks");
             insertTeam(db, R.drawable.tor, "1610612761", "Toronto", "Raptors", "Toronto Raptors", "TOR", "East", "Atlantic", "raptors");
 
@@ -81,7 +81,7 @@ public class TeamsDatabaseHelper extends SQLiteOpenHelper {
             insertTeam(db, R.drawable.den, "1610612743", "Denver", "Nuggets", "Denver Nuggets", "DEN", "West", "Northwest", "nuggets");
             insertTeam(db, R.drawable.min, "1610612750", "Minnesota", "Timberwolves", "Minnesota Timberwolves", "MIN", "West", "Northwest", "timberwolves");
             insertTeam(db, R.drawable.okc, "1610612760", "Oklahoma City", "Thunder", "Oklahoma City Thunder", "OKC", "West", "Northwest", "thunder");
-            insertTeam(db, R.drawable.por, "1610612757", "Portland", "Trail Blazers", "Portland Trail Blazers", "POR", "West", "Northwest", "blazers");
+            insertTeam(db, R.drawable.por, "1610612757", "Portland", "Trail Blazers", "Portland Trail Blazers", "POR", "West", "Northwest", "trail_blazers");
             insertTeam(db, R.drawable.uta, "1610612762", "Utah", "Jazz", "Utah Jazz", "UTA", "West", "Northwest", "jazz");
 
             insertTeam(db, R.drawable.gsw, "1610612744", "Golden State", "Warriors", "Golden State Warriors", "GSW", "West", "Pacific", "warriors");

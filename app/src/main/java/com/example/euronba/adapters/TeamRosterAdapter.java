@@ -98,7 +98,7 @@ public class TeamRosterAdapter extends RecyclerView.Adapter<TeamRosterAdapter.Te
             teamRostervh.tvTeamRosterPlayerName.setText(player.getFirstName() + " "+player.getLastName());
             teamRostervh.tvTeamRosterPosition.setText(player.getPos());
             teamRostervh.tvTeamRosterAge.setText(player.getYearsPro());
-            teamRostervh.tvTeamRosterCountry.setText(player.getCountry());
+            teamRostervh.tvTeamRosterCountry.setText(player.getYearsPro());
 
             teamRostervh.tvTeamRosterPlayerName.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,6 +106,7 @@ public class TeamRosterAdapter extends RecyclerView.Adapter<TeamRosterAdapter.Te
                     Intent intent = new Intent(v.getContext(), PlayerActivity.class);
 
                     intent.putExtra(PlayerActivity.EXTRA_PERSONID, player.getPersonId());
+                    intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tm.getUrlName());
 
                     activity.startActivity(intent);
                 }

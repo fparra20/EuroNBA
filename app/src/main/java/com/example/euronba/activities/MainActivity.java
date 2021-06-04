@@ -3,6 +3,7 @@ package com.example.euronba.activities;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
                         if (id == R.id.menu_playoffs) {
                             Intent intent = new Intent(MainActivity.this, PlayOffsActivity.class);
+                            startActivity(intent);
+                        }
+
+                        if (id == R.id.menu_favorites) {
+                            Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
                             startActivity(intent);
                         }
                         finish();

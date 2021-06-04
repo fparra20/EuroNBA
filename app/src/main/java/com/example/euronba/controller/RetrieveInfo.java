@@ -2,9 +2,12 @@ package com.example.euronba.controller;
 
 import android.os.AsyncTask;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -38,7 +41,11 @@ public class RetrieveInfo extends AsyncTask<String, Integer, JSONObject> {
 
             jobj = new JSONObject(inline);
 
-        } catch (Exception e) {
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return jobj;

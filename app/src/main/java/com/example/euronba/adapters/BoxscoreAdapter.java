@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.euronba.R;
 import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.model.Boxscore;
+import com.example.euronba.model.Team;
 
 import java.util.List;
 
@@ -117,12 +118,16 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
             rowViewHolder.tvPlayerBoxAssists.setText(playerBox.getTotReb());
             rowViewHolder.tvPlayerBoxTotReb.setText(playerBox.getAssists());
 
+            String tmUrl = new Team().getTeamById(playerBox.getTeamId(),activity).getUrlName();
             rowViewHolder.tvPlayerBoxName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), PlayerActivity.class);
 
                     intent.putExtra(PlayerActivity.EXTRA_PERSONID, playerBox.getPersonId());
+                    intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tmUrl);
+
+                    System.out.println(tmUrl);
 
                     activity.startActivity(intent);
                 }

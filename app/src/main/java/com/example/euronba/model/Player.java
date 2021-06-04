@@ -3,10 +3,10 @@ package com.example.euronba.model;
 import com.example.euronba.controller.RetrievePlayer;
 import com.example.euronba.controller.RetrievePlayerCareer;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Player {
@@ -16,18 +16,12 @@ public class Player {
     public String personId;
     public String teamId;
     public String jersey;
-    public boolean isActive;
     public String pos;
-    public String heightMeters;
-    public String weightKilograms;
+    public String heightFt;
+    public String weightLbs;
     public String dateOfBirthUTC;
-    public String age;
-    public List<PlayerTeams> teams;
-    public PlayerDraft draft;
-    public String nbaDebutYear;
     public String yearsPro;
     public String collegeName;
-    public String lastAffiliation;
     public String country;
 
     public Player() {
@@ -59,11 +53,11 @@ public class Player {
         return rpc.getPlayerStatsFromID(playerId);
     }
 
-    public Player getPlayerProfileFromId(String playerId) {
+    public Player getPlayerProfileFromId(String playerId, String teamUrl) {
 
         RetrievePlayer rpc = new RetrievePlayer();
 
-        return rpc.getPlayerInfoById(playerId);
+        return rpc.getPlayerInfoById(playerId, teamUrl);
     }
 
     public ArrayList<Player> getAllPlayers() {
@@ -73,11 +67,11 @@ public class Player {
         return rpc.getPlayers();
     }
 
-    public ArrayList<Player> getPlayersByTeamId(String id) {
+    public ArrayList<Player> getPlayersByTeamUrl(String teamUrl) {
 
         RetrievePlayer rpc = new RetrievePlayer();
 
-        return rpc.getPlayersByTeamId(id);
+        return rpc.getPlayersByTeamUrl(teamUrl);
     }
 
     public String getFirstName() {
@@ -120,14 +114,6 @@ public class Player {
         this.jersey = jersey;
     }
 
-    public boolean isIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
     public String getPos() {
         return pos;
     }
@@ -136,20 +122,35 @@ public class Player {
         this.pos = pos;
     }
 
-    public String getHeightMeters() {
-        return heightMeters;
+    public String getHeightFt() {
+
+        String[] hs = heightFt.split("-");
+
+        int foot = Integer.parseInt(hs[0]);
+        int inches = Integer.parseInt(hs[1]);
+
+        double heightMeters = (foot + inches / 12.0) * 0.3048;
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        return df.format(heightMeters);
     }
 
-    public void setHeightMeters(String heightMeters) {
-        this.heightMeters = heightMeters;
+    public void setHeightFt(String heightFt) {
+        this.heightFt = heightFt;
     }
 
-    public String getWeightKilograms() {
-        return weightKilograms;
+    public String getWeightLbs() {
+
+        double weightKg = Integer.parseInt(weightLbs) * 0.45;
+
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        return df.format(weightKg);
     }
 
-    public void setWeightKilograms(String weightKilograms) {
-        this.weightKilograms = weightKilograms;
+    public void setWeightLbs(String weightLbs) {
+        this.weightLbs = weightLbs;
     }
 
     public String getDateOfBirthUTC() {
@@ -160,31 +161,12 @@ public class Player {
         this.dateOfBirthUTC = dateOfBirthUTC;
     }
 
-    public List<PlayerTeams> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(List<PlayerTeams> teams) {
-        this.teams = teams;
-    }
-
-    public PlayerDraft getDraft() {
-        return draft;
-    }
-
-    public void setDraft(PlayerDraft draft) {
-        this.draft = draft;
-    }
-
-    public String getNbaDebutYear() {
-        return nbaDebutYear;
-    }
-
-    public void setNbaDebutYear(String nbaDebutYear) {
-        this.nbaDebutYear = nbaDebutYear;
-    }
-
     public String getYearsPro() {
+
+        if(yearsPro.equals("0")){
+            yearsPro="R";
+        }
+
         return yearsPro;
     }
 
@@ -198,18 +180,6 @@ public class Player {
 
     public void setCollegeName(String collegeName) {
         this.collegeName = collegeName;
-    }
-
-    public String getLastAffiliation() {
-        return lastAffiliation;
-    }
-
-    public void setLastAffiliation(String lastAffiliation) {
-        this.lastAffiliation = lastAffiliation;
-    }
-
-    public String getCountry() {
-        return country;
     }
 
     public void setCountry(String country) {

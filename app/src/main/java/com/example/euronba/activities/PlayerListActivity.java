@@ -1,8 +1,12 @@
 package com.example.euronba.activities;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,16 +22,17 @@ import com.example.euronba.model.Player;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class PlayerListActivity extends AppCompatActivity {
 
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_list);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
@@ -74,24 +79,21 @@ public class PlayerListActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        ArrayList<Player> pList = new Player().getAllPlayers();
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ArrayList<Player> pList = new Player().getAllPlayers();
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
         RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvPlayerList);
 
         // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
-        PlayerListAdapter plAdapter = new PlayerListAdapter(pList, this);
+        PlayerListAdapter plAdapter = new PlayerListAdapter(pList, PlayerListActivity.this);
 
         // Enlaza el objeto recyclerview al adaptador
         mainRecycler.setAdapter(plAdapter);
 
         // Crea un nuevo Layout para mostrar la lista de los RecyclerView
-        mainRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-
-        // to make the Navigation drawer icon always appear on the action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        mainRecycler.setLayoutManager(new LinearLayoutManager(PlayerListActivity.this));
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

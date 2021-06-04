@@ -91,7 +91,6 @@ public class TeamListActivity extends AppCompatActivity {
         // Crea un nuevo Layout para mostrar la lista de los RecyclerView
         mainRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -59,11 +59,11 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     public void onBindViewHolder(@NonNull PlayerListAdapter.PlayerListViewHolder pListViewHolder, int position) {
         Player player = playerList.get(position);
 
-        Team tm = new Team();
+        Team tm = new Team().getTeamById(player.getTeamId(), activity);
 
         pListViewHolder.tvPlayerListName.setText(player.getFirstName() + " " + player.getLastName());
         pListViewHolder.tvPlayerListPositionJersey.setText(player.getPos() + " #" + player.getJersey());
-        pListViewHolder.ivPlayerListTeamLogo.setImageResource(tm.getTeamById(player.getTeamId(), activity.getApplicationContext()).getLogo());
+        pListViewHolder.ivPlayerListTeamLogo.setImageResource(tm.getLogo());
 
         pListViewHolder.cvPlayerList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +71,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
                 Intent intent = new Intent(activity.getApplicationContext(), PlayerActivity.class);
 
                 intent.putExtra(PlayerActivity.EXTRA_PERSONID, player.getPersonId());
+                intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tm.getUrlName());
 
                 activity.startActivity(intent);
             }

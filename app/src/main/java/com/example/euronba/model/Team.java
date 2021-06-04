@@ -49,7 +49,7 @@ public class Team {
 
         // Crea una consulta en la tabla TEAMS con todas sus columnas
         // Además, las ordena por nombre de ciudad alfabéticamente
-        Cursor cursor = db.query("TEAMS",
+        Cursor cursor = db.query("TEAMSv1",
                 new String[]{"IMAGE_LOGO", "TEAM_ID", "CITY", "NICKNAME", "FULLNAME", "TRICODE", "CONFNAME", "DIVNAME", "URLNAME"}, null,
                 null, null, null, "CITY");
 

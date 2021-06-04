@@ -1,13 +1,16 @@
 package com.example.euronba.controller;
 
 import com.example.euronba.model.Player;
-import com.example.euronba.model.PlayerDraft;
-import com.example.euronba.model.PlayerTeams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * @author Usuario
@@ -34,66 +37,79 @@ public class RetrievePlayer {
 
                 player.setPersonId(data.getJSONObject(i).getString("personId"));
 
-                player.setCollegeName(data.getJSONObject(i).getString("collegeName"));
-
-                player.setCountry(data.getJSONObject(i).getString("country"));
-
-                player.setDateOfBirthUTC(data.getJSONObject(i).getString("dateOfBirthUTC"));
-
                 player.setFirstName(data.getJSONObject(i).getString("firstName"));
-
-                PlayerDraft pD = new PlayerDraft();
-
-                pD.setSeasonYear(data.getJSONObject(i).getJSONObject("draft").getString("seasonYear"));
-
-                pD.setPickNum(data.getJSONObject(i).getJSONObject("draft").getString("pickNum"));
-
-                pD.setRoundNum(data.getJSONObject(i).getJSONObject("draft").getString("roundNum"));
-
-                pD.setDraftedTeamId(data.getJSONObject(i).getJSONObject("draft").getString("teamId"));
-
-                player.setDraft(pD);
-
-                player.setHeightMeters(data.getJSONObject(i).getString("heightMeters"));
-
-                player.setIsActive(data.getJSONObject(i).getBoolean("isActive"));
-
-                player.setJersey(data.getJSONObject(i).getString("jersey"));
-
-                player.setLastAffiliation(data.getJSONObject(i).getString("lastAffiliation"));
 
                 player.setLastName(data.getJSONObject(i).getString("lastName"));
 
-                player.setNbaDebutYear(data.getJSONObject(i).getString("nbaDebutYear"));
-
-                player.setPersonId(data.getJSONObject(i).getString("personId"));
+                player.setJersey(data.getJSONObject(i).getString("jersey"));
 
                 player.setPos(data.getJSONObject(i).getString("pos"));
 
                 player.setTeamId(data.getJSONObject(i).getString("teamId"));
 
-                ArrayList<PlayerTeams> tmList = new ArrayList<>();
-
-                JSONArray tmArray = data.getJSONObject(i).getJSONArray("teams");
-
-                for (int j = 0; j < tmArray.length(); j++) {
-                    PlayerTeams tm = new PlayerTeams();
-
-                    tm.setTeamId(tmArray.getJSONObject(j).getString("teamId"));
-                    tm.setSeasonStart(tmArray.getJSONObject(j).getString("seasonStart"));
-                    tm.setSeasonEnd(tmArray.getJSONObject(j).getString("seasonEnd"));
-
-                    tmList.add(tm);
-                }
-
-                player.setTeams(tmList);
-
-                player.setWeightKilograms(data.getJSONObject(i).getString("weightKilograms"));
-
-                player.setYearsPro(data.getJSONObject(i).getString("yearsPro"));
-
                 pList.add(player);
 
+                i++;
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return pList;
+    }
+
+    public Player getPlayerInfoById(String id, String teamUrl) {
+
+
+        Player player = new Player();
+
+        JSONObject jobj;
+
+        try {
+
+            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
+
+            JSONObject dataTeam = jobj.getJSONObject("t");
+
+            JSONArray dataPlayer = jobj.getJSONObject("t").getJSONArray("pl");
+
+            int i = 0;
+
+            while (dataPlayer.length() > i) {
+
+                if (dataPlayer.getJSONObject(i).getString("pid").equals(id)) {
+
+                    player.setPersonId(dataPlayer.getJSONObject(i).getString("pid"));
+
+                    player.setCollegeName(dataPlayer.getJSONObject(i).getString("hcc"));
+
+                    player.setCountry(dataPlayer.getJSONObject(i).getString("hcc"));
+
+                    player.setDateOfBirthUTC(dataPlayer.getJSONObject(i).getString("dob"));
+
+                    player.setFirstName(dataPlayer.getJSONObject(i).getString("fn"));
+
+                    player.setHeightFt(dataPlayer.getJSONObject(i).getString("ht"));
+
+                    player.setJersey(dataPlayer.getJSONObject(i).getString("num"));
+
+                    player.setLastName(dataPlayer.getJSONObject(i).getString("ln"));
+
+                    player.setPos(dataPlayer.getJSONObject(i).getString("pos"));
+
+                    player.setTeamId(dataTeam.getString("tid"));
+
+                    player.setWeightLbs(dataPlayer.getJSONObject(i).getString("wt"));
+
+                    player.setYearsPro(dataPlayer.getJSONObject(i).getString("y"));
+                }
                 i++;
 
             }
@@ -101,26 +117,11 @@ public class RetrievePlayer {
             e.printStackTrace();
         }
 
-        return pList;
-    }
-
-    public Player getPlayerInfoById(String id) {
-
-        ArrayList<Player> allPlayers = getPlayers();
-
-        Player p = new Player();
-
-        for (int i = 0; i < allPlayers.size(); i++) {
-            if (allPlayers.get(i).getPersonId().equals(id)) {
-
-                p = allPlayers.get(i);
-            }
-        }
-        return p;
+        return player;
     }
 
 
-    public ArrayList<Player> getPlayersByTeamId(String id) {
+    public ArrayList<Player> getPlayersByTeamUrl(String teamUrl) {
 
         ArrayList<Player> pList = new ArrayList<>();
 
@@ -128,81 +129,47 @@ public class RetrievePlayer {
 
         try {
 
-            jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/2020/players.json").get();
+            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
 
-            JSONArray data = jobj.getJSONObject("league").getJSONArray("standard");
+            JSONObject dataTeam = jobj.getJSONObject("t");
+
+            JSONArray dataPlayer = jobj.getJSONObject("t").getJSONArray("pl");
 
             int i = 0;
 
-            while (data.length() > i) {
+            while (dataPlayer.length() > i) {
 
                 Player player = new Player();
 
-                // Si el jugador es de ese equipo
-                if(data.getJSONObject(i).getString("teamId").equals(id)) {
-                    player.setPersonId(data.getJSONObject(i).getString("personId"));
+                player.setPersonId(dataPlayer.getJSONObject(i).getString("pid"));
 
-                    player.setCollegeName(data.getJSONObject(i).getString("collegeName"));
+                player.setCollegeName(dataPlayer.getJSONObject(i).getString("hcc"));
 
-                    player.setCountry(data.getJSONObject(i).getString("country"));
+                player.setCountry(dataPlayer.getJSONObject(i).getString("hcc"));
 
-                    player.setDateOfBirthUTC(data.getJSONObject(i).getString("dateOfBirthUTC"));
+                player.setDateOfBirthUTC(dataPlayer.getJSONObject(i).getString("dob"));
 
-                    player.setFirstName(data.getJSONObject(i).getString("firstName"));
+                player.setFirstName(dataPlayer.getJSONObject(i).getString("fn"));
 
-                    PlayerDraft pD = new PlayerDraft();
+                player.setHeightFt(dataPlayer.getJSONObject(i).getString("ht"));
 
-                    pD.setSeasonYear(data.getJSONObject(i).getJSONObject("draft").getString("seasonYear"));
+                player.setJersey(dataPlayer.getJSONObject(i).getString("num"));
 
-                    pD.setPickNum(data.getJSONObject(i).getJSONObject("draft").getString("pickNum"));
+                player.setLastName(dataPlayer.getJSONObject(i).getString("ln"));
 
-                    pD.setRoundNum(data.getJSONObject(i).getJSONObject("draft").getString("roundNum"));
+                player.setPos(dataPlayer.getJSONObject(i).getString("pos"));
 
-                    pD.setDraftedTeamId(data.getJSONObject(i).getJSONObject("draft").getString("teamId"));
+                player.setTeamId(dataTeam.getString("tid"));
 
-                    player.setDraft(pD);
+                player.setWeightLbs(dataPlayer.getJSONObject(i).getString("wt"));
 
-                    player.setHeightMeters(data.getJSONObject(i).getString("heightMeters"));
+                player.setYearsPro(dataPlayer.getJSONObject(i).getString("y"));
 
-                    player.setIsActive(data.getJSONObject(i).getBoolean("isActive"));
+                pList.add(player);
 
-                    player.setJersey(data.getJSONObject(i).getString("jersey"));
-
-                    player.setLastAffiliation(data.getJSONObject(i).getString("lastAffiliation"));
-
-                    player.setLastName(data.getJSONObject(i).getString("lastName"));
-
-                    player.setNbaDebutYear(data.getJSONObject(i).getString("nbaDebutYear"));
-
-                    player.setPersonId(data.getJSONObject(i).getString("personId"));
-
-                    player.setPos(data.getJSONObject(i).getString("pos"));
-
-                    player.setTeamId(data.getJSONObject(i).getString("teamId"));
-
-                    ArrayList<PlayerTeams> tmList = new ArrayList<>();
-
-                    JSONArray tmArray = data.getJSONObject(i).getJSONArray("teams");
-
-                    for (int j = 0; j < tmArray.length(); j++) {
-                        PlayerTeams tm = new PlayerTeams();
-
-                        tm.setTeamId(tmArray.getJSONObject(j).getString("teamId"));
-                        tm.setSeasonStart(tmArray.getJSONObject(j).getString("seasonStart"));
-                        tm.setSeasonEnd(tmArray.getJSONObject(j).getString("seasonEnd"));
-
-                        tmList.add(tm);
-                    }
-
-                    player.setTeams(tmList);
-
-                    player.setWeightKilograms(data.getJSONObject(i).getString("weightKilograms"));
-
-                    player.setYearsPro(data.getJSONObject(i).getString("yearsPro"));
-
-                    pList.add(player);
-                }
                 i++;
+
+                System.out.println(player.getFirstName());
 
             }
         } catch (Exception e) {

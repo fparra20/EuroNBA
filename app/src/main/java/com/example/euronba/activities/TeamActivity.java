@@ -1,13 +1,18 @@
 package com.example.euronba.activities;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +20,7 @@ import com.example.euronba.R;
 import com.example.euronba.adapters.PlayerStatsAdapter;
 import com.example.euronba.adapters.TeamRosterAdapter;
 import com.example.euronba.controller.RetrievePlayerCareer;
+import com.example.euronba.model.Favorite;
 import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
 
@@ -30,11 +36,7 @@ public class TeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ImageButton favButton = findViewById(R.id.ibFavTeam);
 
         Bundle data = getIntent().getExtras();
 
@@ -43,6 +45,28 @@ public class TeamActivity extends AppCompatActivity {
         fillTeamInfo(personId);
 
         fillTeamRoster(personId);
+
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Favorite favTeam = new Favorite();
+
+                favTeam.setId(data.getString("teamId"));
+                favTeam.setType("team");
+
+                favTeam.insertFav(TeamActivity.this);
+
+                favButton.setImageResource(android.R.drawable.star_on);
+
+                Toast.makeText(TeamActivity.this, "Añadido!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     @Override
@@ -72,9 +96,11 @@ public class TeamActivity extends AppCompatActivity {
 
     public void fillTeamRoster(String teamId) {
 
+        Team tm = new Team().getTeamById(teamId, TeamActivity.this);
+
         RecyclerView recyclerView = findViewById(R.id.recyclerViewTeamProfileRoster);
 
-        ArrayList<Player> teamRoster = new Player().getPlayersByTeamId(teamId);
+        ArrayList<Player> teamRoster = new Player().getPlayersByTeamUrl(tm.getUrlName());
 
         TeamRosterAdapter adapter = new TeamRosterAdapter(teamRoster, this);
 

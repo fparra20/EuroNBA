@@ -11,12 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EuroNBA">
-        <activity android:name=".activities.PlayOffsActivity"></activity>
+        <activity android:name=".activities.FavoritesActivity"></activity>
+        <activity android:name=".activities.PlayOffsActivity" />
         <activity android:name=".activities.StandingsPOActivity" />
-        <activity
-            android:name=".activities.WestStandingsFragment"
-            android:label="@string/title_activity_standings"
-            android:theme="@style/Theme.EuroNBA.NoActionBar" />
         <activity android:name=".activities.TeamListActivity" />
         <activity android:name=".activities.TeamActivity" />
         <activity android:name=".activities.PlayerListActivity" />
