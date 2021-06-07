@@ -1,14 +1,5 @@
 package com.example.euronba.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,12 +7,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
-import com.example.euronba.adapters.PlayerListAdapter;
 import com.example.euronba.adapters.PlayoffsAdapter;
-import com.example.euronba.model.Player;
 import com.example.euronba.model.PlayoffsBracket;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,7 +29,7 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
     RecyclerView eastRecycler;
     RecyclerView westRecycler;
     Spinner spin;
-    String[] rounds = { "First Round", "Conference Semifinals", "Conference Finals", "The Finals" };
+    String[] rounds = {"First Round", "Conference Semifinals", "Conference Finals", "The Finals"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,37 +41,8 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
 
         setSupportActionBar(toolbar);
 
-        nv.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
-                        int id = item.getItemId();
-                        if (id == R.id.menu_players) {
-                            Intent intent = new Intent(PlayOffsActivity.this, PlayerListActivity.class);
-                            startActivity(intent);
-                        }
-                        if (id == R.id.menu_home) {
-                            Intent intent = new Intent(PlayOffsActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                        if (id == R.id.menu_teams) {
-                            Intent intent = new Intent(PlayOffsActivity.this, TeamListActivity.class);
-                            startActivity(intent);
-                        }
-
-                        if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(PlayOffsActivity.this, StandingsPOActivity.class);
-                            startActivity(intent);
-                        }
-
-                        if (id == R.id.menu_playoffs) {
-                            Intent intent = new Intent(PlayOffsActivity.this, PlayOffsActivity.class);
-                            startActivity(intent);
-                        }
-                        finish();
-                        return true;
-                    }
-                });
+        // Método que contiene el listener del menú despleglable lateral
+        startNavigationListener(nv);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -96,7 +63,8 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
 
         spin.setOnItemSelectedListener(this);
 
-}
+    }
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
@@ -106,26 +74,35 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        switch (position){
-            case 0 : populateRecyclerView("1"); break;
-            case 1 : populateRecyclerView("2"); break;
-            case 2 : populateRecyclerView("3"); break;
-            case 3 : populateRecyclerView("4"); break;
+        switch (position) {
+            case 0:
+                populateRecyclerView("1");
+                break;
+            case 1:
+                populateRecyclerView("2");
+                break;
+            case 2:
+                populateRecyclerView("3");
+                break;
+            case 3:
+                populateRecyclerView("4");
+                break;
         }
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
         populateRecyclerView("1");
     }
 
-    public void populateRecyclerView(String round){
+    public void populateRecyclerView(String round) {
 
-        ArrayList<PlayoffsBracket> poEastBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020,"East", round);
+        ArrayList<PlayoffsBracket> poEastBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020, "East", round);
 
-        ArrayList<PlayoffsBracket> poWestBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020,"West", round);
+        ArrayList<PlayoffsBracket> poWestBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020, "West", round);
 
-        if(round.equals("4")){
-            poEastBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020,"NBA Finals", round);
+        if (round.equals("4")) {
+            poEastBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020, "NBA Finals", round);
         }
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
         eastRecycler = (RecyclerView) findViewById(R.id.rvPlayOffsEast);
@@ -152,5 +129,75 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
         // Enlaza el objeto recyclerview al adaptador
         westRecycler.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    public void startNavigationListener(NavigationView nv) {
+
+        // Implementa el listener para el menú lateral desplegrable.
+        nv.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+
+                        // Variable que almacena el id de la opción seleccionada.
+                        int id = item.getItemId();
+
+                        // Crea una variable de tipo intent que se rellenará según la opción
+                        Intent intent = null;
+
+                        // Controla que se haya pulsado sobre la opción "Players"
+                        if (id == R.id.menu_players) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(PlayOffsActivity.this, PlayerListActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Home"
+                        if (id == R.id.menu_home) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(PlayOffsActivity.this, MainActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Teams"
+                        if (id == R.id.menu_teams) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(PlayOffsActivity.this, TeamListActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Standings"
+                        if (id == R.id.menu_standings) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(PlayOffsActivity.this, StandingsActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Playoffs"
+                        if (id == R.id.menu_playoffs) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(PlayOffsActivity.this, PlayOffsActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Favorites"
+                        if (id == R.id.menu_favorites) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(PlayOffsActivity.this, FavoritesActivity.class);
+                        }
+
+                        // Controla que intent tenga algún valor de los anteriores
+                        if (intent != null)
+
+                            // Inicia la actividad correspondiente
+                            startActivity(intent);
+
+                        // Finaliza la actividad actual
+                        finish();
+
+                        return true;
+                    }
+                });
     }
 }

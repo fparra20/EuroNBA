@@ -6,11 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * @author Usuario
@@ -54,11 +51,9 @@ public class RetrievePlayer {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        catch (ExecutionException e) {
+        } catch (ExecutionException e) {
             e.printStackTrace();
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.euronba.R;
 import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.model.Player;
-import com.example.euronba.model.PlayerStats;
 import com.example.euronba.model.Team;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class TeamRosterAdapter extends RecyclerView.Adapter<TeamRosterAdapter.Te
         private TextView tvTeamRosterPlayerName;
         private TextView tvTeamRosterPosition;
         private TextView tvTeamRosterAge;
-        private TextView tvTeamRosterCountry;
+        private TextView tvTeamRosterCollege;
         private LinearLayout tableRowTeamRoster;
 
 
@@ -43,7 +42,7 @@ public class TeamRosterAdapter extends RecyclerView.Adapter<TeamRosterAdapter.Te
             tvTeamRosterPlayerName = itemView.findViewById(R.id.tvTeamRosterPlayerName);
             tvTeamRosterPosition = itemView.findViewById(R.id.tvTeamRosterPosition);
             tvTeamRosterAge = itemView.findViewById(R.id.tvTeamRosterPro);
-            tvTeamRosterCountry = itemView.findViewById(R.id.tvTeamRosterCountry);
+            tvTeamRosterCollege = itemView.findViewById(R.id.tvTeamRosterCollege);
             tableRowTeamRoster = itemView.findViewById(R.id.tableRowTeamRoster);
         }
     }
@@ -77,10 +76,6 @@ public class TeamRosterAdapter extends RecyclerView.Adapter<TeamRosterAdapter.Te
                 }
             }
 
-            teamRostervh.tvTeamRosterPlayerName.setText("Player");
-            teamRostervh.tvTeamRosterPosition.setText("Pos");
-            teamRostervh.tvTeamRosterAge.setText("Pro");
-            teamRostervh.tvTeamRosterCountry.setText("Country");
         } else {
             Player player = teamRoster.get(rowPos - 1);
             int rowColor = 0;
@@ -95,10 +90,10 @@ public class TeamRosterAdapter extends RecyclerView.Adapter<TeamRosterAdapter.Te
             teamRostervh.tableRowTeamRoster.setBackgroundResource(rowColor);
             Team tm = new Team().getTeamById(player.getTeamId(), activity);
 
-            teamRostervh.tvTeamRosterPlayerName.setText(player.getFirstName() + " "+player.getLastName());
+            teamRostervh.tvTeamRosterPlayerName.setText(player.getFirstName() + " " + player.getLastName());
             teamRostervh.tvTeamRosterPosition.setText(player.getPos());
             teamRostervh.tvTeamRosterAge.setText(player.getYearsPro());
-            teamRostervh.tvTeamRosterCountry.setText(player.getYearsPro());
+            teamRostervh.tvTeamRosterCollege.setText(player.getCollegeName());
 
             teamRostervh.tvTeamRosterPlayerName.setOnClickListener(new View.OnClickListener() {
                 @Override

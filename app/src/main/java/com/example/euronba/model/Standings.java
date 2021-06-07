@@ -20,13 +20,14 @@ public class Standings {
     }
 
 
-    public ArrayList<Standings> getStandingsEast(){
+    public ArrayList<Standings> getStandingsEast() {
         return new RetrieveStandings().getStandingsEast();
     }
 
-    public ArrayList<Standings> getStandingsWest(){
+    public ArrayList<Standings> getStandingsWest() {
         return new RetrieveStandings().getStandingsWest();
     }
+
     public String getTeamId() {
         return teamId;
     }

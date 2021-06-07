@@ -44,8 +44,8 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="10-12-2020"
-                    android:textColor="@color/white"
-                    android:textSize="22sp"
+                    android:textColor="@color/blue_light_light"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <ImageButton

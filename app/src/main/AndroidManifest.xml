@@ -6,14 +6,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/nbalogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/nbalogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EuroNBA">
         <activity android:name=".activities.FavoritesActivity"></activity>
         <activity android:name=".activities.PlayOffsActivity" />
-        <activity android:name=".activities.StandingsPOActivity" />
+        <activity android:name=".activities.StandingsActivity" />
         <activity android:name=".activities.TeamListActivity" />
         <activity android:name=".activities.TeamActivity" />
         <activity android:name=".activities.PlayerListActivity" />

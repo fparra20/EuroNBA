@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.euronba.controller.FavoritesDatabaseHelper;
-import com.example.euronba.controller.TeamsDatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -18,17 +17,18 @@ public class Favorite {
     public String teamUrl;
     public String personName;
 
-    public Favorite(){
+    public Favorite() {
 
     }
-    Favorite(String id, String type, String teamUrl, String personName){
+
+    Favorite(String id, String type, String teamUrl, String personName) {
         this.id = id;
         this.type = type;
         this.teamUrl = teamUrl;
         this.personName = personName;
     }
 
-    public ArrayList<Favorite> getFavorites (Context ctx){
+    public ArrayList<Favorite> getFavorites(Context ctx) {
         ArrayList<Favorite> alFav;
 
         // Creamos el cursor para traer los datos de la BD
@@ -65,14 +65,14 @@ public class Favorite {
         return alFav;
     }
 
-    public void insertFav(Context ctx){
+    public void insertFav(Context ctx) {
         // Creamos el cursor para traer los datos de la BD
         SQLiteOpenHelper FavoritesDatabaseHelper = new FavoritesDatabaseHelper(ctx);
 
         // Extrae la base de datos para trabajar con ella
         SQLiteDatabase db = FavoritesDatabaseHelper.getReadableDatabase();
 
-        if(type.equals("team")){
+        if (type.equals("team")) {
             ContentValues values = new ContentValues();
 
             values.put("ID", id);
@@ -81,7 +81,7 @@ public class Favorite {
             db.insert("FAVORITES", null, values);
         }
 
-        if(type.equals("player")){
+        if (type.equals("player")) {
             ContentValues values = new ContentValues();
 
             values.put("ID", id);
@@ -93,7 +93,7 @@ public class Favorite {
         }
     }
 
-    public boolean checkFav(Context ctx){
+    public boolean checkFav(Context ctx) {
 
         boolean idExists;
 
@@ -106,16 +106,16 @@ public class Favorite {
         Cursor c = db.rawQuery("SELECT ID FROM FAVORITES WHERE ID= '" + id + "' ", null);
 
         // Comrpueba que el ID está en la base de datos
-        if(c.getCount()>0){
-            idExists= true;
-        } else{
-            idExists=false;
+        if (c.getCount() > 0) {
+            idExists = true;
+        } else {
+            idExists = false;
         }
 
         return idExists;
     }
 
-    public void deleteFav(Context ctx){
+    public void deleteFav(Context ctx) {
 
         boolean idExists;
 
@@ -125,8 +125,9 @@ public class Favorite {
         // Extrae la base de datos para trabajar con ella
         SQLiteDatabase db = FavoritesDatabaseHelper.getReadableDatabase();
 
-        db.delete("FAVORITES", "id" + "=" + id,null);
+        db.delete("FAVORITES", "id" + "=" + id, null);
     }
+
     public String getId() {
         return id;
     }

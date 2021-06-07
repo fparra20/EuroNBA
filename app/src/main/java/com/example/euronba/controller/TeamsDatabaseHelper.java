@@ -11,7 +11,7 @@ import com.example.euronba.R;
 public class TeamsDatabaseHelper extends SQLiteOpenHelper {
 
     //Constantes para definir los parametros básicos para crear la BD
-    private static final String DB_NAME = "TEAMSv1"; //Nombre de la BD
+    private static final String DB_NAME = "TEAMSv2"; //Nombre de la BD
     private static final int DB_VERSION = 1; //Version de la BD
 
     //Constructor de la clase, llamamos al constructor de la superclase

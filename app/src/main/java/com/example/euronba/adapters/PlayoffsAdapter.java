@@ -2,7 +2,6 @@ package com.example.euronba.adapters;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
-import com.example.euronba.activities.PlayerActivity;
-import com.example.euronba.model.Player;
 import com.example.euronba.model.PlayoffsBracket;
 import com.example.euronba.model.Team;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlayoffsAdapter extends RecyclerView.Adapter<PlayoffsAdapter.PlayoffsViewHolder> {
     ArrayList<PlayoffsBracket> poBracket;
@@ -36,7 +31,7 @@ public class PlayoffsAdapter extends RecyclerView.Adapter<PlayoffsAdapter.Playof
         private TextView tvPlayOffsTopTricode;
         private TextView tvPlayOffsTopWins;
         private ImageView ivPlayOffsTopLogo;
-        
+
         private TextView tvPlayOffsBottomSeed;
         private TextView tvPlayOffsBottomTricode;
         private TextView tvPlayOffsBottomWins;

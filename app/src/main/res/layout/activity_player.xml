@@ -139,7 +139,7 @@
                         android:id="@+id/ibFavPlayer"
                         android:background="@android:color/transparent"
                         android:text="Set as favorite"
-                        android:src="@android:drawable/btn_star_big_off"/>
+                        android:src="@android:drawable/btn_star_big_off" />
 
 
                 </LinearLayout>

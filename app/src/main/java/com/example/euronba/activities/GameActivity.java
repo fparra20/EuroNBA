@@ -62,31 +62,34 @@ public class GameActivity extends AppCompatActivity {
         RetrieveBoxscore rpc = new RetrieveBoxscore();
 
         ArrayList<Boxscore> rpcBoth = rpc.getPlayersChart(data.getString("date"), data.getString("gameId"));
-        ArrayList<Boxscore> rpcLocal = new ArrayList<>();
-        ArrayList<Boxscore> rpcVisitor = new ArrayList<>();
 
-        for (int i = 0; i < rpcBoth.size(); i++) {
-            if (rpcBoth.get(i).getTeamId().equals(data.getString("localTeamId"))) {
-                rpcLocal.add(rpcBoth.get(i));
-            }
+        if (rpcBoth.size() != 0) {
+            ArrayList<Boxscore> rpcLocal = new ArrayList<>();
+            ArrayList<Boxscore> rpcVisitor = new ArrayList<>();
 
-            if (rpcBoth.get(i).getTeamId().equals(data.getString("visitorTeamId"))) {
-                rpcVisitor.add(rpcBoth.get(i));
+            for (int i = 0; i < rpcBoth.size(); i++) {
+                if (rpcBoth.get(i).getTeamId().equals(data.getString("localTeamId"))) {
+                    rpcLocal.add(rpcBoth.get(i));
+                }
+
+                if (rpcBoth.get(i).getTeamId().equals(data.getString("visitorTeamId"))) {
+                    rpcVisitor.add(rpcBoth.get(i));
+                }
             }
+            BoxscoreAdapter adapter = new BoxscoreAdapter(rpcLocal, this);
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(linearLayoutManager);
+
+            recyclerView.setAdapter(adapter);
+
+            BoxscoreAdapter adapter2 = new BoxscoreAdapter(rpcVisitor, this);
+
+            LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
+            recyclerView2.setLayoutManager(linearLayoutManager2);
+
+            recyclerView2.setAdapter(adapter2);
         }
-        BoxscoreAdapter adapter = new BoxscoreAdapter(rpcLocal, this);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerView.setAdapter(adapter);
-
-        BoxscoreAdapter adapter2 = new BoxscoreAdapter(rpcVisitor, this);
-
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
-        recyclerView2.setLayoutManager(linearLayoutManager2);
-
-        recyclerView2.setAdapter(adapter2);
     }
 
     @Override

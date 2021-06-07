@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.euronba.R;
-
 //Clase auxiliar para el tratamiento de la base de datos
 public class FavoritesDatabaseHelper extends SQLiteOpenHelper {
 
@@ -47,7 +45,7 @@ public class FavoritesDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE FAVORITES (ID TEXT PRIMARY KEY,"
                     + "TYPE TEXT, TEAMURL TEXT, PERSONNAME TEXT);");
             //El metodo auxiliar insertPet lo creamos para insertar varios filas
-            insertFavorite(db,"1610612738", "team", "hawks", "Alan Walker");
+            insertFavorite(db, "1610612738", "team", "hawks", "Alan Walker");
 
         }
         if (oldVersion < 2) {
@@ -63,7 +61,7 @@ public class FavoritesDatabaseHelper extends SQLiteOpenHelper {
      */
 
     public void insertFavorite(SQLiteDatabase db,
-                            String id, String type, String teamUrl, String personName) {
+                               String id, String type, String teamUrl, String personName) {
         /*Objeto que nos va a permitir indicar que valores queremos
         insertar en la BD*/
         ContentValues teamValues = new ContentValues();

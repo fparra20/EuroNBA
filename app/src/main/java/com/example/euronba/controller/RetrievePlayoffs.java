@@ -83,12 +83,12 @@ public class RetrievePlayoffs {
         return poList;
     }
 
-    public ArrayList<PlayoffsBracket> getPlayOffsByYearConfRound(int year, String conf, String round){
+    public ArrayList<PlayoffsBracket> getPlayOffsByYearConfRound(int year, String conf, String round) {
         ArrayList<PlayoffsBracket> poList = getPlayOffsByYear(year);
 
         ArrayList<PlayoffsBracket> poFiltered = new ArrayList<>();
 
-        for(int i = 0 ; i<poList.size() ; i++){
+        for (int i = 0; i < poList.size(); i++) {
 
             if (poList.get(i).getConfName().equals(conf) && poList.get(i).getRoundNum().equals(round)) {
                 poFiltered.add(poList.get(i));

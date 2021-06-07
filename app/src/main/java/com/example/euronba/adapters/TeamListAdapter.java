@@ -14,9 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
-import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.activities.TeamActivity;
-import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
 
 import java.util.List;

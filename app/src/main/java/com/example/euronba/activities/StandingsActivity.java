@@ -1,34 +1,32 @@
 package com.example.euronba.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.euronba.R;
-import com.example.euronba.adapters.PlayerListAdapter;
-import com.example.euronba.model.Player;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
-public class PlayerListActivity extends AppCompatActivity {
+public class StandingsActivity extends AppCompatActivity {
 
     public ActionBarDrawerToggle actionBarDrawerToggle;
-    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_list);
+        setContentView(R.layout.activity_standings_poactivity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
@@ -49,18 +47,19 @@ public class PlayerListActivity extends AppCompatActivity {
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ArrayList<Player> pList = new Player().getAllPlayers();
-        // Crea un objeto RecyclerView a partir del objeto presente en el layout
-        RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvPlayerList);
+        // Creamos el adaptador para el viewpager
+        SectionsPagerAdapter pagerAdapter =
+                new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
-        PlayerListAdapter plAdapter = new PlayerListAdapter(pList, PlayerListActivity.this);
+        // Creamos el viewpager
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
 
-        // Enlaza el objeto recyclerview al adaptador
-        mainRecycler.setAdapter(plAdapter);
+        // Vinculamos el viewpager con el adaptador
+        pager.setAdapter(pagerAdapter);
 
-        // Crea un nuevo Layout para mostrar la lista de los RecyclerView
-        mainRecycler.setLayoutManager(new LinearLayoutManager(PlayerListActivity.this));
+        // Creamos un tablayout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(pager);
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -70,6 +69,45 @@ public class PlayerListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    // Crearemos las dos pestañas y y que cada una muestre un contenido fragment
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(@NonNull FragmentManager fm) {
+            super(fm);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new EastStandingsFragment();
+                case 1:
+                    return new WestStandingsFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "EAST";
+                case 1:
+                    return "WEST";
+            }
+            return null;
+        }
+    }
+
 
     public void startNavigationListener(NavigationView nv) {
 
@@ -89,42 +127,42 @@ public class PlayerListActivity extends AppCompatActivity {
                         if (id == R.id.menu_players) {
 
                             // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(PlayerListActivity.this, PlayerListActivity.class);
+                            intent = new Intent(StandingsActivity.this, PlayerListActivity.class);
                         }
 
                         // Controla que se haya pulsado sobre la opción "Home"
                         if (id == R.id.menu_home) {
 
                             // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(PlayerListActivity.this, MainActivity.class);
+                            intent = new Intent(StandingsActivity.this, MainActivity.class);
                         }
 
                         // Controla que se haya pulsado sobre la opción "Teams"
                         if (id == R.id.menu_teams) {
 
                             // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(PlayerListActivity.this, TeamListActivity.class);
+                            intent = new Intent(StandingsActivity.this, TeamListActivity.class);
                         }
 
                         // Controla que se haya pulsado sobre la opción "Standings"
                         if (id == R.id.menu_standings) {
 
                             // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(PlayerListActivity.this, StandingsActivity.class);
+                            intent = new Intent(StandingsActivity.this, StandingsActivity.class);
                         }
 
                         // Controla que se haya pulsado sobre la opción "Playoffs"
                         if (id == R.id.menu_playoffs) {
 
                             // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(PlayerListActivity.this, PlayOffsActivity.class);
+                            intent = new Intent(StandingsActivity.this, PlayOffsActivity.class);
                         }
 
                         // Controla que se haya pulsado sobre la opción "Favorites"
                         if (id == R.id.menu_favorites) {
 
                             // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(PlayerListActivity.this, FavoritesActivity.class);
+                            intent = new Intent(StandingsActivity.this, FavoritesActivity.class);
                         }
 
                         // Controla que intent tenga algún valor de los anteriores

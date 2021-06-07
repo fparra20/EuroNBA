@@ -13,9 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
-import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.activities.TeamActivity;
-import com.example.euronba.model.Player;
 import com.example.euronba.model.Standings;
 import com.example.euronba.model.Team;
 
@@ -109,7 +107,7 @@ public class StandingsAdapter extends RecyclerView.Adapter<StandingsAdapter.Stan
             standingsViewHolder.tvStandingsLosses.setText(st.getLoss());
             standingsViewHolder.tvStandingsPct.setText(st.getWinPct());
             standingsViewHolder.tvStandingsStreak.setText(st.getStreak());
-            standingsViewHolder.tvStandingsLastTen.setText(st.getLastTenWin()+"-"+st.getLastTenLoss());
+            standingsViewHolder.tvStandingsLastTen.setText(st.getLastTenWin() + "-" + st.getLastTenLoss());
 
             standingsViewHolder.tvStandingsName.setOnClickListener(new View.OnClickListener() {
                 @Override

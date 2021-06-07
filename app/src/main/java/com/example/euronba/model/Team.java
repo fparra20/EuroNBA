@@ -118,7 +118,7 @@ public class Team {
         return tm;
     }
 
-    public ArrayList<Team> getAllTeams(Context ctx){
+    public ArrayList<Team> getAllTeams(Context ctx) {
 
         Team tm = new Team();
 
@@ -154,6 +154,7 @@ public class Team {
 
         return tmList;
     }
+
     public int getLogo() {
         return logo;
     }

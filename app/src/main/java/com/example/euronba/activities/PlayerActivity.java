@@ -1,7 +1,6 @@
 package com.example.euronba.activities;
 
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -108,7 +107,7 @@ public class PlayerActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    public void fillFavorite(Player p, ImageButton favButton){
+    public void fillFavorite(Player p, ImageButton favButton) {
         // Instancia un objeto de la clase favorito
         Favorite favTeam = new Favorite();
 

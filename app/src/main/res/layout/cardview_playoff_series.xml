@@ -19,47 +19,49 @@
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/ivPlayOffsTopLogo"
-            android:layout_width="40dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/atl" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvPlayOffsTopSeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="(3)"
-            android:theme="@style/Theme.EuroNBA.ScoreName" />
-        <TextView
-            android:id="@+id/tvPlayOffsTopTricode"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:singleLine="true"
-            android:text="ATL"
-            android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
+            <ImageView
+                android:id="@+id/ivPlayOffsTopLogo"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/atl" />
 
-        <TextView
-            android:id="@+id/tvPlayOffsTopWins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="right"
-            android:singleLine="true"
-            android:text="3"
-            android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvPlayOffsTopSeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="(3)"
+                android:theme="@style/Theme.EuroNBA.ScoreName" />
+
+            <TextView
+                android:id="@+id/tvPlayOffsTopTricode"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:text="ATL"
+                android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
+
+            <TextView
+                android:id="@+id/tvPlayOffsTopWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="3"
+                android:theme="@style/Theme.EuroNBA.PlayoffsCard" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,11 +72,13 @@
             >
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/ivPlayOffsBottomLogo"
                 android:layout_width="40dp"
@@ -92,6 +96,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="(3)"
                 android:theme="@style/Theme.EuroNBA.ScoreName" />
+
             <TextView
                 android:id="@+id/tvPlayOffsBottomTricode"
                 android:layout_width="60dp"

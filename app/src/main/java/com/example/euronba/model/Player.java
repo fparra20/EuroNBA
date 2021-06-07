@@ -163,8 +163,8 @@ public class Player {
 
     public String getYearsPro() {
 
-        if(yearsPro.equals("0")){
-            yearsPro="R";
+        if (yearsPro.equals("0")) {
+            yearsPro = "R";
         }
 
         return yearsPro;

@@ -7,26 +7,35 @@
 
     <TextView
         android:id="@+id/tvTeamRosterPlayerName"
-        android:layout_width="170dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:layout_weight="3"
+        android:textAlignment="textStart"
+        android:text="PLAYER"
+        android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvTeamRosterPosition"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:layout_weight="1"
+        android:text="POS"
+        android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvTeamRosterPro"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:layout_weight="1"
+        android:text="PRO"
+        android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
-        android:id="@+id/tvTeamRosterCountry"
-        android:layout_width="110dp"
+        android:id="@+id/tvTeamRosterCollege"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+        android:layout_weight="3"
+        android:text="COLLEGE"
+        android:theme="@style/Theme.EuroNBA.TableCol" />
 
 </LinearLayout>

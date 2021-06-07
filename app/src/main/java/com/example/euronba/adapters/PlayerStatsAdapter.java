@@ -112,7 +112,14 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
             Team tm = new Team().getTeamById(playerStats.getTeamId(), activity);
 
             rowViewHolder.tvPlayerStatsSeasonYear.setText(String.valueOf(playerStats.getSeasonYear()));
-            rowViewHolder.tvPlayerStatsTeam.setText(tm.getTricode());
+
+            // En ocasiones un jugador ha jugado en más de un equipo en una misma temporada
+            // en estos se devuelve un equipo vacío, en el que se suman sus estadísticas totales, TOT
+            if (tm.getTricode() == null)
+                rowViewHolder.tvPlayerStatsTeam.setText("TOT");
+            else
+                rowViewHolder.tvPlayerStatsTeam.setText(tm.getTricode());
+
             rowViewHolder.tvPlayerStatsGp.setText(playerStats.getGamesPlayed());
             rowViewHolder.tvPlayerStatsMpg.setText(playerStats.getMpg());
             rowViewHolder.tvPlayerStatsPpg.setText(playerStats.getPpg());

@@ -17,7 +17,6 @@ import com.example.euronba.R;
 import com.example.euronba.activities.PlayerActivity;
 import com.example.euronba.activities.TeamActivity;
 import com.example.euronba.model.Favorite;
-import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
 
 import java.util.List;
@@ -59,27 +58,27 @@ public class FavoritesListAdapter extends RecyclerView.Adapter<FavoritesListAdap
     public void onBindViewHolder(@NonNull FavoritesListAdapter.FavoritesListViewHolder pListViewHolder, int position) {
         Favorite fav = favList.get(position);
 
-        pListViewHolder.tvPlayerListName.setText(fav.getId() + " - "+fav.getType() + " " + fav.getTeamUrl() + fav.getPersonName());
+        pListViewHolder.tvPlayerListName.setText(fav.getId() + " - " + fav.getType() + " " + fav.getTeamUrl() + fav.getPersonName());
 
-        if(fav.getType().equals("team")){
-            Team tm= new Team().getTeamById(fav.getId(),activity);
+        if (fav.getType().equals("team")) {
+            Team tm = new Team().getTeamById(fav.getId(), activity);
             pListViewHolder.tvPlayerListName.setText(tm.getFullName());
             pListViewHolder.ivPlayerListTeamLogo.setImageResource(tm.getLogo());
         }
 
-        if(fav.getType().equals("player")){
+        if (fav.getType().equals("player")) {
             pListViewHolder.tvPlayerListName.setText(fav.getPersonName());
         }
         pListViewHolder.cvPlayerList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = null;
-                if(fav.getType().equals("team")){
+                if (fav.getType().equals("team")) {
                     intent = new Intent(activity.getApplicationContext(), TeamActivity.class);
                     intent.putExtra(TeamActivity.EXTRA_TEAMID, fav.getId());
                 }
 
-                if(fav.getType().equals("player")){
+                if (fav.getType().equals("player")) {
                     intent = new Intent(activity.getApplicationContext(), PlayerActivity.class);
                     intent.putExtra(PlayerActivity.EXTRA_PERSONID, fav.getId());
                     intent.putExtra(PlayerActivity.EXTRA_TEAMURL, fav.getTeamUrl());

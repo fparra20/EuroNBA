@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
-import com.example.euronba.adapters.PlayerListAdapter;
 import com.example.euronba.adapters.TeamListAdapter;
-import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,37 +34,8 @@ public class TeamListActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        nv.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
-                        int id = item.getItemId();
-                        if (id == R.id.menu_players) {
-                            Intent intent = new Intent(TeamListActivity.this, PlayerListActivity.class);
-                            startActivity(intent);
-                        }
-                        if (id == R.id.menu_home) {
-                            Intent intent = new Intent(TeamListActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                        if (id == R.id.menu_teams) {
-                            Intent intent = new Intent(TeamListActivity.this, TeamListActivity.class);
-                            startActivity(intent);
-                        }
-
-                        if (id == R.id.menu_standings) {
-                            Intent intent = new Intent(TeamListActivity.this, StandingsPOActivity.class);
-                            startActivity(intent);
-                        }
-
-                        if (id == R.id.menu_playoffs) {
-                            Intent intent = new Intent(TeamListActivity.this, PlayOffsActivity.class);
-                            startActivity(intent);
-                        }
-                        finish();
-                        return true;
-                    }
-                });
+        // Método que contiene el listener del menú despleglable lateral
+        startNavigationListener(nv);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -102,6 +71,77 @@ public class TeamListActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void startNavigationListener(NavigationView nv) {
+
+        // Implementa el listener para el menú lateral desplegrable.
+        nv.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+
+                        // Variable que almacena el id de la opción seleccionada.
+                        int id = item.getItemId();
+
+                        // Crea una variable de tipo intent que se rellenará según la opción
+                        Intent intent = null;
+
+                        // Controla que se haya pulsado sobre la opción "Players"
+                        if (id == R.id.menu_players) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(TeamListActivity.this, PlayerListActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Home"
+                        if (id == R.id.menu_home) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(TeamListActivity.this, MainActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Teams"
+                        if (id == R.id.menu_teams) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(TeamListActivity.this, TeamListActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Standings"
+                        if (id == R.id.menu_standings) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(TeamListActivity.this, StandingsActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Playoffs"
+                        if (id == R.id.menu_playoffs) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(TeamListActivity.this, PlayOffsActivity.class);
+                        }
+
+                        // Controla que se haya pulsado sobre la opción "Favorites"
+                        if (id == R.id.menu_favorites) {
+
+                            // Crea un intent que abre la actividad correspondiente
+                            intent = new Intent(TeamListActivity.this, FavoritesActivity.class);
+                        }
+
+                        // Controla que intent tenga algún valor de los anteriores
+                        if (intent != null)
+
+                            // Inicia la actividad correspondiente
+                            startActivity(intent);
+
+                        // Finaliza la actividad actual
+                        finish();
+
+                        return true;
+                    }
+                });
     }
 
 }

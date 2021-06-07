@@ -37,12 +37,12 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_margin="5dp">
+
                 <Spinner
                     android:id="@+id/spinner1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    />
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -60,7 +60,7 @@
                     android:background="@color/purple_black"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding= "10dp"/>
+                    android:padding="10dp" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -71,7 +71,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding= "10dp"/>
+                    android:padding="10dp" />
             </LinearLayout>
         </LinearLayout>
 

@@ -136,7 +136,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
 
         TextView tv = activity.findViewById(R.id.tvDay);
         String[] dateSplit = tv.getText().toString().split(" - ");
-        String date = dateSplit[0] + dateSplit[1] + dateSplit[2];
+        String date = dateSplit[2] + dateSplit[1] + dateSplit[0];
 
         System.out.println(date);
 
@@ -165,8 +165,6 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
                 intent.putExtra(GameActivity.EXTRA_DATE, date);
 
                 activity.startActivity(intent);
-
-                Toast.makeText(activity, score.getSummaryText(), Toast.LENGTH_SHORT).show();
             }
         });
 
