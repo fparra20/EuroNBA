@@ -35,6 +35,22 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
         private TextView tvPlayerBoxPoints;
         private TextView tvPlayerBoxAssists;
         private TextView tvPlayerBoxTotReb;
+        private TextView tvPlayerBoxBlocks;
+        private TextView tvPlayerBoxSteals;
+        private TextView tvPlayerBoxFgm;
+        private TextView tvPlayerBoxFga;
+        private TextView tvPlayerBoxFgp;
+        private TextView tvPlayerBoxTpm;
+        private TextView tvPlayerBoxTpa;
+        private TextView tvPlayerBoxTpp;
+        private TextView tvPlayerBoxFtm;
+        private TextView tvPlayerBoxFta;
+        private TextView tvPlayerBoxFtp;
+        private TextView tvPlayerBoxOffReb;
+        private TextView tvPlayerBoxDefReb;
+        private TextView tvPlayerBoxTurnovers;
+        private TextView tvPlayerBoxPFouls;
+        private TextView tvPlayerBoxPlusMinus;
         private LinearLayout linearRow;
 
 
@@ -46,6 +62,23 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
             tvPlayerBoxPoints = itemView.findViewById(R.id.tvPlayerBoxPoints);
             tvPlayerBoxAssists = itemView.findViewById(R.id.tvPlayerBoxAssists);
             tvPlayerBoxTotReb = itemView.findViewById(R.id.tvPlayerBoxTotReb);
+
+            tvPlayerBoxBlocks = itemView.findViewById(R.id.tvPlayerBoxBlocks);
+            tvPlayerBoxSteals = itemView.findViewById(R.id.tvPlayerBoxSteals);
+            tvPlayerBoxFgm = itemView.findViewById(R.id.tvPlayerBoxFgm);
+            tvPlayerBoxFga = itemView.findViewById(R.id.tvPlayerBoxFga);
+            tvPlayerBoxFgp = itemView.findViewById(R.id.tvPlayerBoxFgp);
+            tvPlayerBoxTpm = itemView.findViewById(R.id.tvPlayerBoxTpm);
+            tvPlayerBoxTpa = itemView.findViewById(R.id.tvPlayerBoxTpa);
+            tvPlayerBoxTpp = itemView.findViewById(R.id.tvPlayerBoxTpp);
+            tvPlayerBoxFtm = itemView.findViewById(R.id.tvPlayerBoxFtm);
+            tvPlayerBoxFta = itemView.findViewById(R.id.tvPlayerBoxFta);
+            tvPlayerBoxFtp = itemView.findViewById(R.id.tvPlayerBoxFtp);
+            tvPlayerBoxOffReb = itemView.findViewById(R.id.tvPlayerBoxOffReb);
+            tvPlayerBoxDefReb = itemView.findViewById(R.id.tvPlayerBoxDefReb);
+            tvPlayerBoxTurnovers = itemView.findViewById(R.id.tvPlayerBoxTurnovers);
+            tvPlayerBoxPFouls = itemView.findViewById(R.id.tvPlayerBoxPFouls);
+            tvPlayerBoxPlusMinus = itemView.findViewById(R.id.tvPlayerBoxPlusMinus);
             linearRow = itemView.findViewById(R.id.tableRow);
         }
     }
@@ -79,12 +112,6 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
                     tv.setTypeface(null, Typeface.BOLD);
                 }
             }
-
-            rowViewHolder.tvPlayerBoxName.setText("Player");
-            rowViewHolder.tvPlayerBoxMin.setText("Min");
-            rowViewHolder.tvPlayerBoxPoints.setText("Pts");
-            rowViewHolder.tvPlayerBoxAssists.setText("Ast");
-            rowViewHolder.tvPlayerBoxTotReb.setText("Reb");
         } else {
             Boxscore playerBox = playerBoxList.get(rowPos - 1);
             int rowColor = 0;
@@ -112,13 +139,53 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
                 rowViewHolder.tvPlayerBoxName.setTypeface(null, Typeface.BOLD);
             }
 
-            rowViewHolder.tvPlayerBoxName.setText(playerFullName);
-            rowViewHolder.tvPlayerBoxMin.setText(playerBox.getMin());
-            rowViewHolder.tvPlayerBoxPoints.setText(playerBox.getPoints());
-            rowViewHolder.tvPlayerBoxAssists.setText(playerBox.getTotReb());
-            rowViewHolder.tvPlayerBoxTotReb.setText(playerBox.getAssists());
+            rowViewHolder.tvPlayerBoxName.setText(playerFullName + " " + playerBox.getPos());
 
-            String tmUrl = new Team().getTeamById(playerBox.getTeamId(),activity).getUrlName();
+            // Comprueba que el jugador ha jugado el partido
+            if (playerBox.dnp.isEmpty()) {
+                rowViewHolder.tvPlayerBoxMin.setText(playerBox.getMin());
+                rowViewHolder.tvPlayerBoxPoints.setText(playerBox.getPoints());
+                rowViewHolder.tvPlayerBoxAssists.setText(playerBox.getAssists());
+                rowViewHolder.tvPlayerBoxTotReb.setText(playerBox.getTotReb());
+            } else {
+                // Si el jugador no ha jugado el partido, aumentamos el tamaño del campo Min para que
+                // quepa el texto DNP (que normalmente será mayor, algo así como DNP- Technical Decision)
+                // Y el resto de campos se mostrarán en blanco.
+                LinearLayout.LayoutParams params = new
+                        LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+                // Borra 3 de los textvieww que igualmente no se iban a mostrar para que no ocupen
+                // espacio innecesariamente
+                rowViewHolder.tvPlayerBoxPoints.setVisibility(View.GONE);
+                rowViewHolder.tvPlayerBoxAssists.setVisibility(View.GONE);
+                rowViewHolder.tvPlayerBoxTotReb.setVisibility(View.GONE);
+                // Asigna al textView Min las nuevas propiedades.
+                rowViewHolder.tvPlayerBoxMin.setLayoutParams(params);
+
+                // Muestra el texto DNP
+                rowViewHolder.tvPlayerBoxMin.setText(playerBox.getDnp());
+            }
+
+            rowViewHolder.tvPlayerBoxBlocks.setText(playerBox.getBlocks());
+            rowViewHolder.tvPlayerBoxSteals.setText(playerBox.getSteals());
+            rowViewHolder.tvPlayerBoxFgm.setText(playerBox.getFgm());
+            rowViewHolder.tvPlayerBoxFga.setText(playerBox.getFga());
+            rowViewHolder.tvPlayerBoxFgp.setText(playerBox.getFgp());
+            rowViewHolder.tvPlayerBoxTpm.setText(playerBox.getTpm());
+            rowViewHolder.tvPlayerBoxTpa.setText(playerBox.getTpa());
+            rowViewHolder.tvPlayerBoxTpp.setText(playerBox.getTpp());
+            rowViewHolder.tvPlayerBoxFtm.setText(playerBox.getFtm());
+            rowViewHolder.tvPlayerBoxFta.setText(playerBox.getFta());
+            rowViewHolder.tvPlayerBoxFtp.setText(playerBox.getFtp());
+            rowViewHolder.tvPlayerBoxOffReb.setText(playerBox.getOffReb());
+            rowViewHolder.tvPlayerBoxDefReb.setText(playerBox.getDefReb());
+            rowViewHolder.tvPlayerBoxTurnovers.setText(playerBox.getTurnovers());
+            rowViewHolder.tvPlayerBoxPFouls.setText(playerBox.getpFouls());
+            rowViewHolder.tvPlayerBoxPlusMinus.setText(playerBox.getPlusMinus());
+
+
+            String tmUrl = new Team().getTeamById(playerBox.getTeamId(), activity).getUrlName();
             rowViewHolder.tvPlayerBoxName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

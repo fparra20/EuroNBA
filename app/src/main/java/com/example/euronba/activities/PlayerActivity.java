@@ -1,12 +1,14 @@
 package com.example.euronba.activities;
 
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -46,20 +48,6 @@ public class PlayerActivity extends AppCompatActivity {
 
         Player p = new Player().getPlayerProfileFromId(personId, teamUrl);
 
-        favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Favorite favTeam = new Favorite();
-
-                favTeam.setId(personId);
-                favTeam.setType("player");
-                favTeam.setTeamUrl(teamUrl);
-                favTeam.setPersonName(p.getFirstName() + " " + p.getLastName());
-
-                favTeam.insertFav(PlayerActivity.this);
-            }
-        });
-
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,6 +56,8 @@ public class PlayerActivity extends AppCompatActivity {
         fillPlayerInfo(p);
 
         fillPlayerStats(personId);
+
+        fillFavorite(p, favButton);
     }
 
     @Override
@@ -116,5 +106,57 @@ public class PlayerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void fillFavorite(Player p, ImageButton favButton){
+        // Instancia un objeto de la clase favorito
+        Favorite favTeam = new Favorite();
+
+        String personId = p.getPersonId();
+        String teamUrl = new Team().getTeamById(p.getTeamId(), PlayerActivity.this).getUrlName();
+        String personName = p.getFirstName() + " " + p.getLastName();
+
+        // Inicializa la propiedad Id
+        favTeam.setId(personId);
+
+        // Si el equipo está en la tabla de favoritos, muestra el botón estrella amarilla
+        if (favTeam.checkFav(PlayerActivity.this) == true) {
+            favButton.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+
+        // Si el equipo no está en la tabla de favoritos, muestra el botón estrella apagada
+        if (favTeam.checkFav(PlayerActivity.this) == false) {
+            favButton.setImageResource(android.R.drawable.btn_star_big_off);
+        }
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Almacena en la variable si el equipo está en la lista de favoritos
+                boolean isTeamFav = favTeam.checkFav(PlayerActivity.this);
+
+                // Si el equipo está, lo borra de la base de datos y pone la estrella apagada
+                if (isTeamFav) {
+                    favTeam.deleteFav(PlayerActivity.this);
+                    favButton.setImageResource(android.R.drawable.btn_star_big_off);
+                    Toast.makeText(PlayerActivity.this, "Removed from favorites", Toast.LENGTH_LONG).show();
+                }
+
+                // Si no está ya en la base de datos, lo almacena y pone la estrella encendida
+                if (!isTeamFav) {
+
+                    favTeam.setType("player");
+                    favTeam.setTeamUrl(teamUrl);
+                    favTeam.setPersonName(personName);
+
+                    favTeam.insertFav(PlayerActivity.this);
+
+                    favButton.setImageResource(android.R.drawable.btn_star_big_on);
+
+                    Toast.makeText(PlayerActivity.this, "Added to favorites", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
     }
 }

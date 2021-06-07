@@ -88,8 +88,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/ibFavTeam"
                             android:background="@android:color/transparent"
-                            android:text="Set as favorite"
-                            android:src="@android:drawable/btn_star"/>
+                            android:src="@android:drawable/btn_star_big_off"/>
 
                     </LinearLayout>
 

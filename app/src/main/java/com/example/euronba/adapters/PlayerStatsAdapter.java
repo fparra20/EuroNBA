@@ -28,20 +28,42 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
     }
 
     public class RowViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPlayerStatsYear;
+        private TextView tvPlayerStatsSeasonYear;
         private TextView tvPlayerStatsTeam;
-        private TextView tvPlayerStatsPts;
-        private TextView tvPlayerStatsAst;
+        private TextView tvPlayerStatsGp;
+        private TextView tvPlayerStatsMpg;
+
+        private TextView tvPlayerStatsPpg;
+        private TextView tvPlayerStatsRpg;
+        private TextView tvPlayerStatsApg;
+        private TextView tvPlayerStatsBpg;
+        private TextView tvPlayerStatsFgp;
+        private TextView tvPlayerStatsFtp;
+        private TextView tvPlayerStatsTpp;
+        private TextView tvPlayerStatsTopg;
+        private TextView tvPlayerStatsPlusMinus;
+
         private LinearLayout tableRowPlayer;
 
 
         public RowViewHolder(View itemView) {
             super(itemView);
 
-            tvPlayerStatsYear = itemView.findViewById(R.id.tvPlayerStatsYear);
+            tvPlayerStatsSeasonYear = itemView.findViewById(R.id.tvPlayerStatsSeasonYear);
             tvPlayerStatsTeam = itemView.findViewById(R.id.tvPlayerStatsTeam);
-            tvPlayerStatsPts = itemView.findViewById(R.id.tvPlayerStatsPts);
-            tvPlayerStatsAst = itemView.findViewById(R.id.tvPlayerStatsAst);
+            tvPlayerStatsGp = itemView.findViewById(R.id.tvPlayerStatsGp);
+            tvPlayerStatsMpg = itemView.findViewById(R.id.tvPlayerStatsMpg);
+            tvPlayerStatsPpg = itemView.findViewById(R.id.tvPlayerStatsPpg);
+            tvPlayerStatsRpg = itemView.findViewById(R.id.tvPlayerStatsRpg);
+            tvPlayerStatsApg = itemView.findViewById(R.id.tvPlayerStatsApg);
+            tvPlayerStatsBpg = itemView.findViewById(R.id.tvPlayerStatsBpg);
+            tvPlayerStatsFgp = itemView.findViewById(R.id.tvPlayerStatsFgp);
+            tvPlayerStatsFtp = itemView.findViewById(R.id.tvPlayerStatsFtp);
+            tvPlayerStatsTpp = itemView.findViewById(R.id.tvPlayerStatsTpp);
+            tvPlayerStatsTopg = itemView.findViewById(R.id.tvPlayerStatsTopg);
+            tvPlayerStatsPlusMinus = itemView.findViewById(R.id.tvPlayerStatsPlusMinus);
+
+
             tableRowPlayer = itemView.findViewById(R.id.tableRowPlayer);
         }
     }
@@ -75,11 +97,6 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
                     tv.setTypeface(null, Typeface.BOLD);
                 }
             }
-
-            rowViewHolder.tvPlayerStatsYear.setText("Season");
-            rowViewHolder.tvPlayerStatsTeam.setText("Team");
-            rowViewHolder.tvPlayerStatsPts.setText("Pts");
-            rowViewHolder.tvPlayerStatsAst.setText("Ast");
         } else {
             PlayerStats playerStats = playerStatsList.get(rowPos - 1);
             int rowColor = 0;
@@ -94,10 +111,18 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
             rowViewHolder.tableRowPlayer.setBackgroundResource(rowColor);
             Team tm = new Team().getTeamById(playerStats.getTeamId(), activity);
 
-            rowViewHolder.tvPlayerStatsYear.setText(String.valueOf(playerStats.getSeasonYear()));
+            rowViewHolder.tvPlayerStatsSeasonYear.setText(String.valueOf(playerStats.getSeasonYear()));
             rowViewHolder.tvPlayerStatsTeam.setText(tm.getTricode());
-            rowViewHolder.tvPlayerStatsPts.setText(playerStats.getPpg());
-            rowViewHolder.tvPlayerStatsAst.setText(playerStats.getApg());
+            rowViewHolder.tvPlayerStatsGp.setText(playerStats.getGamesPlayed());
+            rowViewHolder.tvPlayerStatsMpg.setText(playerStats.getMpg());
+            rowViewHolder.tvPlayerStatsPpg.setText(playerStats.getPpg());
+            rowViewHolder.tvPlayerStatsRpg.setText(playerStats.getRpg());
+            rowViewHolder.tvPlayerStatsApg.setText(playerStats.getApg());
+            rowViewHolder.tvPlayerStatsBpg.setText(playerStats.getBpg());
+            rowViewHolder.tvPlayerStatsFgp.setText(playerStats.getFgp());
+            rowViewHolder.tvPlayerStatsTpp.setText(playerStats.getTpp());
+            rowViewHolder.tvPlayerStatsTopg.setText(playerStats.getTopg());
+            rowViewHolder.tvPlayerStatsPlusMinus.setText(playerStats.getPlusMinus());
         }
     }
 

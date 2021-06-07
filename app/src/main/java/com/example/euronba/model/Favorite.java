@@ -69,7 +69,6 @@ public class Favorite {
         // Creamos el cursor para traer los datos de la BD
         SQLiteOpenHelper FavoritesDatabaseHelper = new FavoritesDatabaseHelper(ctx);
 
-        System.out.println("yeeee"+id);
         // Extrae la base de datos para trabajar con ella
         SQLiteDatabase db = FavoritesDatabaseHelper.getReadableDatabase();
 
@@ -94,6 +93,40 @@ public class Favorite {
         }
     }
 
+    public boolean checkFav(Context ctx){
+
+        boolean idExists;
+
+        // Creamos el cursor para traer los datos de la BD
+        SQLiteOpenHelper FavoritesDatabaseHelper = new FavoritesDatabaseHelper(ctx);
+
+        // Extrae la base de datos para trabajar con ella
+        SQLiteDatabase db = FavoritesDatabaseHelper.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT ID FROM FAVORITES WHERE ID= '" + id + "' ", null);
+
+        // Comrpueba que el ID está en la base de datos
+        if(c.getCount()>0){
+            idExists= true;
+        } else{
+            idExists=false;
+        }
+
+        return idExists;
+    }
+
+    public void deleteFav(Context ctx){
+
+        boolean idExists;
+
+        // Creamos el cursor para traer los datos de la BD
+        SQLiteOpenHelper FavoritesDatabaseHelper = new FavoritesDatabaseHelper(ctx);
+
+        // Extrae la base de datos para trabajar con ella
+        SQLiteDatabase db = FavoritesDatabaseHelper.getReadableDatabase();
+
+        db.delete("FAVORITES", "id" + "=" + id,null);
+    }
     public String getId() {
         return id;
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tableRow"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
@@ -9,30 +9,146 @@
         android:id="@+id/tvPlayerBoxName"
         android:layout_width="200dp"
         android:layout_height="match_parent"
+        android:text="Player"
         android:theme="@style/Theme.EuroNBA.ScoreCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxMin"
         android:layout_width="70dp"
         android:layout_height="match_parent"
+        android:text="Min"
         android:theme="@style/Theme.EuroNBA.ScoreCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxPoints"
         android:layout_width="50dp"
         android:layout_height="match_parent"
+        android:text="Pts"
         android:theme="@style/Theme.EuroNBA.ScoreCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxAssists"
         android:layout_width="50dp"
         android:layout_height="match_parent"
+        android:text="Ast"
         android:theme="@style/Theme.EuroNBA.ScoreCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxTotReb"
         android:layout_width="50dp"
         android:layout_height="match_parent"
+        android:text="Reb"
         android:theme="@style/Theme.EuroNBA.ScoreCol" />
 
+    <TextView
+        android:id="@+id/tvPlayerBoxBlocks"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="Blk"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxSteals"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="Stl"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxFgm"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="FGM"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxFga"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="FGA"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxFgp"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:text="FG%"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxTpm"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="3PM"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxTpa"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="3PA"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxTpp"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:text="3P%"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxFtm"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="FTM"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxFta"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="FTA"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxFtp"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:text="FT%"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxOffReb"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="ORB"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxDefReb"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="DRB"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxTurnovers"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="TO"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxPFouls"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="PF"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxPlusMinus"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="+/-"
+        android:theme="@style/Theme.EuroNBA.ScoreCol" />
 </LinearLayout>

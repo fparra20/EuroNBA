@@ -1,7 +1,7 @@
 package com.example.euronba.activities;
 
 
-import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,14 +12,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
-import com.example.euronba.adapters.PlayerStatsAdapter;
 import com.example.euronba.adapters.TeamRosterAdapter;
-import com.example.euronba.controller.RetrievePlayerCareer;
 import com.example.euronba.model.Favorite;
 import com.example.euronba.model.Player;
 import com.example.euronba.model.Team;
@@ -40,27 +37,13 @@ public class TeamActivity extends AppCompatActivity {
 
         Bundle data = getIntent().getExtras();
 
-        String personId = data.getString("teamId");
+        String teamId = data.getString("teamId");
 
-        fillTeamInfo(personId);
+        fillTeamInfo(teamId);
 
-        fillTeamRoster(personId);
+        fillTeamRoster(teamId);
 
-        favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Favorite favTeam = new Favorite();
-
-                favTeam.setId(data.getString("teamId"));
-                favTeam.setType("team");
-
-                favTeam.insertFav(TeamActivity.this);
-
-                favButton.setImageResource(android.R.drawable.star_on);
-
-                Toast.makeText(TeamActivity.this, "Añadido!!", Toast.LENGTH_LONG).show();
-            }
-        });
+        fillFavorite(teamId, favButton);
 
         setSupportActionBar(toolbar);
 
@@ -89,8 +72,8 @@ public class TeamActivity extends AppCompatActivity {
         ImageView ivTeamProfileLogo = findViewById(R.id.ivTeamProfileLogo);
 
         tvTeamProfileName.setText(tm.getFullName());
-        tvTeamProfileConference.setText("Conf: "+tm.getConfName());
-        tvTeamProfileDivision.setText("Div: "+tm.getDivName());
+        tvTeamProfileConference.setText("Conf: " + tm.getConfName());
+        tvTeamProfileDivision.setText("Div: " + tm.getDivName());
         ivTeamProfileLogo.setImageResource(tm.getLogo());
     }
 
@@ -109,5 +92,51 @@ public class TeamActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void fillFavorite (String teamId, ImageButton favButton){
+        // Instancia un objeto de la clase favorito
+        Favorite favTeam = new Favorite();
+
+        // Inicializa la propiedad Id
+        favTeam.setId(teamId);
+
+        // Si el equipo está en la tabla de favoritos, muestra el botón estrella amarilla
+        if (favTeam.checkFav(TeamActivity.this) == true) {
+            favButton.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+
+        // Si el equipo no está en la tabla de favoritos, muestra el botón estrella apagada
+        if (favTeam.checkFav(TeamActivity.this) == false) {
+            favButton.setImageResource(android.R.drawable.btn_star_big_off);
+        }
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Almacena en la variable si el equipo está en la lista de favoritos
+                boolean isTeamFav = favTeam.checkFav(TeamActivity.this);
+
+                // Si el equipo está, lo borra de la base de datos y pone la estrella apagada
+                if (isTeamFav) {
+                    favTeam.deleteFav(TeamActivity.this);
+                    favButton.setImageResource(android.R.drawable.btn_star_big_off);
+                    Toast.makeText(TeamActivity.this, "Removed from favorites", Toast.LENGTH_LONG).show();
+                }
+
+                // Si no está ya en la base de datos, lo almacena y pone la estrella encendida
+                if (!isTeamFav) {
+
+                    favTeam.setType("team");
+
+                    favTeam.insertFav(TeamActivity.this);
+
+                    favButton.setImageResource(android.R.drawable.btn_star_big_on);
+
+                    Toast.makeText(TeamActivity.this, "Added to favorites", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
     }
 }
