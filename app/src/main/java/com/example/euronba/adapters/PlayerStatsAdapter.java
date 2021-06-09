@@ -128,6 +128,7 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
             rowViewHolder.tvPlayerStatsBpg.setText(playerStats.getBpg());
             rowViewHolder.tvPlayerStatsFgp.setText(playerStats.getFgp());
             rowViewHolder.tvPlayerStatsTpp.setText(playerStats.getTpp());
+            rowViewHolder.tvPlayerStatsFtp.setText(playerStats.getFtp());
             rowViewHolder.tvPlayerStatsTopg.setText(playerStats.getTopg());
             rowViewHolder.tvPlayerStatsPlusMinus.setText(playerStats.getPlusMinus());
         }

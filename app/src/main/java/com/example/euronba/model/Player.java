@@ -1,7 +1,6 @@
 package com.example.euronba.model;
 
 import com.example.euronba.controller.RetrievePlayer;
-import com.example.euronba.controller.RetrievePlayerCareer;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -17,8 +16,8 @@ public class Player {
     public String teamId;
     public String jersey;
     public String pos;
-    public String heightFt;
-    public String weightLbs;
+    public String height;
+    public String weight;
     public String dateOfBirthUTC;
     public String yearsPro;
     public String collegeName;
@@ -43,14 +42,7 @@ public class Player {
         int days = Period.between(birth, current).getDays();
 
         // Devolvemos un String con el dato formateado
-        return String.valueOf(years + "y, " + days + "d");
-    }
-
-    public ArrayList<PlayerStats> getPlayerCareerFromId(String playerId) {
-
-        RetrievePlayerCareer rpc = new RetrievePlayerCareer();
-
-        return rpc.getPlayerStatsFromID(playerId);
+        return years + "y, " + days + "d";
     }
 
     public Player getPlayerProfileFromId(String playerId, String teamUrl) {
@@ -90,6 +82,10 @@ public class Player {
         this.lastName = lastName;
     }
 
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
     public String getPersonId() {
         return personId;
     }
@@ -122,9 +118,9 @@ public class Player {
         this.pos = pos;
     }
 
-    public String getHeightFt() {
+    public String getHeight() {
 
-        String[] hs = heightFt.split("-");
+        String[] hs = height.split("-");
 
         int foot = Integer.parseInt(hs[0]);
         int inches = Integer.parseInt(hs[1]);
@@ -136,21 +132,21 @@ public class Player {
         return df.format(heightMeters);
     }
 
-    public void setHeightFt(String heightFt) {
-        this.heightFt = heightFt;
+    public void setHeight(String heightFt) {
+        this.height = heightFt;
     }
 
-    public String getWeightLbs() {
+    public String getWeight() {
 
-        double weightKg = Integer.parseInt(weightLbs) * 0.45;
+        double weightKg = Integer.parseInt(weight) * 0.45;
 
         DecimalFormat df = new DecimalFormat("#.#");
 
         return df.format(weightKg);
     }
 
-    public void setWeightLbs(String weightLbs) {
-        this.weightLbs = weightLbs;
+    public void setWeight(String weightLbs) {
+        this.weight = weightLbs;
     }
 
     public String getDateOfBirthUTC() {

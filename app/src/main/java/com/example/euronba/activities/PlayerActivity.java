@@ -3,7 +3,6 @@ package com.example.euronba.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,61 +15,72 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.euronba.R;
 import com.example.euronba.adapters.PlayerStatsAdapter;
-import com.example.euronba.controller.RetrievePlayerCareer;
+import com.example.euronba.controller.RetrievePlayerStats;
 import com.example.euronba.model.Favorite;
 import com.example.euronba.model.Player;
+import com.example.euronba.model.PlayerStats;
 import com.example.euronba.model.Team;
-
-import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
 
+    // Declara los datos necesarios que llegan de la actividad anterior
     public static final String EXTRA_PERSONID = "personId";
     public static final String EXTRA_TEAMURL = "teamUrl";
-    Player p;
-    ArrayList<Team> teamsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Almacena la barra de herramientas a partir de su ID
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
-        ImageButton favButton = findViewById(R.id.ibFavPlayer);
-
-        Bundle data = getIntent().getExtras();
-
-        String personId = data.getString("personId");
-
-        String teamUrl = data.getString("teamUrl");
-
-        Player p = new Player().getPlayerProfileFromId(personId, teamUrl);
-
+        // Establece la barra de herramientas.
         setSupportActionBar(toolbar);
 
+        // Permite que el botón para volver atrás aparezca.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        // Instancia un objeto Bundle para obtener los datos que provengan de la actividad anterior
+        Bundle data = getIntent().getExtras();
+
+        // Almacena el ID del jugador
+        String personId = data.getString("personId");
+
+        // Almacena el url del equipo
+        String teamUrl = data.getString("teamUrl");
+
+        // Crea un objeto Player a partir de los datos obtenidos.
+        Player p = new Player().getPlayerProfileFromId(personId, teamUrl);
+
+        // Rellena la información personal del jugador
         fillPlayerInfo(p);
 
+        // Rellena las estadísticas del jugador
         fillPlayerStats(personId);
 
-        fillFavorite(p, favButton);
+        // Controla el botón de favorito.
+        fillFavorite(p);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
+
+        // Controla lo que pasa cuando se pulsa el botón de atrás.
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+
+            // Cierra la actividad y vuelve a la anterior.
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    // Método que rellena la información personal del jugador
     public void fillPlayerInfo(Player p) {
 
+        // Instancia un objeto TextView para cada uno de los elementos que queremos rellenar
         TextView tvPlayerProfileName = findViewById(R.id.tvPlayerProfileName);
         TextView tvPlayerProfilePos = findViewById(R.id.tvPlayerProfilePos);
         TextView tvPlayerProfileBirthdate = findViewById(R.id.tvPlayerProfileBirthdate);
@@ -80,81 +90,99 @@ public class PlayerActivity extends AppCompatActivity {
         TextView tvPlayerProfileYearsPro = findViewById(R.id.tvPlayerProfileYearsPro);
         ImageView ivPlayerProfileTeamLogo = findViewById(R.id.ivPlayerProfileTeamLogo);
 
-        tvPlayerProfileName.setText(p.getFirstName() + " " + p.getLastName());
-        tvPlayerProfilePos.setText("#" + p.getJersey() + " - " + p.getPos());
-        tvPlayerProfileBirthdate.setText(p.getDateOfBirthUTC() + " - Age " + p.getAge());
 
+        // Rellenamos todos los TextView a partir de los datos del bundle
+        tvPlayerProfileName.setText(p.getFullName());
+
+        tvPlayerProfilePos.setText(getString(R.string.playerJerseyPos, p.getJersey(), p.getPos()));
+
+        tvPlayerProfileBirthdate.setText(getString(R.string.playerBirthAge, p.getDateOfBirthUTC(),p.getAge()));
+
+        // Creamos un objeto Team para obtener el logo.
         Team tmCurrent = new Team().getTeamById(p.getTeamId(), this.getApplicationContext());
-        tvPlayerProfileCollege.setText("College: " + p.getCollegeName());
-        tvPlayerProfileHeight.setText("Height: " + p.getHeightFt() + " m");
-        tvPlayerProfileWeight.setText("Weight: " + p.getWeightLbs() + " kg");
-        tvPlayerProfileYearsPro.setText("Years Pro: " + p.getYearsPro());
+
+        tvPlayerProfileCollege.setText(getString(R.string.playerCollege,p.getCollegeName()));
+
+        tvPlayerProfileHeight.setText(getString(R.string.playerHeight,p.getHeight()));
+
+        tvPlayerProfileWeight.setText(getString(R.string.playerWeight,p.getWeight()));
+
+        tvPlayerProfileYearsPro.setText(getString(R.string.playerYearsPro,p.getYearsPro()));
+
         ivPlayerProfileTeamLogo.setImageResource(tmCurrent.getLogo());
     }
 
+    // Método que crea la tabla con las estadísticas del jugador
     public void fillPlayerStats(String personId) {
 
+        // Almacena el objeto recyclerview presente en la actividad
         RecyclerView recyclerView = findViewById(R.id.recyclerViewPlayerProfileSeasons);
 
-        RetrievePlayerCareer rpc = new RetrievePlayerCareer();
+        // Instancia un objeto PlayerStats
+        PlayerStats pStats = new PlayerStats();
 
-        PlayerStatsAdapter adapter = new PlayerStatsAdapter(rpc.getPlayerStatsFromID(personId), this);
+        // Instancia un adaptador para PlayerStats a partir de la lista generada
+        PlayerStatsAdapter adapter = new PlayerStatsAdapter(pStats.getPlayerStatsById(personId), PlayerActivity.this);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        // Crea un nuevo Layout para mostrar la lista de los RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(PlayerActivity.this));
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-
+        // Enlaza el adaptador al recyclerview
         recyclerView.setAdapter(adapter);
     }
 
-    public void fillFavorite(Player p, ImageButton favButton) {
+    // Método que controla el botón de favorito
+    public void fillFavorite(Player p) {
+
+        ImageButton favButton = findViewById(R.id.ibFavPlayer);
+
         // Instancia un objeto de la clase favorito
         Favorite favTeam = new Favorite();
 
         String personId = p.getPersonId();
         String teamUrl = new Team().getTeamById(p.getTeamId(), PlayerActivity.this).getUrlName();
-        String personName = p.getFirstName() + " " + p.getLastName();
+        String personName = p.getFullName();
 
         // Inicializa la propiedad Id
         favTeam.setId(personId);
 
         // Si el equipo está en la tabla de favoritos, muestra el botón estrella amarilla
-        if (favTeam.checkFav(PlayerActivity.this) == true) {
+        if (favTeam.checkFav(PlayerActivity.this)) {
             favButton.setImageResource(android.R.drawable.btn_star_big_on);
         }
 
         // Si el equipo no está en la tabla de favoritos, muestra el botón estrella apagada
-        if (favTeam.checkFav(PlayerActivity.this) == false) {
+        if (!favTeam.checkFav(PlayerActivity.this)) {
             favButton.setImageResource(android.R.drawable.btn_star_big_off);
         }
-        favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        favButton.setOnClickListener(v -> {
 
-                // Almacena en la variable si el equipo está en la lista de favoritos
-                boolean isTeamFav = favTeam.checkFav(PlayerActivity.this);
+            // Almacena en la variable si el equipo está en la lista de favoritos
+            boolean isTeamFav = favTeam.checkFav(PlayerActivity.this);
 
-                // Si el equipo está, lo borra de la base de datos y pone la estrella apagada
-                if (isTeamFav) {
-                    favTeam.deleteFav(PlayerActivity.this);
-                    favButton.setImageResource(android.R.drawable.btn_star_big_off);
-                    Toast.makeText(PlayerActivity.this, "Removed from favorites", Toast.LENGTH_LONG).show();
-                }
+            // Si el equipo está, lo borra de la base de datos y pone la estrella apagada
+            if (isTeamFav) {
+                favTeam.deleteFav(PlayerActivity.this);
+                favButton.setImageResource(android.R.drawable.btn_star_big_off);
 
-                // Si no está ya en la base de datos, lo almacena y pone la estrella encendida
-                if (!isTeamFav) {
+                // Muestra un mensaje Toast
+                Toast.makeText(PlayerActivity.this, R.string.removedFavorites, Toast.LENGTH_LONG).show();
+            }
 
-                    favTeam.setType("player");
-                    favTeam.setTeamUrl(teamUrl);
-                    favTeam.setPersonName(personName);
+            // Si no está ya en la base de datos, lo almacena y pone la estrella encendida
+            if (!isTeamFav) {
 
-                    favTeam.insertFav(PlayerActivity.this);
+                favTeam.setType("player");
+                favTeam.setTeamUrl(teamUrl);
+                favTeam.setPersonName(personName);
 
-                    favButton.setImageResource(android.R.drawable.btn_star_big_on);
+                favTeam.setFavorite(PlayerActivity.this);
 
-                    Toast.makeText(PlayerActivity.this, "Added to favorites", Toast.LENGTH_LONG).show();
+                favButton.setImageResource(android.R.drawable.btn_star_big_on);
 
-                }
+                // Muestra un mensaje Toast
+                Toast.makeText(PlayerActivity.this, R.string.addedFavorites, Toast.LENGTH_LONG).show();
+
             }
         });
     }

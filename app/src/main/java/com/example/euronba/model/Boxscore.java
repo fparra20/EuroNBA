@@ -1,11 +1,13 @@
 package com.example.euronba.model;
 
+import com.example.euronba.controller.RetrieveBoxscore;
+
+import java.util.ArrayList;
+
 public class Boxscore extends Player {
 
-    public boolean isOnCourt;
     public String points;
     public String pos;
-    public String position_full;
     public String min;
     public String fgm;
     public String fga;
@@ -27,6 +29,11 @@ public class Boxscore extends Player {
     public String plusMinus;
     public String dnp;
 
+    public ArrayList<Boxscore> getBoxscoreByDateAndGame(String date, String gameId){
+
+        return new RetrieveBoxscore().getBoxscore(date,gameId);
+    }
+
     public String getPos() {
         return pos;
     }
@@ -35,28 +42,12 @@ public class Boxscore extends Player {
         this.pos = pos;
     }
 
-    public boolean isIsOnCourt() {
-        return isOnCourt;
-    }
-
-    public void setIsOnCourt(boolean isOnCourt) {
-        this.isOnCourt = isOnCourt;
-    }
-
     public String getPoints() {
         return points;
     }
 
     public void setPoints(String points) {
         this.points = points;
-    }
-
-    public String getPosition_full() {
-        return position_full;
-    }
-
-    public void setPosition_full(String position_full) {
-        this.position_full = position_full;
     }
 
     public String getMin() {

@@ -3,10 +3,11 @@
     <color name="purple_light">#494A97</color>
     <color name="purple_mid">#2E3060</color>
     <color name="purple_black">#1F2041</color>
+    <color name="purple_link">#541DD0</color>
 
     <color name="blue_light_light">#EEF8FC</color>
     <color name="blue_light">#2288AA</color>
-    <color name="blue_mid">#145266</color>
+    <color name="blue_mid">#384383</color>
     <color name="blue_black">#0A2933</color>
 
     <color name="violet_light">#7060A9</color>
@@ -18,7 +19,7 @@
     <color name="orange_black">#FFAD0A</color>
 
     <color name="eblue_light">#BABBDE</color>
-    <color name="eblue_mid">#9193CA</color>
+    <color name="eblue_mid">#A1A3D9</color>
     <color name="eblue_black">#657BB8</color>
 
     <color name="black">#FF000000</color>

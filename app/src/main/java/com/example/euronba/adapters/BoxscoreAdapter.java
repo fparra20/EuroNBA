@@ -125,7 +125,7 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
             rowViewHolder.linearRow.setBackgroundResource(rowColor);
 
             // Guarda un string con el nombre completo del jugador
-            String playerFullName = playerBox.getFirstName() + " " + playerBox.getLastName();
+            String playerFullName = playerBox.getFullName();
 
             String playerNameWithPosition = "";
 
@@ -140,7 +140,6 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
             }
 
             rowViewHolder.tvPlayerBoxName.setText(playerFullName + " " + playerBox.getPos());
-
             // Comprueba que el jugador ha jugado el partido
             if (playerBox.dnp.isEmpty()) {
                 rowViewHolder.tvPlayerBoxMin.setText(playerBox.getMin());

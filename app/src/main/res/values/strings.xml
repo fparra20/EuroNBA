@@ -11,4 +11,17 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="gameStartTime">Start time: %1$s</string>
+    <string name="gameArena">%1$s - %2$s</string>
+    <string name="gameDuration">Game duration:  %1$s</string>
+    <string name="gameNotStart">Yet to start.</string>
+    <string name="mainDate">%1$s - %2$s - %3$s</string>
+    <string name="playerJerseyPos">#%1$s - %2$s</string>
+    <string name="playerBirthAge">%1$s - Age: %2$s</string>
+    <string name="playerCollege">Procedence:  %1$s</string>
+    <string name="playerHeight">Height:  %1$s m</string>
+    <string name="playerWeight">Weight:  %1$s kg</string>
+    <string name="playerYearsPro">Years Pro:  %1$s</string>
+    <string name="removedFavorites">Removed from favorites</string>
+    <string name="addedFavorites">Added to favorites</string>
 </resources>

@@ -28,56 +28,52 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
-        RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvFavoritesList);
+        // Almacena la barra de herramientas a partir de su ID
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
+        // Establece la barra de herramientas.
         setSupportActionBar(toolbar);
 
-        // Método que contiene el listener del menú despleglable lateral
-        startNavigationListener(nv);
-
-        fillfavoriteList(mainRecycler);
-
-        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        // pass the Open and Close toggle for the drawer layout listener
-        // to toggle the button
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        // to make the Navigation drawer icon always appear on the action bar
+        // Permite que el botoón homburguesa (3 rayas, el del menú lateral) aparezca.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Crea el menú lateral
+        setDrawerLayout();
+
+        // Rellena el RecyclerView de favoritos
+        fillfavoriteList();
     }
 
+    // Controla que al volver a la Actividad, se actualice la lista de favoritos.
+    // Esto permite que si entramos en un item y lo eliminamos de favoritos, al volver a la lista
+    // se actualizará.
     @Override
     protected void onResume() {
         super.onResume();
 
-        RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvFavoritesList);
-
-        fillfavoriteList(mainRecycler);
+        fillfavoriteList();
     }
 
-    public void fillfavoriteList(RecyclerView mainRecycler) {
+    // Método que rellena el recyclerView con los equipos y jugadores favoritos
+    public void fillfavoriteList() {
 
-        ArrayList<Favorite> favList = new Favorite().getFavorites(this);
+        ArrayList<Favorite> favList = new Favorite().getFavorite(this);
+
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
-        mainRecycler = (RecyclerView) findViewById(R.id.rvFavoritesList);
+        RecyclerView mainRecycler = findViewById(R.id.rvFavoritesList);
 
         // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
         FavoritesListAdapter favAdapter = new FavoritesListAdapter(favList, FavoritesActivity.this);
 
-        // Enlaza el objeto recyclerview al adaptador
-        mainRecycler.setAdapter(favAdapter);
-
         // Crea un nuevo Layout para mostrar la lista de los RecyclerView
         mainRecycler.setLayoutManager(new LinearLayoutManager(FavoritesActivity.this));
 
+        // Enlaza el objeto recyclerview al adaptador
+        mainRecycler.setAdapter(favAdapter);
+
     }
 
+    // Listener que controla si el menú lateral se abre o se cierra
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
@@ -86,73 +82,93 @@ public class FavoritesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Método que crea el menú lateral y controla su funcionamiento
+    public void setDrawerLayout(){
+
+        // El menú lateral a partir de su ID
+        NavigationView nv = findViewById(R.id.navigation_view);
+
+        // Método que contiene el listener del menú despleglable lateral
+        startNavigationListener(nv);
+
+        // Almacena el objeto DrawerLayout
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        // Instancia un objeto ActionBarDrawerToggle, necesario para desplegar el menú lateral
+        // desde la barra superior.
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+
+        // Añade un Listener a la actividad
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        // Sincroniza el estado del objeto creado con el objeto presente en la actividad
+        actionBarDrawerToggle.syncState();
+    }
+
     public void startNavigationListener(NavigationView nv) {
 
         // Implementa el listener para el menú lateral desplegrable.
         nv.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
+                item -> {
 
-                        // Variable que almacena el id de la opción seleccionada.
-                        int id = item.getItemId();
+                    // Variable que almacena el id de la opción seleccionada.
+                    int id = item.getItemId();
 
-                        // Crea una variable de tipo intent que se rellenará según la opción
-                        Intent intent = null;
+                    // Crea una variable de tipo intent que se rellenará según la opción
+                    Intent intent = null;
 
-                        // Controla que se haya pulsado sobre la opción "Players"
-                        if (id == R.id.menu_players) {
+                    // Controla que se haya pulsado sobre la opción "Players"
+                    if (id == R.id.menu_players) {
 
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(FavoritesActivity.this, PlayerListActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Home"
-                        if (id == R.id.menu_home) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(FavoritesActivity.this, MainActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Teams"
-                        if (id == R.id.menu_teams) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(FavoritesActivity.this, TeamListActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Standings"
-                        if (id == R.id.menu_standings) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(FavoritesActivity.this, StandingsActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Playoffs"
-                        if (id == R.id.menu_playoffs) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(FavoritesActivity.this, PlayOffsActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Favorites"
-                        if (id == R.id.menu_favorites) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(FavoritesActivity.this, FavoritesActivity.class);
-                        }
-
-                        // Controla que intent tenga algún valor de los anteriores
-                        if (intent != null)
-
-                            // Inicia la actividad correspondiente
-                            startActivity(intent);
-
-                        // Finaliza la actividad actual
-                        finish();
-
-                        return true;
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(FavoritesActivity.this, PlayerListActivity.class);
                     }
+
+                    // Controla que se haya pulsado sobre la opción "Home"
+                    if (id == R.id.menu_home) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(FavoritesActivity.this, MainActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Teams"
+                    if (id == R.id.menu_teams) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(FavoritesActivity.this, TeamListActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Standings"
+                    if (id == R.id.menu_standings) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(FavoritesActivity.this, StandingsActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Playoffs"
+                    if (id == R.id.menu_playoffs) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(FavoritesActivity.this, PlayOffsActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Favorites"
+                    if (id == R.id.menu_favorites) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(FavoritesActivity.this, FavoritesActivity.class);
+                    }
+
+                    // Controla que intent tenga algún valor de los anteriores
+                    if (intent != null)
+
+                        // Inicia la actividad correspondiente
+                        startActivity(intent);
+
+                    // Finaliza la actividad actual
+                    finish();
+
+                    return true;
                 });
     }
 }

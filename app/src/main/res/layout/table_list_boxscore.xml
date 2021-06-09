@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:text="PLAYER"
         android:textAlignment="textStart"
+        android:textColor="@color/purple_link"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView

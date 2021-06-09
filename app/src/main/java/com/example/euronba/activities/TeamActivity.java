@@ -128,7 +128,7 @@ public class TeamActivity extends AppCompatActivity {
 
                     favTeam.setType("team");
 
-                    favTeam.insertFav(TeamActivity.this);
+                    favTeam.setFavorite(TeamActivity.this);
 
                     favButton.setImageResource(android.R.drawable.btn_star_big_on);
 

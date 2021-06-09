@@ -69,7 +69,7 @@ public class RetrievePlayer {
 
         try {
 
-            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
+            jobj = new RetrieveInfo().execute("https://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
 
             JSONObject dataTeam = jobj.getJSONObject("t");
 
@@ -91,7 +91,7 @@ public class RetrievePlayer {
 
                     player.setFirstName(dataPlayer.getJSONObject(i).getString("fn"));
 
-                    player.setHeightFt(dataPlayer.getJSONObject(i).getString("ht"));
+                    player.setHeight(dataPlayer.getJSONObject(i).getString("ht"));
 
                     player.setJersey(dataPlayer.getJSONObject(i).getString("num"));
 
@@ -101,7 +101,7 @@ public class RetrievePlayer {
 
                     player.setTeamId(dataTeam.getString("tid"));
 
-                    player.setWeightLbs(dataPlayer.getJSONObject(i).getString("wt"));
+                    player.setWeight(dataPlayer.getJSONObject(i).getString("wt"));
 
                     player.setYearsPro(dataPlayer.getJSONObject(i).getString("y"));
                 }
@@ -124,7 +124,7 @@ public class RetrievePlayer {
 
         try {
 
-            jobj = new RetrieveInfo().execute("http://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
+            jobj = new RetrieveInfo().execute("https://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
 
             JSONObject dataTeam = jobj.getJSONObject("t");
 
@@ -146,7 +146,7 @@ public class RetrievePlayer {
 
                 player.setFirstName(dataPlayer.getJSONObject(i).getString("fn"));
 
-                player.setHeightFt(dataPlayer.getJSONObject(i).getString("ht"));
+                player.setHeight(dataPlayer.getJSONObject(i).getString("ht"));
 
                 player.setJersey(dataPlayer.getJSONObject(i).getString("num"));
 
@@ -156,7 +156,7 @@ public class RetrievePlayer {
 
                 player.setTeamId(dataTeam.getString("tid"));
 
-                player.setWeightLbs(dataPlayer.getJSONObject(i).getString("wt"));
+                player.setWeight(dataPlayer.getJSONObject(i).getString("wt"));
 
                 player.setYearsPro(dataPlayer.getJSONObject(i).getString("y"));
 

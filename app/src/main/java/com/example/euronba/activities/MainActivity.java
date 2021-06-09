@@ -5,8 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -40,94 +38,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
+        // Almacena la barra de herramientas a partir de su ID
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
+        // Establece la barra de herramientas.
         setSupportActionBar(toolbar);
 
-        // Método que contiene el listener del menú despleglable lateral
-        startNavigationListener(nv);
-
-        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
-
-        // pass the Open and Close toggle for the drawer layout listener
-        // to toggle the button
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-        // to make the Navigation drawer icon always appear on the action bar
+        // Permite que el botoón homburguesa (3 rayas, el del menú lateral) aparezca.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Crea un objeto ImageButton para el calendario a partir del objeto presente en el layout
-        ImageButton ibCalendar = (ImageButton) findViewById(R.id.ibCalendar);
-
-        tvDay = (TextView) findViewById(R.id.tvDay);
-
+        // Obtiene un String con la fecha actual formateada en YYYYMMDD
         String date = getTodayDate();
 
         // Llama al método que genera el recyclerview según la fecha
-        showGamesByDate(date);
+        fillGamesByDate(date);
 
+        // Crea el menú lateral
+        setDrawerLayout();
 
-        // Añade un ClickListener al botón del calendario
-        ibCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Si se ha pulsado el botón con el calendario
-                if (v == ibCalendar) {
+        // Crea el botón de calendario y su funcionamiento
+        setCalendarButton();
 
-                    // Instancia 3 variables de tipo int, para guardar día mes y año actual.
-                    int mYear, mMonth, mDay;
-
-                    String[] date = tvDay.getText().toString().split(" - ");
-
-                    mYear = Integer.parseInt(date[2]);
-                    mMonth = Integer.parseInt(date[1]) - 1;
-                    mDay = Integer.parseInt(date[0]);
-
-                    // Instancia un objeto DatePickerDialog, con el que podremos seleccionar la fecha
-                    // y recibir todos los partidos jugados en la misma
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, AlertDialog.THEME_HOLO_DARK,
-                            new DatePickerDialog.OnDateSetListener() {
-
-                                @Override
-                                // Indica lo que pasa cuando se cambia de fecha.
-                                public void onDateSet(DatePicker view, int year,
-                                                      int monthOfYear, int dayOfMonth) {
-
-                                    // Almacena el año seleccionado como String
-                                    String y = String.valueOf(year);
-
-                                    // Almacena el mes seleccionado como String, se le suma 1 porque
-                                    // empieza en 0
-                                    String m = String.valueOf(monthOfYear + 1);
-
-                                    // ALmacena el día seleccionado como String
-                                    String d = String.valueOf(dayOfMonth);
-
-                                    // Comprueba si el mes tiene un sólo número, en cuyo caso le
-                                    // añade un 0 al principio.
-                                    if (m.length() == 1) {
-                                        m = "0" + m;
-                                    }
-                                    // Comprueba si el día tiene un sólo número, en cuyo caso le
-                                    // añade un 0 al principio.
-                                    if (d.length() == 1) {
-                                        d = "0" + d;
-                                    }
-
-                                    tvDay.setText(d + " - " + m + " - " + y);
-
-                                    showGamesByDate(y + m + d);
-                                }
-                            }, mYear, mMonth, mDay);
-
-                    // Muestra el diálogo de selección de fecha
-                    datePickerDialog.show();
-                }
-            }
-        });
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -136,15 +67,91 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.menu_players) {
-            System.out.println("yee");
-            Intent intent = new Intent(this.getApplicationContext(), PlayerListActivity.class);
-
-            startActivity(intent);
-        }
         return super.onOptionsItemSelected(item);
     }
 
+    // Método que crea el menú lateral y controla su funcionamiento
+    public void setDrawerLayout(){
+
+        // El menú lateral a partir de su ID
+        NavigationView nv = findViewById(R.id.navigation_view);
+
+        // Método que contiene el listener del menú despleglable lateral
+        startNavigationListener(nv);
+
+        // Almacena el objeto DrawerLayout
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        // Instancia un objeto ActionBarDrawerToggle, necesario para desplegar el menú lateral
+        // desde la barra superior.
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+
+        // Añade un Listener a la actividad
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        // Sincroniza el estado del objeto creado con el objeto presente en la actividad
+        actionBarDrawerToggle.syncState();
+    }
+
+    public void setCalendarButton(){
+        // Crea un objeto ImageButton para el calendario a partir del objeto presente en el layout
+        ImageButton ibCalendar = findViewById(R.id.ibCalendar);
+
+        // Instancia el objeto TextView de la fecha.
+        tvDay = findViewById(R.id.tvDay);
+
+        // Añade un ClickListener al botón del calendario
+        ibCalendar.setOnClickListener(v -> {
+            // Si se ha pulsado el botón con el calendario
+            if (v == ibCalendar) {
+
+                // Instancia 3 variables de tipo int, para guardar día mes y año actual.
+                int mYear, mMonth, mDay;
+
+                // Obtiene el valor del TextView de la fecha y lo divide en año, mes y día
+                String[] dateSplit = tvDay.getText().toString().split(" - ");
+
+                mYear = Integer.parseInt(dateSplit[2]);
+                mMonth = Integer.parseInt(dateSplit[1]) - 1;
+                mDay = Integer.parseInt(dateSplit[0]);
+
+                // Instancia un objeto DatePickerDialog, con el que podremos seleccionar la fecha
+                // y recibir todos los partidos jugados en la misma
+                // Indica lo que pasa cuando se cambia de fecha.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, AlertDialog.THEME_HOLO_DARK,
+                        (view, year, monthOfYear, dayOfMonth) -> {
+
+                            // Almacena el año seleccionado como String
+                            String y = String.valueOf(year);
+
+                            // Almacena el mes seleccionado como String, se le suma 1 porque
+                            // empieza en 0
+                            String m = String.valueOf(monthOfYear + 1);
+
+                            // ALmacena el día seleccionado como String
+                            String d = String.valueOf(dayOfMonth);
+
+                            // Comprueba si el mes tiene un sólo número, en cuyo caso le
+                            // añade un 0 al principio.
+                            if (m.length() == 1) {
+                                m = "0" + m;
+                            }
+                            // Comprueba si el día tiene un sólo número, en cuyo caso le
+                            // añade un 0 al principio.
+                            if (d.length() == 1) {
+                                d = "0" + d;
+                            }
+
+                            tvDay.setText(getString(R.string.mainDate,d,m,y));
+
+                            fillGamesByDate(y + m + d);
+                        }, mYear, mMonth, mDay);
+
+                // Muestra el diálogo de selección de fecha
+                datePickerDialog.show();
+            }
+        });
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -155,17 +162,17 @@ public class MainActivity extends AppCompatActivity {
         String m = date[1];
         String d = date[0];
 
-        showGamesByDate(y+m+d);
+        fillGamesByDate(y+m+d);
     }
 
-    protected void showGamesByDate(String date) {
+    protected void fillGamesByDate(String date) {
 
         Scoreboard scb = new Scoreboard();
 
         scoreboardList = scb.getScoreboardListByDate(date);
 
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
-        RecyclerView mainRecycler = (RecyclerView) findViewById(R.id.rvScoreboard);
+        RecyclerView mainRecycler = findViewById(R.id.rvScoreboard);
 
         // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
         ScoreboardAdapter sbAdapter = new ScoreboardAdapter(scoreboardList, this);
@@ -213,8 +220,13 @@ public class MainActivity extends AppCompatActivity {
             d = "0" + d;
         }
 
-        tvDay.setText(d + " - " + m + " - " + y);
+        // Instancia el TextView donde se mostrará la fecha.
+        tvDay = findViewById(R.id.tvDay);
 
+        // Escribe en la fecha el día, mes, y año.
+        tvDay.setText(getString(R.string.mainDate,d,m,y));
+
+        // Devuelve la fecha en formato YYYYMMDD
         return y + m + d;
     }
 
@@ -222,69 +234,66 @@ public class MainActivity extends AppCompatActivity {
 
         // Implementa el listener para el menú lateral desplegrable.
         nv.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
+                item -> {
 
-                        // Variable que almacena el id de la opción seleccionada.
-                        int id = item.getItemId();
+                    // Variable que almacena el id de la opción seleccionada.
+                    int id = item.getItemId();
 
-                        // Crea una variable de tipo intent que se rellenará según la opción
-                        Intent intent = null;
+                    // Crea una variable de tipo intent que se rellenará según la opción
+                    Intent intent = null;
 
-                        // Controla que se haya pulsado sobre la opción "Players"
-                        if (id == R.id.menu_players) {
+                    // Controla que se haya pulsado sobre la opción "Players"
+                    if (id == R.id.menu_players) {
 
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(MainActivity.this, PlayerListActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Home"
-                        if (id == R.id.menu_home) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(MainActivity.this, MainActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Teams"
-                        if (id == R.id.menu_teams) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(MainActivity.this, TeamListActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Standings"
-                        if (id == R.id.menu_standings) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(MainActivity.this, StandingsActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Playoffs"
-                        if (id == R.id.menu_playoffs) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(MainActivity.this, PlayOffsActivity.class);
-                        }
-
-                        // Controla que se haya pulsado sobre la opción "Favorites"
-                        if (id == R.id.menu_favorites) {
-
-                            // Crea un intent que abre la actividad correspondiente
-                            intent = new Intent(MainActivity.this, FavoritesActivity.class);
-                        }
-
-                        // Controla que intent tenga algún valor de los anteriores
-                        if (intent != null)
-
-                            // Inicia la actividad correspondiente
-                            startActivity(intent);
-
-                        // Finaliza la actividad actual
-                        finish();
-
-                        return true;
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(MainActivity.this, PlayerListActivity.class);
                     }
+
+                    // Controla que se haya pulsado sobre la opción "Home"
+                    if (id == R.id.menu_home) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(MainActivity.this, MainActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Teams"
+                    if (id == R.id.menu_teams) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(MainActivity.this, TeamListActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Standings"
+                    if (id == R.id.menu_standings) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(MainActivity.this, StandingsActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Playoffs"
+                    if (id == R.id.menu_playoffs) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(MainActivity.this, PlayOffsActivity.class);
+                    }
+
+                    // Controla que se haya pulsado sobre la opción "Favorites"
+                    if (id == R.id.menu_favorites) {
+
+                        // Crea un intent que abre la actividad correspondiente
+                        intent = new Intent(MainActivity.this, FavoritesActivity.class);
+                    }
+
+                    // Controla que intent tenga algún valor de los anteriores
+                    if (intent != null)
+
+                        // Inicia la actividad correspondiente
+                        startActivity(intent);
+
+                    // Finaliza la actividad actual
+                    finish();
+
+                    return true;
                 });
     }
 }

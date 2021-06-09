@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class RetrieveBoxscore {
 
-    public ArrayList<Boxscore> getPlayersChart(String date, String gameId) {
+    public ArrayList<Boxscore> getBoxscore(String date, String gameId) {
 
         ArrayList<Boxscore> pcList = new ArrayList<>();
 
@@ -52,13 +52,11 @@ public class RetrieveBoxscore {
                 sb.setFta(jobjScore.getString("fta"));
                 sb.setFtm(jobjScore.getString("ftm"));
                 sb.setFtp(jobjScore.getString("ftp"));
-                sb.setIsOnCourt(jobjScore.getBoolean("isOnCourt"));
                 sb.setMin(jobjScore.getString("min"));
                 sb.setOffReb(jobjScore.getString("offReb"));
                 sb.setPlusMinus(jobjScore.getString("plusMinus"));
                 sb.setPoints(jobjScore.getString("points"));
                 sb.setPos(jobjScore.getString("pos"));
-                sb.setPosition_full(jobjScore.getString("position_full"));
                 sb.setSteals(jobjScore.getString("steals"));
                 sb.setTotReb(jobjScore.getString("totReb"));
                 sb.setTpa(jobjScore.getString("tpa"));

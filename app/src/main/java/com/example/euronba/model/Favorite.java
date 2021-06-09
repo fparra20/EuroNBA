@@ -28,7 +28,7 @@ public class Favorite {
         this.personName = personName;
     }
 
-    public ArrayList<Favorite> getFavorites(Context ctx) {
+    public ArrayList<Favorite> getFavorite(Context ctx) {
         ArrayList<Favorite> alFav;
 
         // Creamos el cursor para traer los datos de la BD
@@ -59,13 +59,13 @@ public class Favorite {
             // Si no tiene datos o no le quedan, cierra el cursor y las llamadas a la base de datos.
         } else {
             cursor.close();
-            db.close();
         }
+        db.close();
 
         return alFav;
     }
 
-    public void insertFav(Context ctx) {
+    public void setFavorite(Context ctx) {
         // Creamos el cursor para traer los datos de la BD
         SQLiteOpenHelper FavoritesDatabaseHelper = new FavoritesDatabaseHelper(ctx);
 
@@ -90,6 +90,8 @@ public class Favorite {
             values.put("PERSONNAME", personName);
 
             db.insert("FAVORITES", null, values);
+        } else {
+            db.close();
         }
     }
 
@@ -112,12 +114,12 @@ public class Favorite {
             idExists = false;
         }
 
+        db.close();
+
         return idExists;
     }
 
     public void deleteFav(Context ctx) {
-
-        boolean idExists;
 
         // Creamos el cursor para traer los datos de la BD
         SQLiteOpenHelper FavoritesDatabaseHelper = new FavoritesDatabaseHelper(ctx);
@@ -126,6 +128,8 @@ public class Favorite {
         SQLiteDatabase db = FavoritesDatabaseHelper.getReadableDatabase();
 
         db.delete("FAVORITES", "id" + "=" + id, null);
+
+        db.close();
     }
 
     public String getId() {

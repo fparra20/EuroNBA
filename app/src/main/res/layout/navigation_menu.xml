@@ -8,39 +8,39 @@
 
     <item
         android:id="@+id/menu_home"
-        android:icon="@android:drawable/star_on"
+        android:icon="@drawable/home_icon"
         android:title="Home"
         app:showAsAction="always"></item>
 
     <item
         android:id="@+id/menu_players"
         android:title="Players"
-        android:icon="@android:drawable/ic_menu_today"
+        android:icon="@drawable/player_icon"
         app:showAsAction="always"></item>
 
 
     <item
         android:id="@+id/menu_teams"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:icon="@drawable/team_icon"
         android:title="Teams"
         app:showAsAction="always"></item>
 
 
     <item
         android:id="@+id/menu_standings"
-        android:icon="@android:drawable/ic_lock_lock"
+        android:icon="@drawable/standings_icon"
         android:title="Standings"
         app:showAsAction="always"></item>
 
     <item
         android:id="@+id/menu_playoffs"
-        android:icon="@android:drawable/ic_lock_idle_alarm"
+        android:icon="@drawable/playoffs_icon"
         android:title="Playoffs Bracket"
         app:showAsAction="always"></item>
 
     <item
         android:id="@+id/menu_favorites"
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/fav_icon"
         android:title="Favorites"
         app:showAsAction="always"></item>
 

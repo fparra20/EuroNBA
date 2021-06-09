@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_weight="5"
         android:singleLine="true"
+        android:textColor="@color/purple_link"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView

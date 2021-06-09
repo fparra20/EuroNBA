@@ -1,5 +1,9 @@
 package com.example.euronba.model;
 
+import com.example.euronba.controller.RetrievePlayerStats;
+
+import java.util.ArrayList;
+
 public class PlayerStats extends Player {
 
     public String ppg;
@@ -21,6 +25,9 @@ public class PlayerStats extends Player {
 
     }
 
+    public ArrayList<PlayerStats> getPlayerStatsById(String id){
+        return new RetrievePlayerStats().getPlayerStatsFromID(id);
+    }
     public String getPpg() {
         return ppg;
     }
