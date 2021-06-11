@@ -6,12 +6,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,6 +94,12 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
 
     // Método que controla qué opción del Spinner ha sido elegida
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+
+        // Pone el mensaje de error como invisible cada vez que se cambia de opción.
+        CardView cv = findViewById(R.id.cvError);
+
+        cv.setVisibility(View.GONE);
+
         switch (position) {
 
             // Si se elige la primera opción
@@ -141,6 +150,15 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
 
             // Almacena la final.
             poEastBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020, "NBA Finals", round);
+        }
+
+        // Controla que hayan llegado datos a las listas
+        if(poWestBracket.isEmpty() && poEastBracket.isEmpty()){
+
+            // En caso contrario muestra el mesnaje de error
+            CardView cv = findViewById(R.id.cvError);
+
+            cv.setVisibility(View.VISIBLE);
         }
 
         // Crea un objeto RecyclerView a partir del objeto presente en el layout

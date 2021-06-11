@@ -83,4 +83,8 @@
     <string name="players" >Players</string>
     <string name="PlayOffs">PlayOffs Bracket</string>
     <string name="favorites" >Favorites</string>
+
+    <!-- Error -->
+
+    <string name="errorPlayoffs" >No teams on this round yet!</string>
 </resources>

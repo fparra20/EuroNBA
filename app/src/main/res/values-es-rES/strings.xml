@@ -45,4 +45,5 @@
     <string name="players">Jugadores</string>
     <string name="favorites">Favoritos</string>
     <string name="PlayOffs">Cuadro PlayOffs</string>
+    <string name="errorPlayoffs">Ningún equipo ha llegado a esta ronda</string>
 </resources>
