@@ -20,16 +20,19 @@ import com.example.euronba.model.Team;
 
 import java.util.List;
 
-public class BoxscoreAdapter extends RecyclerView.Adapter {
+// Adaptador que se usa en GameActtivity y rellena las tablas de estadísticas de los partidos.
+public class BoxscoreAdapter extends RecyclerView.Adapter<BoxscoreAdapter.BoxscoreViewHolder> {
     List<Boxscore> playerBoxList;
     Activity activity;
 
+    // Constructor del adaptador
     public BoxscoreAdapter(List<Boxscore> playerBoxList, Activity activity) {
         this.playerBoxList = playerBoxList;
         this.activity = activity;
     }
 
-    public static class RowViewHolder extends RecyclerView.ViewHolder {
+    // Instancia todos los objetos que se quieren rellenar
+    public static class BoxscoreViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvPlayerBoxName;
         private final TextView tvPlayerBoxMin;
         private final TextView tvPlayerBoxPoints;
@@ -53,8 +56,8 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
         private final TextView tvPlayerBoxPlusMinus;
         private final LinearLayout linearRow;
 
-
-        public RowViewHolder(View itemView) {
+        // Constructor que vincula los objetos a su vista en el layout
+        public BoxscoreViewHolder(View itemView) {
             super(itemView);
 
             tvPlayerBoxName = itemView.findViewById(R.id.tvPlayerBoxName);
@@ -83,69 +86,93 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
         }
     }
 
+    // Crea una vista a partir del layout que queremos para rellenar
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BoxscoreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.table_list_boxscore, parent, false);
 
-        return new RowViewHolder(itemView);
+        return new BoxscoreViewHolder(itemView);
     }
 
+    // Método que vincula la vista con los datos
+    // Da al RecyclerView un formato de tabla
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        RowViewHolder rowViewHolder = (RowViewHolder) holder;
+    public void onBindViewHolder(@NonNull BoxscoreAdapter.BoxscoreViewHolder bsHolder, int position) {
 
-        int rowPos = rowViewHolder.getAdapterPosition();
+        // Obteiene la posición del adaptador
+        int rowPos = bsHolder.getAdapterPosition();
 
+        // Si es la primera posición, genera formatea los datos a modo de cabecera de tabla
         if (rowPos == 0) {
-            // Header Cells. Main Headings appear here
-            rowViewHolder.linearRow.setBackgroundResource(R.color.purple_light);
 
+            // Pone el fondo de color distinto al resto de filas
+            bsHolder.linearRow.setBackgroundResource(R.color.purple_light);
+
+            // Instancia un objeto TextView
             TextView tv;
-            for (int i = 0; i < rowViewHolder.linearRow.getChildCount(); i++) {
-                View view = rowViewHolder.linearRow.getChildAt(i);
+
+            // Permite acceder al LinearLayout y obtener todas las vistas hijas
+            for (int i = 0; i < bsHolder.linearRow.getChildCount(); i++) {
+
+                // Obtiene la vista del LinearLayout
+                View view = bsHolder.linearRow.getChildAt(i);
+
+                // Si la vista encontrada es un textview, le cambia el color a blanco y lo pone
+                // en negrita, para que los TextView de la cabecera se vea distinta a las demás.
                 if (view instanceof TextView) {
                     tv = (TextView) view;
                     tv.setTextColor(view.getContext().getResources().getColor(R.color.white));
                     tv.setTypeface(null, Typeface.BOLD);
                 }
             }
-        } else {
+        }
+
+        // Para todas las demás posiciones
+        else {
+
+            // Almacena el objeto Boxscore, que se obtiene desde el Arraylist a partir de
+            // la posición del adaptador, restando 1 porque la primera fila es una cabecera
             Boxscore playerBox = playerBoxList.get(rowPos - 1);
+
+            // Inicializa un color
             int rowColor = 0;
+
+            // Indica el color de las filas pares
             if (rowPos % 2 == 0) {
                 rowColor = R.color.eblue_mid;
             }
 
+            // Indica el color de las filas impares
             if (rowPos % 2 != 0) {
                 rowColor = R.color.eblue_light;
             }
-            rowViewHolder.linearRow.setBackgroundResource(rowColor);
+
+            // Pone como fondo de la fila el color correpondiente
+            bsHolder.linearRow.setBackgroundResource(rowColor);
 
             // Guarda un string con el nombre completo del jugador
             String playerFullName = playerBox.getFullName();
 
-            String playerNameWithPosition;
-
             // Si el jugador no ha sido titular, la posición aparecerá vacía.
             // Si lo ha sido, lo marcamos al final del nombre
             if (!playerBox.getPos().equals("")) {
-                playerNameWithPosition = playerFullName + " - " + playerBox.getPos();
 
-                rowViewHolder.tvPlayerBoxName.setText(playerNameWithPosition);
-                // Controla que los titulares salgan en negrita
-                rowViewHolder.tvPlayerBoxName.setTypeface(null, Typeface.BOLD);
+                // Controla que los jugadores titulares salgan en negrita
+                bsHolder.tvPlayerBoxName.setTypeface(null, Typeface.BOLD);
             }
 
-            rowViewHolder.tvPlayerBoxName.setText(playerFullName + " " + playerBox.getPos());
+            // Muestra el jugador y su posición. Si es titular, saldrá su posición, si no, saldrá en blanco
+            bsHolder.tvPlayerBoxName.setText(playerFullName + " " + playerBox.getPos());
+
             // Comprueba que el jugador ha jugado el partido
             if (playerBox.dnp.isEmpty()) {
-                rowViewHolder.tvPlayerBoxMin.setText(playerBox.getMin());
-                rowViewHolder.tvPlayerBoxPoints.setText(playerBox.getPoints());
-                rowViewHolder.tvPlayerBoxAssists.setText(playerBox.getAssists());
-                rowViewHolder.tvPlayerBoxTotReb.setText(playerBox.getTotReb());
+                bsHolder.tvPlayerBoxMin.setText(playerBox.getMin());
+                bsHolder.tvPlayerBoxPoints.setText(playerBox.getPoints());
+                bsHolder.tvPlayerBoxAssists.setText(playerBox.getAssists());
+                bsHolder.tvPlayerBoxTotReb.setText(playerBox.getTotReb());
             } else {
                 // Si el jugador no ha jugado el partido, aumentamos el tamaño del campo Min para que
                 // quepa el texto DNP (que normalmente será mayor, algo así como DNP- Technical Decision)
@@ -156,51 +183,58 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
 
                 // Borra 3 de los textvieww que igualmente no se iban a mostrar para que no ocupen
                 // espacio innecesariamente
-                rowViewHolder.tvPlayerBoxPoints.setVisibility(View.GONE);
-                rowViewHolder.tvPlayerBoxAssists.setVisibility(View.GONE);
-                rowViewHolder.tvPlayerBoxTotReb.setVisibility(View.GONE);
+                bsHolder.tvPlayerBoxPoints.setVisibility(View.GONE);
+                bsHolder.tvPlayerBoxAssists.setVisibility(View.GONE);
+                bsHolder.tvPlayerBoxTotReb.setVisibility(View.GONE);
                 // Asigna al textView Min las nuevas propiedades.
-                rowViewHolder.tvPlayerBoxMin.setLayoutParams(params);
+                bsHolder.tvPlayerBoxMin.setLayoutParams(params);
 
                 // Muestra el texto DNP
-                rowViewHolder.tvPlayerBoxMin.setText(playerBox.getDnp());
+                bsHolder.tvPlayerBoxMin.setText(playerBox.getDnp());
             }
 
-            rowViewHolder.tvPlayerBoxBlocks.setText(playerBox.getBlocks());
-            rowViewHolder.tvPlayerBoxSteals.setText(playerBox.getSteals());
-            rowViewHolder.tvPlayerBoxFgm.setText(playerBox.getFgm());
-            rowViewHolder.tvPlayerBoxFga.setText(playerBox.getFga());
-            rowViewHolder.tvPlayerBoxFgp.setText(playerBox.getFgp());
-            rowViewHolder.tvPlayerBoxTpm.setText(playerBox.getTpm());
-            rowViewHolder.tvPlayerBoxTpa.setText(playerBox.getTpa());
-            rowViewHolder.tvPlayerBoxTpp.setText(playerBox.getTpp());
-            rowViewHolder.tvPlayerBoxFtm.setText(playerBox.getFtm());
-            rowViewHolder.tvPlayerBoxFta.setText(playerBox.getFta());
-            rowViewHolder.tvPlayerBoxFtp.setText(playerBox.getFtp());
-            rowViewHolder.tvPlayerBoxOffReb.setText(playerBox.getOffReb());
-            rowViewHolder.tvPlayerBoxDefReb.setText(playerBox.getDefReb());
-            rowViewHolder.tvPlayerBoxTurnovers.setText(playerBox.getTurnovers());
-            rowViewHolder.tvPlayerBoxPFouls.setText(playerBox.getpFouls());
-            rowViewHolder.tvPlayerBoxPlusMinus.setText(playerBox.getPlusMinus());
+            // Rellena el resto de datos
+            bsHolder.tvPlayerBoxBlocks.setText(playerBox.getBlocks());
+            bsHolder.tvPlayerBoxSteals.setText(playerBox.getSteals());
+            bsHolder.tvPlayerBoxFgm.setText(playerBox.getFgm());
+            bsHolder.tvPlayerBoxFga.setText(playerBox.getFga());
+            bsHolder.tvPlayerBoxFgp.setText(playerBox.getFgp());
+            bsHolder.tvPlayerBoxTpm.setText(playerBox.getTpm());
+            bsHolder.tvPlayerBoxTpa.setText(playerBox.getTpa());
+            bsHolder.tvPlayerBoxTpp.setText(playerBox.getTpp());
+            bsHolder.tvPlayerBoxFtm.setText(playerBox.getFtm());
+            bsHolder.tvPlayerBoxFta.setText(playerBox.getFta());
+            bsHolder.tvPlayerBoxFtp.setText(playerBox.getFtp());
+            bsHolder.tvPlayerBoxOffReb.setText(playerBox.getOffReb());
+            bsHolder.tvPlayerBoxDefReb.setText(playerBox.getDefReb());
+            bsHolder.tvPlayerBoxTurnovers.setText(playerBox.getTurnovers());
+            bsHolder.tvPlayerBoxPFouls.setText(playerBox.getpFouls());
+            bsHolder.tvPlayerBoxPlusMinus.setText(playerBox.getPlusMinus());
 
 
+            // Obtiene el url del equipo
             String tmUrl = new Team().getTeamById(playerBox.getTeamId(), activity).getUrlName();
-            rowViewHolder.tvPlayerBoxName.setOnClickListener(v -> {
+
+            // Crea un listener para el nombre del jugador
+            bsHolder.tvPlayerBoxName.setOnClickListener(v -> {
+
+                // Crea un intent que manda la aplicación a PlayerActivity
                 Intent intent = new Intent(v.getContext(), PlayerActivity.class);
 
+                // Añade datos al intent necesarios para crear la siguiente actividad
                 intent.putExtra(PlayerActivity.EXTRA_PERSONID, playerBox.getPersonId());
                 intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tmUrl);
 
-                System.out.println(tmUrl);
-
+                // Empieza la siguiente actividad.
                 activity.startActivity(intent);
             });
         }
     }
 
+    // Obtiene la posición del adaptador
     @Override
     public int getItemCount() {
-        return playerBoxList.size() + 1; // one more to add header row
+        return playerBoxList.size() + 1;
     }
 
 }

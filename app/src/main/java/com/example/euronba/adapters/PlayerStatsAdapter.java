@@ -18,16 +18,19 @@ import com.example.euronba.model.Team;
 
 import java.util.List;
 
-public class PlayerStatsAdapter extends RecyclerView.Adapter {
+// Adaptador que se usa en PlayerListActivity y rellena la lista de los jugadores.
+public class PlayerStatsAdapter extends RecyclerView.Adapter<PlayerStatsAdapter.PlayerStatsViewHolder> {
     List<PlayerStats> playerStatsList;
     Activity activity;
 
+    // Constructor del adaptador
     public PlayerStatsAdapter(List<PlayerStats> playerStatsList, Activity activity) {
         this.playerStatsList = playerStatsList;
         this.activity = activity;
     }
 
-    public class RowViewHolder extends RecyclerView.ViewHolder {
+    // Instancia todos los objetos que se quieren rellenar
+    public static class PlayerStatsViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvPlayerStatsSeasonYear;
         private final TextView tvPlayerStatsTeam;
         private final TextView tvPlayerStatsGp;
@@ -45,8 +48,8 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
 
         private final LinearLayout tableRowPlayer;
 
-
-        public RowViewHolder(View itemView) {
+        // Constructor que vincula los objetos a su vista en el layout
+        public PlayerStatsViewHolder(View itemView) {
             super(itemView);
 
             tvPlayerStatsSeasonYear = itemView.findViewById(R.id.tvPlayerStatsSeasonYear);
@@ -63,80 +66,108 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
             tvPlayerStatsTopg = itemView.findViewById(R.id.tvPlayerStatsTopg);
             tvPlayerStatsPlusMinus = itemView.findViewById(R.id.tvPlayerStatsPlusMinus);
 
-
             tableRowPlayer = itemView.findViewById(R.id.tableRowPlayer);
+
         }
     }
 
+    // Crea una vista a partir del layout que queremos para rellenar
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlayerStatsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.table_list_player_seasons, parent, false);
 
-        return new RowViewHolder(itemView);
+        return new PlayerStatsViewHolder(itemView);
     }
 
+    // Método que vincula la vista con los datos
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        RowViewHolder rowViewHolder = (RowViewHolder) holder;
+    public void onBindViewHolder(@NonNull PlayerStatsAdapter.PlayerStatsViewHolder psHolder, int position) {
 
-        int rowPos = rowViewHolder.getAdapterPosition();
+        // Obtiene la posición del adaptador
+        int rowPos = psHolder.getAdapterPosition();
 
+        // Si es la primera posición, genera formatea los datos a modo de cabecera de tabla
         if (rowPos == 0) {
-            // Header Cells. Main Headings appear here
-            rowViewHolder.tableRowPlayer.setBackgroundResource(R.color.purple_light);
 
+            // Pone el fondo de color distinto al resto de filas
+            psHolder.tableRowPlayer.setBackgroundResource(R.color.purple_light);
+
+            // Instancia un objeto TextView
             TextView tv;
-            for (int i = 0; i < rowViewHolder.tableRowPlayer.getChildCount(); i++) {
-                View view = rowViewHolder.tableRowPlayer.getChildAt(i);
+
+            // Permite acceder al LinearLayout y obtener todas las vistas hijas
+            for (int i = 0; i < psHolder.tableRowPlayer.getChildCount(); i++) {
+
+                // Obtiene la vista del LinearLayout
+                View view = psHolder.tableRowPlayer.getChildAt(i);
+
+                // Si la vista encontrada es un textview, le cambia el color a blanco y lo pone
+                // en negrita, para que los TextView de la cabecera se vea distinta a las demás.
                 if (view instanceof TextView) {
                     tv = (TextView) view;
                     tv.setTextColor(view.getContext().getResources().getColor(R.color.white));
                     tv.setTypeface(null, Typeface.BOLD);
                 }
             }
-        } else {
+        }
+
+        // Para todas las demás posiciones
+        else {
+
+            // Almacena el objeto Playerstats, que se obtiene desde el Arraylist a partir de
+            // la posición del adaptador, restando 1 porque la primera fila es una cabecera
             PlayerStats playerStats = playerStatsList.get(rowPos - 1);
+
+            // Inicializa un color
             int rowColor = 0;
+
+            // Indica el color de las filas pares
             if (rowPos % 2 == 0) {
                 rowColor = R.color.eblue_mid;
             }
 
+            // Indica el color de las filas impares
             if (rowPos % 2 != 0) {
                 rowColor = R.color.eblue_light;
             }
 
-            rowViewHolder.tableRowPlayer.setBackgroundResource(rowColor);
+            // Pone como fondo de la fila el color correpondiente
+            psHolder.tableRowPlayer.setBackgroundResource(rowColor);
+
+            // Obtiene un equipo a partir de la id
             Team tm = new Team().getTeamById(playerStats.getTeamId(), activity);
 
-            rowViewHolder.tvPlayerStatsSeasonYear.setText(String.valueOf(playerStats.getSeasonYear()));
 
             // En ocasiones un jugador ha jugado en más de un equipo en una misma temporada
             // en estos se devuelve un equipo vacío, en el que se suman sus estadísticas totales, TOT
             if (tm.getTricode() == null)
-                rowViewHolder.tvPlayerStatsTeam.setText(R.string.total);
+                psHolder.tvPlayerStatsTeam.setText(R.string.total);
             else
-                rowViewHolder.tvPlayerStatsTeam.setText(tm.getTricode());
+                psHolder.tvPlayerStatsTeam.setText(tm.getTricode());
 
-            rowViewHolder.tvPlayerStatsGp.setText(playerStats.getGamesPlayed());
-            rowViewHolder.tvPlayerStatsMpg.setText(playerStats.getMpg());
-            rowViewHolder.tvPlayerStatsPpg.setText(playerStats.getPpg());
-            rowViewHolder.tvPlayerStatsRpg.setText(playerStats.getRpg());
-            rowViewHolder.tvPlayerStatsApg.setText(playerStats.getApg());
-            rowViewHolder.tvPlayerStatsBpg.setText(playerStats.getBpg());
-            rowViewHolder.tvPlayerStatsFgp.setText(playerStats.getFgp());
-            rowViewHolder.tvPlayerStatsTpp.setText(playerStats.getTpp());
-            rowViewHolder.tvPlayerStatsFtp.setText(playerStats.getFtp());
-            rowViewHolder.tvPlayerStatsTopg.setText(playerStats.getTopg());
-            rowViewHolder.tvPlayerStatsPlusMinus.setText(playerStats.getPlusMinus());
+            // Rellena el resto de datos
+            psHolder.tvPlayerStatsSeasonYear.setText(String.valueOf(playerStats.getSeasonYear()));
+            psHolder.tvPlayerStatsGp.setText(playerStats.getGamesPlayed());
+            psHolder.tvPlayerStatsMpg.setText(playerStats.getMpg());
+            psHolder.tvPlayerStatsPpg.setText(playerStats.getPpg());
+            psHolder.tvPlayerStatsRpg.setText(playerStats.getRpg());
+            psHolder.tvPlayerStatsApg.setText(playerStats.getApg());
+            psHolder.tvPlayerStatsBpg.setText(playerStats.getBpg());
+            psHolder.tvPlayerStatsFgp.setText(playerStats.getFgp());
+            psHolder.tvPlayerStatsTpp.setText(playerStats.getTpp());
+            psHolder.tvPlayerStatsFtp.setText(playerStats.getFtp());
+            psHolder.tvPlayerStatsTopg.setText(playerStats.getTopg());
+            psHolder.tvPlayerStatsPlusMinus.setText(playerStats.getPlusMinus());
         }
     }
 
+    // Obtiene la posición del adaptador
     @Override
     public int getItemCount() {
-        return playerStatsList.size() + 1; // one more to add header row
+        return playerStatsList.size() + 1;
     }
 
 }

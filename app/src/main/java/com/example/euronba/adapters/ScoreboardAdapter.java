@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,56 +20,60 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
+// Adapaptador que se usa en MainActivity y rellena la vista de los Partidos.
 public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.ScoreViewHolder> {
 
     ArrayList<Scoreboard> scores;
     Activity activity;
 
+    // Constructor del adaptador
     public ScoreboardAdapter(ArrayList<Scoreboard> scores, Activity activity) {
         this.scores = scores;
         this.activity = activity;
     }
 
+    // Instancia todos los objetos que se quieren rellenar
     public static class ScoreViewHolder extends RecyclerView.ViewHolder {
-        private ImageView ivLocalLogo;
-        private TextView tvLocalScore;
-        private ImageView ivVisitorLogo;
-        private TextView tvVisitorScore;
-        private TextView tvLocalTeamName;
-        private TextView tvVisitorTeamName;
-        private TextView tvLocalTeamStandings;
-        private TextView tvVisitorTeamStandings;
-        private TextView tvScoreStatus;
-        private TextView tvScoreClock;
-        private MaterialCardView cvScoreboard;
-        private TextView tvSummaryText;
-        private TextView tvDate;
+        private final ImageView ivLocalLogo;
+        private final TextView tvLocalScore;
+        private final ImageView ivVisitorLogo;
+        private final TextView tvVisitorScore;
+        private final TextView tvLocalTeamName;
+        private final TextView tvVisitorTeamName;
+        private final TextView tvLocalTeamStandings;
+        private final TextView tvVisitorTeamStandings;
+        private final TextView tvScoreStatus;
+        private final TextView tvScoreClock;
+        private final MaterialCardView cvScoreboard;
+        private final TextView tvSummaryText;
 
-
+        // Constructor que vincula los objetos a su vista en el layout
         public ScoreViewHolder(@NonNull View itemView) {
             super(itemView);
+
             // Iniciamos todos los item con los que vamos a trabajar
-            ivLocalLogo = (ImageView) itemView.findViewById(R.id.ivLocalLogo);
-            tvLocalScore = (TextView) itemView.findViewById(R.id.tvLocalScore);
+            ivLocalLogo = itemView.findViewById(R.id.ivLocalLogo);
+            tvLocalScore = itemView.findViewById(R.id.tvLocalScore);
 
-            ivVisitorLogo = (ImageView) itemView.findViewById(R.id.ivVisitorLogo);
-            tvVisitorScore = (TextView) itemView.findViewById(R.id.tvVisitorScore);
+            ivVisitorLogo = itemView.findViewById(R.id.ivVisitorLogo);
+            tvVisitorScore = itemView.findViewById(R.id.tvVisitorScore);
 
-            tvLocalTeamName = (TextView) itemView.findViewById(R.id.tvLocalTeamName);
-            tvVisitorTeamName = (TextView) itemView.findViewById(R.id.tvVisitorTeamName);
+            tvLocalTeamName = itemView.findViewById(R.id.tvLocalTeamName);
+            tvVisitorTeamName = itemView.findViewById(R.id.tvVisitorTeamName);
 
-            tvLocalTeamStandings = (TextView) itemView.findViewById(R.id.tvLocalTeamStandings);
-            tvVisitorTeamStandings = (TextView) itemView.findViewById(R.id.tvVisitorTeamStandings);
+            tvLocalTeamStandings = itemView.findViewById(R.id.tvLocalTeamStandings);
+            tvVisitorTeamStandings = itemView.findViewById(R.id.tvVisitorTeamStandings);
 
-            tvScoreStatus = (TextView) itemView.findViewById(R.id.tvScoreStatus);
-            tvScoreClock = (TextView) itemView.findViewById(R.id.tvScoreClock);
+            tvScoreStatus = itemView.findViewById(R.id.tvScoreStatus);
+            tvScoreClock = itemView.findViewById(R.id.tvScoreClock);
 
-            cvScoreboard = (MaterialCardView) itemView.findViewById(R.id.scoreboard);
-            tvSummaryText = (TextView) itemView.findViewById(R.id.tvSummaryText);
+            cvScoreboard = itemView.findViewById(R.id.scoreboard);
+            tvSummaryText = itemView.findViewById(R.id.tvSummaryText);
 
         }
     }
 
+    // Crea una vista a partir del layout que queremos para rellenar
     @NonNull
     @Override
     public ScoreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -78,34 +81,46 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
         return new ScoreViewHolder(v);
     }
 
+    // Método que vincula la vista con los datos
     @Override
     public void onBindViewHolder(@NonNull ScoreViewHolder scoreViewHolder, int position) {
+
+        // Obtiene el objeto Scoreboard correspondiente a la posición del adaptador
         Scoreboard score = scores.get(position);
 
-        Team tm = new Team();
+        // Almacena un objeto de equipo para equipo local y para equipo visitante
+        Team tmLocal = new Team().getTeamById(score.getLocalTeam().getTeamId(), activity);
+        Team tmVisitor = new Team().getTeamById(score.getVisitorTeam().getTeamId(), activity);
 
-        scoreViewHolder.ivLocalLogo.setImageResource(tm.getTeamById(score.getLocalTeam().getTeamId(), activity.getApplicationContext()).getLogo());
+        // Rellena el resto de los datos
+        scoreViewHolder.ivLocalLogo.setImageResource(tmLocal.getLogo());
         scoreViewHolder.tvLocalScore.setText(score.getLocalTeam().getScore());
 
-        scoreViewHolder.ivVisitorLogo.setImageResource(tm.getTeamById(score.getVisitorTeam().getTeamId(), activity.getApplicationContext()).getLogo());
+        scoreViewHolder.ivVisitorLogo.setImageResource(tmVisitor.getLogo());
         scoreViewHolder.tvVisitorScore.setText(score.getVisitorTeam().getScore());
 
-        scoreViewHolder.tvLocalTeamName.setText(tm.getTeamById(score.getLocalTeam().getTeamId(), activity.getApplicationContext()).getNickname());
-        scoreViewHolder.tvVisitorTeamName.setText(tm.getTeamById(score.getVisitorTeam().getTeamId(), activity.getApplicationContext()).getNickname());
+        scoreViewHolder.tvLocalTeamName.setText(tmLocal.getNickname());
+        scoreViewHolder.tvVisitorTeamName.setText(tmVisitor.getNickname());
 
         String localWL = score.getLocalTeam().getWin() + " - " + score.getLocalTeam().getLoss();
         String visitorWL = score.getVisitorTeam().getWin() + " - " + score.getVisitorTeam().getLoss();
         scoreViewHolder.tvLocalTeamStandings.setText(localWL);
         scoreViewHolder.tvVisitorTeamStandings.setText(visitorWL);
 
+        scoreViewHolder.tvScoreStatus.setText(score.getStartTimeUTC());
+        scoreViewHolder.tvSummaryText.setText(score.getSummaryText());
+
+        // Instancia un objeto String vacío
         String gameClock = "";
 
         // Si el partido está transcuyendo actualmente, el statusNum es 2
-
         if (score.statusNum == 2) {
+
+            // Controla si el partido está entre el 1er y 4o periodo.
             if (score.getCurrentPeriod() >= 1 && score.getCurrentPeriod() <= 4)
                 gameClock = score.getClock() + " - " + score.getCurrentPeriod() + "th";
 
+            // Controla si el partido está entre en el quinto periodo, prórroga.
             if (score.getCurrentPeriod() == 5)
                 gameClock = score.getClock() + " - OT";
 
@@ -114,107 +129,71 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
             if (score.getCurrentPeriod() > 5)
                 gameClock = score.getClock() + " - " + (score.getCurrentPeriod() - 4) + "OT";
 
+            // Rellena el reloj
             scoreViewHolder.tvScoreClock.setText(gameClock);
         }
 
-        scoreViewHolder.tvScoreStatus.setText(score.getStartTimeUTC());
 
+        // Controla si el partido ha acabado, o sea, statusNum 3
         if (score.statusNum == 3) {
+
+            // Controla que hubo una prórroga en el partido
             if (score.getCurrentPeriod() == 5)
                 gameClock = "OT";
 
+            // Controla que hubo más de una prórroga en el partido
             if (score.getCurrentPeriod() > 5)
                 gameClock = (score.getCurrentPeriod() - 4) + "OT";
 
+            // Rellena el reloj
             scoreViewHolder.tvScoreClock.setText(gameClock);
         }
 
-        scoreViewHolder.tvSummaryText.setText(score.getSummaryText());
 
-        // Guarda el resultado del reloj tras los if
+        // Almacena el resultado del reloj tras los if, para pasarlo a la actividad siguiente
         String finalGameClock = gameClock;
 
+        // Obtiene la vista TextView del día de partido
         TextView tv = activity.findViewById(R.id.tvDay);
+
+        // Almacena el valor que hay en la vista y lo separa en un array de 3 valores
         String[] dateSplit = tv.getText().toString().split(" - ");
+
+        // Almacena la fecha formateada como YYYYMMDD
         String date = dateSplit[2] + dateSplit[1] + dateSplit[0];
 
-        System.out.println(date);
+        // Añade un listener para el objeto del resultado
+        scoreViewHolder.cvScoreboard.setOnClickListener(v -> {
 
-        scoreViewHolder.cvScoreboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), GameActivity.class);
+            // Instancia un objeto intent con la actividad GameActivity
+            Intent intent = new Intent(v.getContext(), GameActivity.class);
 
-                intent.putExtra(GameActivity.EXTRA_GAMEID, score.getGameId());
-                intent.putExtra(GameActivity.EXTRA_ARENANAME, score.getArenaName());
-                intent.putExtra(GameActivity.EXTRA_ARENACITY, score.getArenaCity());
-                intent.putExtra(GameActivity.EXTRA_CLOCK, score.getClock());
-                intent.putExtra(GameActivity.EXTRA_CURRENTPERIOD, finalGameClock);
-                intent.putExtra(GameActivity.EXTRA_GAMEDURATION, score.getGameDuration());
-                intent.putExtra(GameActivity.EXTRA_LOCALTEAMID, score.getLocalTeam().getTeamId());
-                intent.putExtra(GameActivity.EXTRA_LOCALTEAMWL, localWL);
-                intent.putExtra(GameActivity.EXTRA_LOCALTEAMSCORE, score.getLocalTeam().getScore());
-                intent.putExtra(GameActivity.EXTRA_SEASONSTAGEID, score.getSeasonStageId());
-                intent.putExtra(GameActivity.EXTRA_STARTTIME, score.getStartTimeUTC());
-                intent.putExtra(GameActivity.EXTRA_SEASONYEAR, score.getSeasonYear());
-                intent.putExtra(GameActivity.EXTRA_SUMMARYTEXT, score.getSummaryText());
-                intent.putExtra(GameActivity.EXTRA_STATUSNUM, score.getStatusNum());
-                intent.putExtra(GameActivity.EXTRA_VISITORTEAMID, score.getVisitorTeam().getTeamId());
-                intent.putExtra(GameActivity.EXTRA_VISITORTEAMWL, visitorWL);
-                intent.putExtra(GameActivity.EXTRA_VISITORTEAMSCORE, score.getVisitorTeam().getScore());
-                intent.putExtra(GameActivity.EXTRA_DATE, date);
+            // Añade datos al intent necesarios para crear la siguiente actividad
+            intent.putExtra(GameActivity.EXTRA_GAMEID, score.getGameId());
+            intent.putExtra(GameActivity.EXTRA_ARENANAME, score.getArenaName());
+            intent.putExtra(GameActivity.EXTRA_ARENACITY, score.getArenaCity());
+            intent.putExtra(GameActivity.EXTRA_CLOCK, score.getClock());
+            intent.putExtra(GameActivity.EXTRA_CURRENTPERIOD, finalGameClock);
+            intent.putExtra(GameActivity.EXTRA_GAMEDURATION, score.getGameDuration());
+            intent.putExtra(GameActivity.EXTRA_LOCALTEAMID, score.getLocalTeam().getTeamId());
+            intent.putExtra(GameActivity.EXTRA_LOCALTEAMWL, localWL);
+            intent.putExtra(GameActivity.EXTRA_LOCALTEAMSCORE, score.getLocalTeam().getScore());
+            intent.putExtra(GameActivity.EXTRA_SEASONSTAGEID, score.getSeasonStageId());
+            intent.putExtra(GameActivity.EXTRA_STARTTIME, score.getStartTimeUTC());
+            intent.putExtra(GameActivity.EXTRA_SEASONYEAR, score.getSeasonYear());
+            intent.putExtra(GameActivity.EXTRA_SUMMARYTEXT, score.getSummaryText());
+            intent.putExtra(GameActivity.EXTRA_STATUSNUM, score.getStatusNum());
+            intent.putExtra(GameActivity.EXTRA_VISITORTEAMID, score.getVisitorTeam().getTeamId());
+            intent.putExtra(GameActivity.EXTRA_VISITORTEAMWL, visitorWL);
+            intent.putExtra(GameActivity.EXTRA_VISITORTEAMSCORE, score.getVisitorTeam().getScore());
+            intent.putExtra(GameActivity.EXTRA_DATE, date);
 
-                activity.startActivity(intent);
-            }
+            // Empieza la siguiente actividad.
+            activity.startActivity(intent);
         });
-
-
-        /*
-        // Que si clickamos el nombre, nos salga un toast con nombre completo
-        scoreViewHolder.tvName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity,score.getArenaName(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Evento cuando se clicka el camaleon para puntuar
-        scoreViewHolder.ibPuntuation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Guardamos el valor actual de puntuación
-                int currentValue=pet.getRating();
-
-                // Sumamos 1
-                int newValue = currentValue+1;
-
-                // Cambiamos el rating de la mascota en cuestion
-                pet.setRating(newValue);
-
-                // Actualizamos también el TextView que lo muestra
-                petViewHolder.tvRating.setText(String.valueOf(newValue));
-
-                // Creamos el cursor para traer los datos de la BD
-                SQLiteOpenHelper PetsDataBaseHelper = new PetsDataBaseHelper(v.getContext());
-
-                // Extrae la base de datos para trabajar con ella
-                SQLiteDatabase db = PetsDataBaseHelper.getReadableDatabase();
-
-                ContentValues petValues = new ContentValues();
-                /*
-                 * creamos cada uno de los campos de la fila a insertar
-                petValues.put("RATING",String.valueOf(newValue));
-
-                // Ejecutamos el update del rating en esta mascota en concreto
-                db.update("PET", petValues,"_id= ?",new String[]{String.valueOf(pet.getPet_id())});
-
-            }
-        });
-         */
     }
 
-
+    // Obtiene la posición del adaptador
     @Override
     public int getItemCount() {
         return scores.size();

@@ -12,6 +12,7 @@
         android:layout_weight="5"
         android:singleLine="true"
         android:textColor="@color/purple_link"
+        android:text="TEAM"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:text="W"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
@@ -26,6 +28,7 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"
+        android:text="L"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
@@ -33,6 +36,7 @@
         android:layout_width="0dp"
         android:layout_weight="2.5"
         android:layout_height="match_parent"
+        android:text="%W"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
@@ -40,6 +44,7 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"
+        android:text="STR"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 
     <TextView
@@ -47,5 +52,6 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"
+        android:text="L10"
         android:theme="@style/Theme.EuroNBA.StandingsCol" />
 </LinearLayout>

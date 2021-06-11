@@ -9,9 +9,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-/**
- * @author Usuario
- */
 public class RetrievePlayer {
 
     public ArrayList<Player> getPlayers() {

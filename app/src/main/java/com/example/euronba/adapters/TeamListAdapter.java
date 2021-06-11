@@ -19,20 +19,24 @@ import com.example.euronba.model.Team;
 
 import java.util.List;
 
+// Adaptador que se usa en TeamListActivity y rellena la lista de los jugadores.
 public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.TeamListViewHolder> {
     List<Team> teamList;
     Activity activity;
 
+    // Constructor del adaptador
     public TeamListAdapter(List<Team> teamList, Activity activity) {
         this.teamList = teamList;
         this.activity = activity;
     }
 
+    // Instancia todos los objetos que se quieren rellenar
     public static class TeamListViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvTeamListName;
-        private ImageView ivTeamListTeamLogo;
-        private CardView cvTeamList;
+        private final TextView tvTeamListName;
+        private final ImageView ivTeamListTeamLogo;
+        private final CardView cvTeamList;
 
+        // Constructor que vincula los objetos a su vista en el layout
         public TeamListViewHolder(View itemView) {
             super(itemView);
 
@@ -42,6 +46,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.TeamLi
         }
     }
 
+    // Crea una vista a partir del layout que queremos para rellenar
     @NonNull
     @Override
     public TeamListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,28 +57,35 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.TeamLi
         return new TeamListViewHolder(itemView);
     }
 
+    // Método que vincula la vista con los datos
     @Override
     public void onBindViewHolder(@NonNull TeamListAdapter.TeamListViewHolder tListViewHolder, int position) {
+
+        // Obtiene el objeto Team correspondiente a la posición del adaptador
         Team tm = teamList.get(position);
 
+        // Rellena los datos
         tListViewHolder.tvTeamListName.setText(tm.getFullName());
         tListViewHolder.ivTeamListTeamLogo.setImageResource(tm.getLogo());
 
-        tListViewHolder.cvTeamList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity.getApplicationContext(), TeamActivity.class);
+        // Crea un Listener para la vista del equipo
+        tListViewHolder.cvTeamList.setOnClickListener(v -> {
 
-                intent.putExtra(TeamActivity.EXTRA_TEAMID, tm.getTeamId());
+            // Instancia un objeto intent con la actividad TeamActivity
+            Intent intent = new Intent(activity.getApplicationContext(), TeamActivity.class);
 
-                activity.startActivity(intent);
-            }
+            // Añade datos al intent necesarios para crear la siguiente actividad
+            intent.putExtra(TeamActivity.EXTRA_TEAMID, tm.getTeamId());
+
+            // Empieza la siguiente actividad.
+            activity.startActivity(intent);
         });
     }
 
+    // Obtiene la posición del adaptador
     @Override
     public int getItemCount() {
-        return teamList.size(); // one more to add header row
+        return teamList.size();
     }
 
 }
