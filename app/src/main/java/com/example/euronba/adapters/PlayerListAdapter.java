@@ -30,10 +30,10 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     }
 
     public static class PlayerListViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPlayerListName;
-        private TextView tvPlayerListPositionJersey;
-        private ImageView ivPlayerListTeamLogo;
-        private CardView cvPlayerList;
+        private final TextView tvPlayerListName;
+        private final TextView tvPlayerListPositionJersey;
+        private final ImageView ivPlayerListTeamLogo;
+        private final CardView cvPlayerList;
 
         public PlayerListViewHolder(View itemView) {
             super(itemView);
@@ -61,20 +61,17 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 
         Team tm = new Team().getTeamById(player.getTeamId(), activity);
 
-        pListViewHolder.tvPlayerListName.setText(player.getFirstName() + " " + player.getLastName());
-        pListViewHolder.tvPlayerListPositionJersey.setText(player.getPos() + " #" + player.getJersey());
+        pListViewHolder.tvPlayerListName.setText(player.getFullName());
+        pListViewHolder.tvPlayerListPositionJersey.setText(activity.getString(R.string.teamListJerseyPos,player.getPos(),player.getJersey()));
         pListViewHolder.ivPlayerListTeamLogo.setImageResource(tm.getLogo());
 
-        pListViewHolder.cvPlayerList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity.getApplicationContext(), PlayerActivity.class);
+        pListViewHolder.cvPlayerList.setOnClickListener(v -> {
+            Intent intent = new Intent(activity.getApplicationContext(), PlayerActivity.class);
 
-                intent.putExtra(PlayerActivity.EXTRA_PERSONID, player.getPersonId());
-                intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tm.getUrlName());
+            intent.putExtra(PlayerActivity.EXTRA_PERSONID, player.getPersonId());
+            intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tm.getUrlName());
 
-                activity.startActivity(intent);
-            }
+            activity.startActivity(intent);
         });
     }
 

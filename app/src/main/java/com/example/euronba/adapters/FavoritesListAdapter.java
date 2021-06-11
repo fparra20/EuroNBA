@@ -31,9 +31,9 @@ public class FavoritesListAdapter extends RecyclerView.Adapter<FavoritesListAdap
     }
 
     public static class FavoritesListViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPlayerListName;
-        private ImageView ivPlayerListTeamLogo;
-        private CardView cvPlayerList;
+        private final TextView tvPlayerListName;
+        private final ImageView ivPlayerListTeamLogo;
+        private final CardView cvPlayerList;
 
         public FavoritesListViewHolder(View itemView) {
             super(itemView);
@@ -58,8 +58,6 @@ public class FavoritesListAdapter extends RecyclerView.Adapter<FavoritesListAdap
     public void onBindViewHolder(@NonNull FavoritesListAdapter.FavoritesListViewHolder pListViewHolder, int position) {
         Favorite fav = favList.get(position);
 
-        pListViewHolder.tvPlayerListName.setText(fav.getId() + " - " + fav.getType() + " " + fav.getTeamUrl() + fav.getPersonName());
-
         if (fav.getType().equals("team")) {
             Team tm = new Team().getTeamById(fav.getId(), activity);
             pListViewHolder.tvPlayerListName.setText(tm.getFullName());
@@ -69,22 +67,19 @@ public class FavoritesListAdapter extends RecyclerView.Adapter<FavoritesListAdap
         if (fav.getType().equals("player")) {
             pListViewHolder.tvPlayerListName.setText(fav.getPersonName());
         }
-        pListViewHolder.cvPlayerList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = null;
-                if (fav.getType().equals("team")) {
-                    intent = new Intent(activity.getApplicationContext(), TeamActivity.class);
-                    intent.putExtra(TeamActivity.EXTRA_TEAMID, fav.getId());
-                }
-
-                if (fav.getType().equals("player")) {
-                    intent = new Intent(activity.getApplicationContext(), PlayerActivity.class);
-                    intent.putExtra(PlayerActivity.EXTRA_PERSONID, fav.getId());
-                    intent.putExtra(PlayerActivity.EXTRA_TEAMURL, fav.getTeamUrl());
-                }
-                activity.startActivity(intent);
+        pListViewHolder.cvPlayerList.setOnClickListener(v -> {
+            Intent intent = null;
+            if (fav.getType().equals("team")) {
+                intent = new Intent(activity.getApplicationContext(), TeamActivity.class);
+                intent.putExtra(TeamActivity.EXTRA_TEAMID, fav.getId());
             }
+
+            if (fav.getType().equals("player")) {
+                intent = new Intent(activity.getApplicationContext(), PlayerActivity.class);
+                intent.putExtra(PlayerActivity.EXTRA_PERSONID, fav.getId());
+                intent.putExtra(PlayerActivity.EXTRA_TEAMURL, fav.getTeamUrl());
+            }
+            activity.startActivity(intent);
         });
     }
 

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Método que controla el pulsado sobre el botón de abrir el menú lateral
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {

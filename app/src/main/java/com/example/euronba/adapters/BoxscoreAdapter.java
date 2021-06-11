@@ -29,29 +29,29 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
         this.activity = activity;
     }
 
-    public class RowViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPlayerBoxName;
-        private TextView tvPlayerBoxMin;
-        private TextView tvPlayerBoxPoints;
-        private TextView tvPlayerBoxAssists;
-        private TextView tvPlayerBoxTotReb;
-        private TextView tvPlayerBoxBlocks;
-        private TextView tvPlayerBoxSteals;
-        private TextView tvPlayerBoxFgm;
-        private TextView tvPlayerBoxFga;
-        private TextView tvPlayerBoxFgp;
-        private TextView tvPlayerBoxTpm;
-        private TextView tvPlayerBoxTpa;
-        private TextView tvPlayerBoxTpp;
-        private TextView tvPlayerBoxFtm;
-        private TextView tvPlayerBoxFta;
-        private TextView tvPlayerBoxFtp;
-        private TextView tvPlayerBoxOffReb;
-        private TextView tvPlayerBoxDefReb;
-        private TextView tvPlayerBoxTurnovers;
-        private TextView tvPlayerBoxPFouls;
-        private TextView tvPlayerBoxPlusMinus;
-        private LinearLayout linearRow;
+    public static class RowViewHolder extends RecyclerView.ViewHolder {
+        private final TextView tvPlayerBoxName;
+        private final TextView tvPlayerBoxMin;
+        private final TextView tvPlayerBoxPoints;
+        private final TextView tvPlayerBoxAssists;
+        private final TextView tvPlayerBoxTotReb;
+        private final TextView tvPlayerBoxBlocks;
+        private final TextView tvPlayerBoxSteals;
+        private final TextView tvPlayerBoxFgm;
+        private final TextView tvPlayerBoxFga;
+        private final TextView tvPlayerBoxFgp;
+        private final TextView tvPlayerBoxTpm;
+        private final TextView tvPlayerBoxTpa;
+        private final TextView tvPlayerBoxTpp;
+        private final TextView tvPlayerBoxFtm;
+        private final TextView tvPlayerBoxFta;
+        private final TextView tvPlayerBoxFtp;
+        private final TextView tvPlayerBoxOffReb;
+        private final TextView tvPlayerBoxDefReb;
+        private final TextView tvPlayerBoxTurnovers;
+        private final TextView tvPlayerBoxPFouls;
+        private final TextView tvPlayerBoxPlusMinus;
+        private final LinearLayout linearRow;
 
 
         public RowViewHolder(View itemView) {
@@ -127,7 +127,7 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
             // Guarda un string con el nombre completo del jugador
             String playerFullName = playerBox.getFullName();
 
-            String playerNameWithPosition = "";
+            String playerNameWithPosition;
 
             // Si el jugador no ha sido titular, la posición aparecerá vacía.
             // Si lo ha sido, lo marcamos al final del nombre
@@ -185,18 +185,15 @@ public class BoxscoreAdapter extends RecyclerView.Adapter {
 
 
             String tmUrl = new Team().getTeamById(playerBox.getTeamId(), activity).getUrlName();
-            rowViewHolder.tvPlayerBoxName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), PlayerActivity.class);
+            rowViewHolder.tvPlayerBoxName.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), PlayerActivity.class);
 
-                    intent.putExtra(PlayerActivity.EXTRA_PERSONID, playerBox.getPersonId());
-                    intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tmUrl);
+                intent.putExtra(PlayerActivity.EXTRA_PERSONID, playerBox.getPersonId());
+                intent.putExtra(PlayerActivity.EXTRA_TEAMURL, tmUrl);
 
-                    System.out.println(tmUrl);
+                System.out.println(tmUrl);
 
-                    activity.startActivity(intent);
-                }
+                activity.startActivity(intent);
             });
         }
     }

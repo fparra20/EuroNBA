@@ -24,4 +24,24 @@
     <string name="playerYearsPro">Years Pro:  %1$s</string>
     <string name="removedFavorites">Removed from favorites</string>
     <string name="addedFavorites">Added to favorites</string>
+
+    <!-- PlayOffs -->
+    <string name="firstRound">First Round</string>
+    <string name="secondRound">Second Round</string>
+    <string name="confFinal">Conference Finals</string>
+    <string name="finals">The Finals</string>
+
+    <!-- Standings -->
+    <string name="east">EAST</string>
+    <string name="west">WEST</string>
+
+    <!-- Team -->
+    <string name="teamConf">Conf:  %1$s</string>
+    <string name="teamDiv">Div:  %1$s</string>
+
+    <!-- TeamList -->
+    <string name="teamListJerseyPos">%1$s #%2$s</string>
+
+    <!-- TeamStats -->
+    <string name="total">TOT</string>
 </resources>

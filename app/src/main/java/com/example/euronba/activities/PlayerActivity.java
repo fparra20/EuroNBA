@@ -91,15 +91,12 @@ public class PlayerActivity extends AppCompatActivity {
         ImageView ivPlayerProfileTeamLogo = findViewById(R.id.ivPlayerProfileTeamLogo);
 
 
-        // Rellenamos todos los TextView a partir de los datos del bundle
+        // Rellenamos todos los TextView a partir de los datos del jugador
         tvPlayerProfileName.setText(p.getFullName());
 
         tvPlayerProfilePos.setText(getString(R.string.playerJerseyPos, p.getJersey(), p.getPos()));
 
         tvPlayerProfileBirthdate.setText(getString(R.string.playerBirthAge, p.getDateOfBirthUTC(),p.getAge()));
-
-        // Creamos un objeto Team para obtener el logo.
-        Team tmCurrent = new Team().getTeamById(p.getTeamId(), this.getApplicationContext());
 
         tvPlayerProfileCollege.setText(getString(R.string.playerCollege,p.getCollegeName()));
 
@@ -108,6 +105,9 @@ public class PlayerActivity extends AppCompatActivity {
         tvPlayerProfileWeight.setText(getString(R.string.playerWeight,p.getWeight()));
 
         tvPlayerProfileYearsPro.setText(getString(R.string.playerYearsPro,p.getYearsPro()));
+
+        // Creamos un objeto Team para obtener el logo.
+        Team tmCurrent = new Team().getTeamById(p.getTeamId(), this.getApplicationContext());
 
         ivPlayerProfileTeamLogo.setImageResource(tmCurrent.getLogo());
     }
@@ -146,12 +146,12 @@ public class PlayerActivity extends AppCompatActivity {
         // Inicializa la propiedad Id
         favTeam.setId(personId);
 
-        // Si el equipo está en la tabla de favoritos, muestra el botón estrella amarilla
+        // Si el jugdaor está en la tabla de favoritos, muestra el botón estrella amarilla
         if (favTeam.checkFav(PlayerActivity.this)) {
             favButton.setImageResource(android.R.drawable.btn_star_big_on);
         }
 
-        // Si el equipo no está en la tabla de favoritos, muestra el botón estrella apagada
+        // Si el jugador no está en la tabla de favoritos, muestra el botón estrella apagada
         if (!favTeam.checkFav(PlayerActivity.this)) {
             favButton.setImageResource(android.R.drawable.btn_star_big_off);
         }
@@ -160,7 +160,7 @@ public class PlayerActivity extends AppCompatActivity {
             // Almacena en la variable si el equipo está en la lista de favoritos
             boolean isTeamFav = favTeam.checkFav(PlayerActivity.this);
 
-            // Si el equipo está, lo borra de la base de datos y pone la estrella apagada
+            // Si el jugador está, lo borra de la base de datos y pone la estrella apagada
             if (isTeamFav) {
                 favTeam.deleteFav(PlayerActivity.this);
                 favButton.setImageResource(android.R.drawable.btn_star_big_off);
@@ -172,10 +172,12 @@ public class PlayerActivity extends AppCompatActivity {
             // Si no está ya en la base de datos, lo almacena y pone la estrella encendida
             if (!isTeamFav) {
 
+                // Para los jugadores se alamcena el tipo, el teamUrl y el nombre del jugador
                 favTeam.setType("player");
                 favTeam.setTeamUrl(teamUrl);
                 favTeam.setPersonName(personName);
 
+                // Habiendo inicializado id, player, url, personname, se añade como favorito
                 favTeam.setFavorite(PlayerActivity.this);
 
                 favButton.setImageResource(android.R.drawable.btn_star_big_on);

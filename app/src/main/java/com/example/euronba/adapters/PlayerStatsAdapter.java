@@ -28,22 +28,22 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
     }
 
     public class RowViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPlayerStatsSeasonYear;
-        private TextView tvPlayerStatsTeam;
-        private TextView tvPlayerStatsGp;
-        private TextView tvPlayerStatsMpg;
+        private final TextView tvPlayerStatsSeasonYear;
+        private final TextView tvPlayerStatsTeam;
+        private final TextView tvPlayerStatsGp;
+        private final TextView tvPlayerStatsMpg;
 
-        private TextView tvPlayerStatsPpg;
-        private TextView tvPlayerStatsRpg;
-        private TextView tvPlayerStatsApg;
-        private TextView tvPlayerStatsBpg;
-        private TextView tvPlayerStatsFgp;
-        private TextView tvPlayerStatsFtp;
-        private TextView tvPlayerStatsTpp;
-        private TextView tvPlayerStatsTopg;
-        private TextView tvPlayerStatsPlusMinus;
+        private final TextView tvPlayerStatsPpg;
+        private final TextView tvPlayerStatsRpg;
+        private final TextView tvPlayerStatsApg;
+        private final TextView tvPlayerStatsBpg;
+        private final TextView tvPlayerStatsFgp;
+        private final TextView tvPlayerStatsFtp;
+        private final TextView tvPlayerStatsTpp;
+        private final TextView tvPlayerStatsTopg;
+        private final TextView tvPlayerStatsPlusMinus;
 
-        private LinearLayout tableRowPlayer;
+        private final LinearLayout tableRowPlayer;
 
 
         public RowViewHolder(View itemView) {
@@ -116,7 +116,7 @@ public class PlayerStatsAdapter extends RecyclerView.Adapter {
             // En ocasiones un jugador ha jugado en más de un equipo en una misma temporada
             // en estos se devuelve un equipo vacío, en el que se suman sus estadísticas totales, TOT
             if (tm.getTricode() == null)
-                rowViewHolder.tvPlayerStatsTeam.setText("TOT");
+                rowViewHolder.tvPlayerStatsTeam.setText(R.string.total);
             else
                 rowViewHolder.tvPlayerStatsTeam.setText(tm.getTricode());
 
