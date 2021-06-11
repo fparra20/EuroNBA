@@ -9,12 +9,12 @@
     <item
         android:id="@+id/menu_home"
         android:icon="@drawable/home_icon"
-        android:title="Home"
+        android:title="@string/home"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_players"
-        android:title="Players"
+        android:title="@string/players"
         android:icon="@drawable/player_icon"
         app:showAsAction="ifRoom"/>
 
@@ -22,26 +22,26 @@
     <item
         android:id="@+id/menu_teams"
         android:icon="@drawable/team_icon"
-        android:title="Teams"
+        android:title="@string/teams"
         app:showAsAction="ifRoom"/>
 
 
     <item
         android:id="@+id/menu_standings"
         android:icon="@drawable/standings_icon"
-        android:title="Standings"
+        android:title="@string/standings"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_playoffs"
         android:icon="@drawable/playoffs_icon"
-        android:title="Playoffs Bracket"
+        android:title="@string/PlayOffs"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_favorites"
         android:icon="@drawable/fav_icon"
-        android:title="Favorites"
+        android:title="@string/favorites"
         app:showAsAction="ifRoom"/>
 
 </menu>

@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.EuroNBA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="android:title"></item>
         <item name="colorPrimary">#0A2933</item>
         <item name="colorPrimaryVariant">#1F2041</item>
         <item name="colorOnPrimary">@color/white</item>

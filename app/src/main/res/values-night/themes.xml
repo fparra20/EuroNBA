@@ -1,16 +1,82 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.EuroNBA" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.EuroNBA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_black</item>
-        <item name="colorPrimaryVariant">@color/purple_mid</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">#0A2933</item>
+        <item name="colorPrimaryVariant">#1F2041</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/blue_black</item>
-        <item name="colorSecondaryVariant">@color/blue_mid</item>
+        <item name="colorSecondary">#4B3F72</item>
+        <item name="colorSecondaryVariant">#6CE8EF</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/blue_mid</item>
         <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/purple_black</item>
+
+
+        <!-- Color de los botones de navegación (como atrás) -->
+        <item name="colorControlNormal">@color/white</item>
+
+        <!-- Color de los botones de menú desplegable -->
+        <item name="android:textColorSecondary">@color/white</item>
+
     </style>
+
+    <style name="toolbar_theme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <!-- color used by navigation icon and overflow icon -->
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="Theme.EuroNBA.ScoreNum" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="Theme.EuroNBA.ScoreName" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Theme.EuroNBA.ScoreStandings" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_horizontal</item>
+
+    </style>
+
+    <style name="Theme.EuroNBA.TableCol" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.EuroNBA.StandingsCol" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="Theme.EuroNBA.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.EuroNBA.PlayoffsCard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/purple_black</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <style name="Theme.EuroNBA.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.EuroNBA.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
