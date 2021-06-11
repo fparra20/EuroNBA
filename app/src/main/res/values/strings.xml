@@ -44,4 +44,41 @@
 
     <!-- TeamStats -->
     <string name="total">TOT</string>
+
+    <!-- Cabeceras -->
+    <string name="team">TEAM</string>
+    <string name="wins">W</string>
+    <string name="losses">L</string>
+    <string name="pct">%W</string>
+    <string name="streak">STR</string>
+    <string name="lastTen">L10</string>
+
+    <string name="player">PLAYER</string>
+    <string name="min">MIN</string>
+    <string name="pts">PTS</string>
+    <string name="ast">AST</string>
+    <string name="reb">REB</string>
+    <string name="blk">BLK</string>
+    <string name="stl">STL</string>
+    <string name="fgm">FGM</string>
+    <string name="fga">FGA</string>
+    <string name="fgp">FG%</string>
+    <string name="tpm">3PM</string>
+    <string name="tpa">3PA</string>
+    <string name="tpp">3P%</string>
+    <string name="ftm">FTM</string>
+    <string name="fta">FTA</string>
+    <string name="ftp">FT%</string>
+    <string name="orb">ORB</string>
+    <string name="drb">DRB</string>
+    <string name="to">TO</string>
+    <string name="pf">PF</string>
+    <string name="plusMinus">+/-</string>
+
+    <string name="year">YEAR</string>
+    <string name="gp">GP</string>
+
+    <string name="pos">POS</string>
+    <string name="pro">PRO</string>
+    <string name="procedence">Procedence</string>
 </resources>

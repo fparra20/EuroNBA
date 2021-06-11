@@ -15,7 +15,7 @@ public class Scoreboard {
     public String arenaName;
     public String arenaCity;
     public int statusNum;
-    public String startTimeUTC;
+    public String startTime;
     public String clock;
     public String gameDuration;
     public int currentPeriod;
@@ -71,12 +71,12 @@ public class Scoreboard {
         this.statusNum = statusNum;
     }
 
-    public String getStartTimeUTC() {
-        return startTimeUTC;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStartTimeUTC(String startTimeUTC) {
-        this.startTimeUTC = startTimeUTC;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getClock() {

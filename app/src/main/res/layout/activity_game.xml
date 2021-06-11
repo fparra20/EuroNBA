@@ -35,7 +35,7 @@
 
                 <TextView
                     android:id="@+id/tvGameSummaryText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text=""
@@ -55,13 +55,13 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/atl" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
@@ -72,7 +72,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
@@ -84,7 +83,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
@@ -93,16 +91,15 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:gravity="right"
+                            android:gravity="end"
                             android:singleLine="true"
-                            android:text="99"
                             android:theme="@style/Theme.EuroNBA.ScoreNum" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:gravity="right"
+                            android:gravity="end"
                             android:singleLine="true"
                             android:text="-"
                             android:theme="@style/Theme.EuroNBA.ScoreNum" />
@@ -113,23 +110,21 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="123"
                             android:theme="@style/Theme.EuroNBA.ScoreNum" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tvGameScoreClock"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="5:35 4th"
                             android:theme="@style/Theme.EuroNBA.ScoreName"
 
                             />
@@ -141,7 +136,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/atl" />
@@ -161,11 +156,10 @@
                     android:id="@+id/tvGameLocalTeamName"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Toronto Raptors"
                     android:theme="@style/Theme.EuroNBA.ScoreName" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:theme="@style/Theme.EuroNBA.ScoreName" />
@@ -175,7 +169,6 @@
                     android:id="@+id/tvGameVisitorTeamName"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Trail Blazers"
                     android:theme="@style/Theme.EuroNBA.ScoreName" />
 
             </LinearLayout>
@@ -189,12 +182,11 @@
                     android:id="@+id/tvGameLocalTeamStandings"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="(50-20)"
+                    android:layout_marginStart="20dp"
                     android:theme="@style/Theme.EuroNBA.ScoreStandings" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:theme="@style/Theme.EuroNBA.ScoreStandings" />
@@ -203,8 +195,7 @@
                     android:id="@+id/tvGameVisitorTeamStandings"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:text="(30-20)"
+                    android:layout_marginEnd="20dp"
                     android:theme="@style/Theme.EuroNBA.ScoreStandings" />
             </LinearLayout>
 
@@ -218,7 +209,6 @@
                     android:id="@+id/tvGameArena"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Madison Square Garden"
                     android:theme="@style/Theme.EuroNBA.ScoreName" />
 
             </LinearLayout>
@@ -233,7 +223,6 @@
                     android:id="@+id/tvGameStartTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:30"
                     android:theme="@style/Theme.EuroNBA.ScoreName" />
 
             </LinearLayout>
@@ -248,7 +237,6 @@
                     android:id="@+id/tvGameDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2:34"
                     android:theme="@style/Theme.EuroNBA.ScoreName" />
 
             </LinearLayout>
@@ -261,14 +249,13 @@
         android:fillViewport="true"
         android:layout_marginTop="10dp">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
             android:orientation="vertical">
 
-            <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -283,7 +270,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.core.widget.NestedScrollView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:focusable="true"
                         android:fitsSystemWindows="false"
@@ -299,14 +286,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-
-            <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/scoreboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -321,7 +301,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.core.widget.NestedScrollView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:focusable="true"
                         android:fitsSystemWindows="false"

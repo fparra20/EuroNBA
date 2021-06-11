@@ -27,16 +27,16 @@ public class FavoritesDatabaseHelper extends SQLiteOpenHelper {
         /*Metodo auxiliar para tener todo el tratamiento de  la BD
          *en la misma ubicacion
          */
-        updateMyDataBase(db, 0, DB_VERSION);
+        updateMyDataBase(db, 0);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        updateMyDataBase(db, oldVersion, newVersion);
+        updateMyDataBase(db, oldVersion);
 
     }
 
-    private void updateMyDataBase(SQLiteDatabase db, int oldVersion, int newVersion) {
+    private void updateMyDataBase(SQLiteDatabase db, int oldVersion) {
         /*Control de versiones
          * si la BD no existe se crea (oldVersion<1)
          * posteriormente a su creación se actualiza (oldVersion<2)
@@ -44,34 +44,6 @@ public class FavoritesDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 1) {
             db.execSQL("CREATE TABLE FAVORITES (ID TEXT PRIMARY KEY,"
                     + "TYPE TEXT, TEAMURL TEXT, PERSONNAME TEXT);");
-            //El metodo auxiliar insertPet lo creamos para insertar varios filas
-            insertFavorite(db, "1610612738", "team", "hawks", "Alan Walker");
-
         }
-        if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE FAVORITES ADD COLUMN FAVORITE NUMERIC");
-        }
-    }
-
-    /*Definicion del metodo auxiliar
-     *db base de datos de trabajo
-     * name Campo para el nombre de la mascota
-     * rating Campo para el número de likes
-     * resourceId campo identificador numerico de la imagen
-     */
-
-    public void insertFavorite(SQLiteDatabase db,
-                               String id, String type, String teamUrl, String personName) {
-        /*Objeto que nos va a permitir indicar que valores queremos
-        insertar en la BD*/
-        ContentValues teamValues = new ContentValues();
-        /*
-         * creamos cada uno de los campos de la fila a insertar
-         */
-        teamValues.put("ID", id);
-        teamValues.put("TYPE", type);
-        teamValues.put("TEAMURL", teamUrl);
-        teamValues.put("PERSONNAME", personName);
-        db.insert("FAVORITES", null, teamValues);
     }
 }

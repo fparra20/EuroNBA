@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:textAlignment="textStart"
-        android:text="PLAYER"
+        android:text="@string/player"
+        android:textColor="@color/purple_link"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
@@ -19,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="POS"
+        android:text="@string/pos"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
@@ -27,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="PRO"
+        android:text="@string/pro"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
@@ -35,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:text="COLLEGE"
+        android:text="@string/procedence"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
 </LinearLayout>

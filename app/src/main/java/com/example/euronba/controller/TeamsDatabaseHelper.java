@@ -29,19 +29,18 @@ public class TeamsDatabaseHelper extends SQLiteOpenHelper {
         /*Metodo auxiliar para tener todo el tratamiento de  la BD
          *en la misma ubicacion
          */
-        updateMyDataBase(db, 0, DB_VERSION);
+        updateMyDataBase(db, 0);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        updateMyDataBase(db, oldVersion, newVersion);
+        updateMyDataBase(db, oldVersion);
 
     }
 
-    private void updateMyDataBase(SQLiteDatabase db, int oldVersion, int newVersion) {
+    private void updateMyDataBase(SQLiteDatabase db, int oldVersion) {
         /*Control de versiones
          * si la BD no existe se crea (oldVersion<1)
-         * posteriormente a su creación se actualiza (oldVersion<2)
          */
         if (oldVersion < 1) {
             db.execSQL("CREATE TABLE TEAMS (IMAGE_LOGO INTEGER,"
@@ -91,16 +90,19 @@ public class TeamsDatabaseHelper extends SQLiteOpenHelper {
             insertTeam(db, R.drawable.sac, "1610612758", "Sacramento", "Kings", "Sacramento Kings", "SAC", "West", "Pacific", "kings");
 
         }
-        if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE TEAMS ADD COLUMN FAVORITE NUMERIC");
-        }
     }
 
     /*Definicion del metodo auxiliar
      *db base de datos de trabajo
-     * name Campo para el nombre de la mascota
-     * rating Campo para el número de likes
-     * resourceId campo identificador numerico de la imagen
+     * image_logo Campo para el logo de el equipo
+     * teamId Campo para el id del equipo
+     * city Campo para la ciudad del equipo
+     * nickname Campo para el nickname equipo
+     * fullname Campo el nombre del equipo completo
+     * tricode Campo el código equipo
+     * confname Campo para la conferencia del equipo
+     * divname Campo para la division del equipo
+     * urlname Campo la url equipo
      */
 
     private void insertTeam(SQLiteDatabase db,

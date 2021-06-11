@@ -107,7 +107,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
         scoreViewHolder.tvLocalTeamStandings.setText(localWL);
         scoreViewHolder.tvVisitorTeamStandings.setText(visitorWL);
 
-        scoreViewHolder.tvScoreStatus.setText(score.getStartTimeUTC());
+        scoreViewHolder.tvScoreStatus.setText(score.getStartTime());
         scoreViewHolder.tvSummaryText.setText(score.getSummaryText());
 
         // Instancia un objeto String vacío
@@ -179,7 +179,7 @@ public class ScoreboardAdapter extends RecyclerView.Adapter<ScoreboardAdapter.Sc
             intent.putExtra(GameActivity.EXTRA_LOCALTEAMWL, localWL);
             intent.putExtra(GameActivity.EXTRA_LOCALTEAMSCORE, score.getLocalTeam().getScore());
             intent.putExtra(GameActivity.EXTRA_SEASONSTAGEID, score.getSeasonStageId());
-            intent.putExtra(GameActivity.EXTRA_STARTTIME, score.getStartTimeUTC());
+            intent.putExtra(GameActivity.EXTRA_STARTTIME, score.getStartTime());
             intent.putExtra(GameActivity.EXTRA_SEASONYEAR, score.getSeasonYear());
             intent.putExtra(GameActivity.EXTRA_SUMMARYTEXT, score.getSummaryText());
             intent.putExtra(GameActivity.EXTRA_STATUSNUM, score.getStatusNum());

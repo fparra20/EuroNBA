@@ -7,41 +7,45 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * @author Usuario
- */
-
+// Clase que obtiene los datos de Boxscore
 public class RetrieveBoxscore {
 
+    // Método que obtiene la lista de Boxscore a partir de la fecha y del Id del partido
     public ArrayList<Boxscore> getBoxscore(String date, String gameId) {
 
-        ArrayList<Boxscore> pcList = new ArrayList<>();
+        // Instancia una lista de objetos Boxscore
+        ArrayList<Boxscore> bsList = new ArrayList<>();
 
+        // Instancia un objeto JSONObject
         JSONObject jobj;
 
+        // Intenta lanzar el código, necesario para usar la clase RetrieveInfo
         try {
 
-            // Obtenemos la lista de jugadores
+            // Obtiene el JSONObject con toda la información
             jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/" + date + "/" + gameId + "_boxscore.json").get();
 
+            // Accede al array que contiene los datos que necesitamos
             JSONArray data = jobj.getJSONObject("stats").getJSONArray("activePlayers");
 
+            // Inicializa un contador
             int i = 0;
 
+            // Controla que siga habiendo datos en el array data
             while (data.length() > i) {
 
-                // El mismo jugador ha podido jugar en varios equipos la misma temproada, y con
-                // este bucle recogemos sus estadísticas en cada uno de los equipos, y el total de la temporada
+                // Instancia un objeto de la clase Boxscore
                 Boxscore sb = new Boxscore();
 
+                // Accede al objeto JSON correspondiente a la posición del bucle
                 JSONObject jobjScore = data.getJSONObject(i);
 
+                // Rellena los datos del objeto
                 sb.setPersonId(jobjScore.getString("personId"));
                 sb.setFirstName(jobjScore.getString("firstName"));
                 sb.setLastName(jobjScore.getString("lastName"));
                 sb.setJersey(jobjScore.getString("jersey"));
                 sb.setTeamId(jobjScore.getString("teamId"));
-
                 sb.setAssists(jobjScore.getString("assists"));
                 sb.setBlocks(jobjScore.getString("blocks"));
                 sb.setDefReb(jobjScore.getString("defReb"));
@@ -65,15 +69,21 @@ public class RetrieveBoxscore {
                 sb.setTurnovers(jobjScore.getString("turnovers"));
                 sb.setpFouls(jobjScore.getString("pFouls"));
 
-                pcList.add(sb);
+                // Añade el objeto Boxscore a la lista
+                bsList.add(sb);
 
+                // Suma 1 al contador para poder acceder al siguiente objeto.
                 i++;
 
             }
-        } catch (Exception e) {
+        }
+
+        // Control de excepciones
+        catch (Exception e) {
             e.printStackTrace();
         }
 
-        return pcList;
+        // Devuelve la lista completa
+        return bsList;
     }
 }

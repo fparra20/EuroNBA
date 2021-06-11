@@ -9,90 +9,90 @@
         android:id="@+id/tvPlayerStatsSeasonYear"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:text="SZN"
+        android:text="@string/year"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsTeam"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="TEAM"
+        android:text="@string/team"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsGp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="GP"
+        android:text="@string/gp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsMpg"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="MIN"
+        android:text="@string/min"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsPpg"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="PTS"
+        android:text="@string/pts"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsRpg"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="REB"
+        android:text="@string/reb"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsApg"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="AST"
+        android:text="@string/ast"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsBpg"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="BLK"
+        android:text="@string/blk"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsFgp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="FG%"
+        android:text="@string/fgp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsFtp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="FT%"
+        android:text="@string/ftp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsTpp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="3P%"
+        android:text="@string/tpp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsTopg"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="TO"
+        android:text="@string/to"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerStatsPlusMinus"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="+/-"
+        android:text="@string/plusMinus"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 </LinearLayout>

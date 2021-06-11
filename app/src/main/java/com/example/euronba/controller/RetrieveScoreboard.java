@@ -12,29 +12,40 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
+// Clase que obtiene los datos de Scoreboard
 public class RetrieveScoreboard {
 
+    // Método que obtiene la lista de partidos en una fecha concreta
     public ArrayList<Scoreboard> getScoreboardsOnDay(String date) {
 
+        // Instancia una lista de objetos Scoreboard
         ArrayList<Scoreboard> sList = new ArrayList<>();
 
+        // Instancia un objeto JSONObject
         JSONObject jobj;
 
+        // Intenta lanzar el código, necesario para usar la clase RetrieveInfo
         try {
+
+            // Obtiene el JSONObject con toda la información
             jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/" + date + "/scoreboard.json").get();
 
-            ArrayList<String> pList = new ArrayList<>();
-
+            // Accede al array que contiene los datos que necesitamos
             JSONArray data = jobj.getJSONArray("games");
 
+            // Inicializa un contador
             int i = 0;
 
+            // Controla la búsqueda de información por partidos
             while (data.length() > i) {
 
+                // Instancia un objeto de la clase Scoreboard
                 Scoreboard sb = new Scoreboard();
 
+                // Accede al objeto  que contiene los datos que necesitamos
                 JSONObject jobjScore = data.getJSONObject(i);
 
+                // Rellena los datos del objeto Scoreboard
                 sb.setArenaCity(jobjScore.getJSONObject("arena").getString("city"));
                 sb.setArenaName(jobjScore.getJSONObject("arena").getString("name"));
                 sb.setClock(jobjScore.getString("clock"));
@@ -68,12 +79,14 @@ public class RetrieveScoreboard {
                 pstFormat.setTimeZone(TimeZone.getDefault());
 
                 // Almacenamos la hora ya formateada
-                sb.setStartTimeUTC(pstFormat.format(gameUTC));
+                sb.setStartTime(pstFormat.format(gameUTC));
 
                 sb.setStatusNum(jobjScore.getInt("statusNum"));
 
+                // Instancia un objeto TeamScore para el equipo Local
                 TeamScore localT = new TeamScore();
 
+                // Rellena los datos del objeto TeamScore para el equipo Local
                 localT.setTeamId(jobjScore.getJSONObject("hTeam").getString("teamId"));
                 localT.setTricode(jobjScore.getJSONObject("hTeam").getString("triCode"));
                 localT.setWin(jobjScore.getJSONObject("hTeam").getString("win"));
@@ -82,8 +95,10 @@ public class RetrieveScoreboard {
                 localT.setSeriesLoss(jobjScore.getJSONObject("hTeam").getString("seriesLoss"));
                 localT.setScore(jobjScore.getJSONObject("hTeam").getString("score"));
 
+                // Instancia un objeto TeamScore para el equipo Visitante
                 TeamScore visitorT = new TeamScore();
 
+                // Rellena los datos del objeto TeamScore
                 visitorT.setTeamId(jobjScore.getJSONObject("vTeam").getString("teamId"));
                 visitorT.setTricode(jobjScore.getJSONObject("vTeam").getString("triCode"));
                 visitorT.setWin(jobjScore.getJSONObject("vTeam").getString("win"));
@@ -92,19 +107,27 @@ public class RetrieveScoreboard {
                 visitorT.setSeriesLoss(jobjScore.getJSONObject("vTeam").getString("seriesLoss"));
                 visitorT.setScore(jobjScore.getJSONObject("vTeam").getString("score"));
 
+                // Añade al objeto Scoreboard los dos equipos
                 sb.setLocalTeam(localT);
                 sb.setVisitorTeam(visitorT);
 
+                // Añade el objeto Scoreboard a la lista
                 sList.add(sb);
 
+                // Suma 1 al contador para poder acceder al siguiente objeto.
                 i++;
 
 
             }
 
-        } catch (Exception e) {
+        }
+
+        // Control de excepciones
+        catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Devuelve la lista completa
         return sList;
     }
 }

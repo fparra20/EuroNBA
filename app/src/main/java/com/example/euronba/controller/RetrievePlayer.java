@@ -3,81 +3,105 @@ package com.example.euronba.controller;
 import com.example.euronba.model.Player;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
+// Clase que obtiene los datos de Player
 public class RetrievePlayer {
 
+    // Método que obtiene la lista de jugadores completa
     public ArrayList<Player> getPlayers() {
 
+        // Instancia una lista de objetos Player
         ArrayList<Player> pList = new ArrayList<>();
 
+        // Instancia un objeto JSONObject
         JSONObject jobj;
 
+        // Intenta lanzar el código, necesario para usar la clase RetrieveInfo
         try {
 
+            // Obtiene el JSONObject con toda la información
             jobj = new RetrieveInfo().execute("https://data.nba.net/data/10s/prod/v1/2020/players.json").get();
 
+            // Accede al array que contiene los datos que necesitamos
             JSONArray data = jobj.getJSONObject("league").getJSONArray("standard");
 
+            // Inicializa un contador
             int i = 0;
 
+            // Controla que siga habiendo datos en el array data
             while (data.length() > i) {
 
+                // Instancia un objeto de la clase Player
                 Player player = new Player();
 
-                player.setPersonId(data.getJSONObject(i).getString("personId"));
+                // Accede al objeto JSON correspondiente a la posición del bucle
+                JSONObject jobjPlayer = data.getJSONObject(i);
 
-                player.setFirstName(data.getJSONObject(i).getString("firstName"));
+                // Rellena los datos del objeto Player
+                player.setPersonId(jobjPlayer.getString("personId"));
 
-                player.setLastName(data.getJSONObject(i).getString("lastName"));
+                player.setFirstName(jobjPlayer.getString("firstName"));
 
-                player.setJersey(data.getJSONObject(i).getString("jersey"));
+                player.setLastName(jobjPlayer.getString("lastName"));
 
-                player.setPos(data.getJSONObject(i).getString("pos"));
+                player.setJersey(jobjPlayer.getString("jersey"));
 
-                player.setTeamId(data.getJSONObject(i).getString("teamId"));
+                player.setPos(jobjPlayer.getString("pos"));
 
+                player.setTeamId(jobjPlayer.getString("teamId"));
+
+                // Añade el objeto Player a la lista
                 pList.add(player);
 
+                // Suma 1 al contador para poder acceder al siguiente objeto.
                 i++;
 
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        }
+
+        // Control de excepciones
+        catch (Exception e) {
             e.printStackTrace();
         }
 
+        // Devuelve la lista completa
         return pList;
     }
 
+    // Método que obtiene un jugador concreto a partir de su id y la url de su equipo
     public Player getPlayerInfoById(String id, String teamUrl) {
 
-
+        // Instancia un objeto Player
         Player player = new Player();
 
+        // Instancia un objeto JSONObject
         JSONObject jobj;
 
+        // Intenta lanzar el código, necesario para usar la clase RetrieveInfo
         try {
 
+            // Obtiene el JSONObject con toda la información
             jobj = new RetrieveInfo().execute("https://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
 
+            // Accede al array que contiene los datos del equipo
             JSONObject dataTeam = jobj.getJSONObject("t");
 
+            // Accede al array que contiene los datos del jugador que necesitamos
             JSONArray dataPlayer = jobj.getJSONObject("t").getJSONArray("pl");
 
+            // Inicializa un contador
             int i = 0;
 
+            // Controla que siga habiendo datos en el array data
             while (dataPlayer.length() > i) {
 
+                // Controla el jugador sea el pasado por parámetro
                 if (dataPlayer.getJSONObject(i).getString("pid").equals(id)) {
 
+                    // Rellena los datos del objeto
                     player.setPersonId(dataPlayer.getJSONObject(i).getString("pid"));
 
                     player.setCollegeName(dataPlayer.getJSONObject(i).getString("hcc"));
@@ -102,37 +126,54 @@ public class RetrievePlayer {
 
                     player.setYearsPro(dataPlayer.getJSONObject(i).getString("y"));
                 }
+
+                // Suma 1 al contador para poder acceder al siguiente objeto.
                 i++;
 
             }
-        } catch (Exception e) {
+        }
+
+        // Control de excepciones
+        catch (Exception e) {
             e.printStackTrace();
         }
 
+        // Devuelve el jugador
         return player;
     }
 
 
+    // Método que obtiene una lista de jugadores de un equipo concreto
     public ArrayList<Player> getPlayersByTeamUrl(String teamUrl) {
 
+        // Instancia una lista de objetos Player
         ArrayList<Player> pList = new ArrayList<>();
 
+        // Instancia un objeto JSONObject
         JSONObject jobj;
 
+        // Intenta lanzar el código, necesario para usar la clase RetrieveInfo
         try {
 
+            // Obtiene el JSONObject con toda la información
             jobj = new RetrieveInfo().execute("https://data.nba.net/v2015/json/mobile_teams/nba/2020/teams/" + teamUrl + "_roster.json").get();
 
+            // Accede al objeto que contiene los datos que necesitamos del equipo
             JSONObject dataTeam = jobj.getJSONObject("t");
 
+            // Accede al array que contiene los datos que necesitamos
             JSONArray dataPlayer = jobj.getJSONObject("t").getJSONArray("pl");
 
+            // Inicializa un contador
             int i = 0;
 
+            // Controla que siga habiendo datos en el array data
             while (dataPlayer.length() > i) {
 
+                // Instancia un objeto de la clase Boxscore
                 Player player = new Player();
 
+                // Rellena los datos del objeto
                 player.setPersonId(dataPlayer.getJSONObject(i).getString("pid"));
 
                 player.setCollegeName(dataPlayer.getJSONObject(i).getString("hcc"));
@@ -157,17 +198,21 @@ public class RetrievePlayer {
 
                 player.setYearsPro(dataPlayer.getJSONObject(i).getString("y"));
 
+                // Añade el objeto Player a la lista
                 pList.add(player);
 
+                // Suma 1 al contador para poder acceder al siguiente objeto.
                 i++;
 
-                System.out.println(player.getFirstName());
-
             }
-        } catch (Exception e) {
+        }
+
+        // Control de excepciones
+        catch (Exception e) {
             e.printStackTrace();
         }
 
+        // Devuelve la lista completa
         return pList;
     }
 }

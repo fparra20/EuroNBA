@@ -14,6 +14,7 @@ public class Standings {
     public String lastTenWin;
     public String lastTenLoss;
     public String streak;
+    public String confRank;
 
     public Standings() {
 
@@ -90,5 +91,13 @@ public class Standings {
 
     public void setStreak(String streak) {
         this.streak = streak;
+    }
+
+    public String getConfRank() {
+        return confRank;
+    }
+
+    public void setConfRank(String confRank) {
+        this.confRank = confRank;
     }
 }

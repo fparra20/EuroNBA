@@ -9,7 +9,7 @@
         android:id="@+id/tvPlayerBoxName"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:text="PLAYER"
+        android:text="@string/player"
         android:textAlignment="textStart"
         android:textColor="@color/purple_link"
         android:theme="@style/Theme.EuroNBA.TableCol" />
@@ -18,139 +18,139 @@
         android:id="@+id/tvPlayerBoxMin"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:text="MIN"
+        android:text="@string/min"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxPoints"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="PTS"
+        android:text="@string/pts"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxAssists"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="AST"
+        android:text="@string/ast"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxTotReb"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="REB"
+        android:text="@string/reb"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxBlocks"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="BLK"
+        android:text="@string/blk"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxSteals"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="STL"
+        android:text="@string/stl"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxFgm"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="FGM"
+        android:text="@string/fgm"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxFga"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="FGA"
+        android:text="@string/fga"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxFgp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="FG%"
+        android:text="@string/fgp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxTpm"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="3PM"
+        android:text="@string/tpm"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxTpa"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="3PA"
+        android:text="@string/tpa"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxTpp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="3P%"
+        android:text="@string/tpp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxFtm"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="FTM"
+        android:text="@string/ftm"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxFta"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="FTA"
+        android:text="@string/fta"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxFtp"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:text="FT%"
+        android:text="@string/ftp"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxOffReb"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="ORB"
+        android:text="@string/orb"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxDefReb"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="DRB"
+        android:text="@string/drb"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxTurnovers"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="TO"
+        android:text="@string/to"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxPFouls"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="PF"
+        android:text="@string/pf"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
         android:id="@+id/tvPlayerBoxPlusMinus"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="+/-"
+        android:text="@string/plusMinus"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 </LinearLayout>

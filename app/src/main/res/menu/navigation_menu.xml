@@ -10,38 +10,38 @@
         android:id="@+id/menu_home"
         android:icon="@drawable/home_icon"
         android:title="Home"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_players"
         android:title="Players"
         android:icon="@drawable/player_icon"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom"/>
 
 
     <item
         android:id="@+id/menu_teams"
         android:icon="@drawable/team_icon"
         android:title="Teams"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom"/>
 
 
     <item
         android:id="@+id/menu_standings"
         android:icon="@drawable/standings_icon"
         android:title="Standings"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_playoffs"
         android:icon="@drawable/playoffs_icon"
         android:title="Playoffs Bracket"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_favorites"
         android:icon="@drawable/fav_icon"
         android:title="Favorites"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom"/>
 
 </menu>
