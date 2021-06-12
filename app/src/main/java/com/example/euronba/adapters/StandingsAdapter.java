@@ -126,7 +126,7 @@ public class StandingsAdapter extends RecyclerView.Adapter<StandingsAdapter.Stan
             Team tm = new Team().getTeamById(st.getTeamId(), activity);
 
             // Rellena el resto de datos
-            String rankAndTeam = "("+st.getConfRank()+")" + " " + tm.getNickname();
+            String rankAndTeam = st.getConfRank()+"- " + tm.getNickname();
             standingsViewHolder.tvStandingsName.setText(rankAndTeam);
             standingsViewHolder.tvStandingsWin.setText(st.getWin());
             standingsViewHolder.tvStandingsLosses.setText(st.getLoss());
