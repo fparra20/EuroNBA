@@ -152,12 +152,15 @@ public class PlayOffsActivity extends AppCompatActivity implements AdapterView.O
             poEastBracket = new PlayoffsBracket().getPlayOffsBracketByYearConfRound(2020, "NBA Finals", round);
         }
 
-        // Controla que hayan llegado datos a las listas
+        // Controla que las listas estén vacías
         if(poWestBracket.isEmpty() && poEastBracket.isEmpty()){
 
-            // En caso contrario muestra el mesnaje de error
+            // Obtiene la vista cardview que contiene el mensaje error
             CardView cv = findViewById(R.id.cvError);
 
+            // Indica que el cardview ahora es visible.
+            // El resto de las operaciones darán como resultado un RecyclerView con adaptador vacío
+            // por tanto, se pondrá como invisible y sólo aparecerá el mensaje de error.
             cv.setVisibility(View.VISIBLE);
         }
 

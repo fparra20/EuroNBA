@@ -87,4 +87,5 @@
     <!-- Error -->
 
     <string name="errorPlayoffs" >No teams on this round yet!</string>
+    <string name="errorFavorites">No favorites yet!</string>
 </resources>

@@ -3,11 +3,13 @@ package com.example.euronba.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,18 +61,28 @@ public class FavoritesActivity extends AppCompatActivity {
 
         ArrayList<Favorite> favList = new Favorite().getFavorite(this);
 
-        // Crea un objeto RecyclerView a partir del objeto presente en el layout
-        RecyclerView mainRecycler = findViewById(R.id.rvFavoritesList);
+        // Comprueba que no haya favoritos
+        if(favList.isEmpty()){
 
-        // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
-        FavoritesListAdapter favAdapter = new FavoritesListAdapter(favList, FavoritesActivity.this);
+            // Si la lista está vacía, obtiene el cardview por Id.
+            CardView cv = findViewById(R.id.cvErrorFav);
 
-        // Crea un nuevo Layout para mostrar la lista de los RecyclerView
-        mainRecycler.setLayoutManager(new LinearLayoutManager(FavoritesActivity.this));
+            // Indica que el cardview ahora es visible.
+            // El resto de las operaciones darán como resultado un RecyclerView con adaptador vacío
+            // por tanto, se pondrá como invisible y sólo aparecerá el mensaje de error.
+            cv.setVisibility(View.VISIBLE);
+        }
+            // Crea un objeto RecyclerView a partir del objeto presente en el layout
+            RecyclerView mainRecycler = findViewById(R.id.rvFavoritesList);
 
-        // Enlaza el objeto recyclerview al adaptador
-        mainRecycler.setAdapter(favAdapter);
+            // Crea un objeto ScoreboardAdapter a partir del arrayList de partidos
+            FavoritesListAdapter favAdapter = new FavoritesListAdapter(favList, FavoritesActivity.this);
 
+            // Crea un nuevo Layout para mostrar la lista de los RecyclerView
+            mainRecycler.setLayoutManager(new LinearLayoutManager(FavoritesActivity.this));
+
+            // Enlaza el objeto recyclerview al adaptador
+            mainRecycler.setAdapter(favAdapter);
     }
 
     // Listener que controla si el menú lateral se abre o se cierra
