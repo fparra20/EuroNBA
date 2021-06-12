@@ -29,17 +29,17 @@
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
-        android:id="@+id/tvPlayerBoxAssists"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:text="@string/ast"
-        android:theme="@style/Theme.EuroNBA.TableCol" />
-
-    <TextView
         android:id="@+id/tvPlayerBoxTotReb"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:text="@string/reb"
+        android:theme="@style/Theme.EuroNBA.TableCol" />
+
+    <TextView
+        android:id="@+id/tvPlayerBoxAssists"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:text="@string/ast"
         android:theme="@style/Theme.EuroNBA.TableCol" />
 
     <TextView
