@@ -88,4 +88,5 @@
 
     <string name="errorPlayoffs" >No teams on this round yet!</string>
     <string name="errorFavorites">No favorites yet!</string>
+    <string name="errorMain">No games on this date...</string>
 </resources>

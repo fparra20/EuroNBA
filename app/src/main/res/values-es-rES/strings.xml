@@ -47,4 +47,5 @@
     <string name="PlayOffs">Cuadro PlayOffs</string>
     <string name="errorPlayoffs">Ningún equipo ha llegado a esta ronda</string>
     <string name="errorFavorites">Aún no has elegido favoritos</string>
+    <string name="errorMain">Sin partidos en esta fecha</string>
 </resources>

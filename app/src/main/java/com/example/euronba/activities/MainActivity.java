@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -168,9 +170,24 @@ public class MainActivity extends AppCompatActivity {
 
     protected void fillGamesByDate(String date) {
 
+        // Si la lista está vacía, obtiene el cardview por Id.
+        CardView cv = findViewById(R.id.cvErrorMain);
+
+        // Por defecto hace el error invisible
+        cv.setVisibility(View.GONE);
+
         Scoreboard scb = new Scoreboard();
 
         scoreboardList = scb.getScoreboardListByDate(date);
+
+        // Comprueba que no haya favoritos
+        if(scoreboardList.isEmpty()){
+
+            // Indica que el cardview ahora es visible.
+            // El resto de las operaciones darán como resultado un RecyclerView con adaptador vacío
+            // por tanto, se pondrá como invisible y sólo aparecerá el mensaje de error.
+            cv.setVisibility(View.VISIBLE);
+        }
 
         // Crea un objeto RecyclerView a partir del objeto presente en el layout
         RecyclerView mainRecycler = findViewById(R.id.rvScoreboard);
