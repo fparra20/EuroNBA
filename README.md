@@ -17,7 +17,7 @@ This app retrieves information directly from NBA servers
 
 - Standings and PlayOffs bracket
 
-![Screenshot_1623431973](https://user-images.githubusercontent.com/77646898/123550831-a258c380-d76f-11eb-9054-c677f8c108ab.png)
+![Screenshot_1623431973](https://user-images.githubusercontent.com/77646898/123550831-a258c380-d76f-11eb-9054-c677f8c108ab.png | width=300)
 ![Screenshot_1623432908](https://user-images.githubusercontent.com/77646898/123550843-abe22b80-d76f-11eb-81c1-5091993aa8f4.png)
 ![Screenshot_1623432211](https://user-images.githubusercontent.com/77646898/123550845-af75b280-d76f-11eb-98ee-9871501f707f.png)
 ![Screenshot_1623432192](https://user-images.githubusercontent.com/77646898/123550849-b3093980-d76f-11eb-93d1-1269755bb848.png)
