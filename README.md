@@ -17,6 +17,7 @@ This app retrieves information directly from NBA servers
 
 - Standings and PlayOffs bracket
 
+<center>
 <img src="https://user-images.githubusercontent.com/77646898/123550831-a258c380-d76f-11eb-9054-c677f8c108ab.png" width="300"> <img src="https://user-images.githubusercontent.com/77646898/123550843-abe22b80-d76f-11eb-81c1-5091993aa8f4.png" width="300">
 <img src="https://user-images.githubusercontent.com/77646898/123550845-af75b280-d76f-11eb-98ee-9871501f707f.png" width="300">
 <img src="https://user-images.githubusercontent.com/77646898/123550849-b3093980-d76f-11eb-93d1-1269755bb848.png" width="300">
@@ -28,3 +29,4 @@ This app retrieves information directly from NBA servers
 <img src="https://user-images.githubusercontent.com/77646898/123550862-bd2b3800-d76f-11eb-9d9b-e9f3b2b5d1e5.png" width="300">
 <img src="https://user-images.githubusercontent.com/77646898/123550865-c1efec00-d76f-11eb-8a32-37e68236cac9.png" width="300">
 <img src="https://user-images.githubusercontent.com/77646898/123550868-c3211900-d76f-11eb-8432-be1b216f478f.png" width="300">
+  </center>
